@@ -1,14 +1,15 @@
 import React from 'react';
 
-import {Well, FormGroup, InputGroup, FormControl} from 'react-bootstrap';
+import {Well, FormGroup, InputGroup, FormControl, Jumbotron, Row, Col, Grid} from 'react-bootstrap';
 import {subscribeToChatEvents, subscribeToUserEvents, emitNewChat, emitAddedUser} from './socket';
 
 class ChatMessage extends React.Component {
     render() {
         const {chat: {username, message, isSystemMessage}} = this.props;
-        return <div>
-            <span style={{fontWeight: 'bold'}}>{isSystemMessage ? 'System' : username}</span>: {message}
-        </div>;
+        return <Row>
+            <Col xs={3}><span style={{fontWeight: 'bold'}}>{isSystemMessage ? 'System' : username}:</span></Col>
+            <Col><div style={{textAlign: 'left', fontStyle: isSystemMessage ? 'italic': ''}}>{message}</div></Col>
+        </Row>;
     }
 }
 
@@ -55,8 +56,10 @@ class ChatRoom extends React.Component {
         const {chats, usersInChat} = this.state;
         return <div>
             <Well>
-                {chats.length === 0 && <div>No Chats!</div>}
-                {chats.map(chat => <ChatMessage chat={chat}/>)}
+                <Grid>
+                    {chats.length === 0 && <Row><Col>No Chats!</Col></Row>}
+                    {chats.map(chat => <ChatMessage chat={chat}/>)}
+                </Grid>
             </Well>
             <ChatInput username={username} onNewChat={this.onNewChat}/>
             <div>Users in the chat: {usersInChat.join(', ')}</div>
@@ -107,10 +110,16 @@ export default class ChatroomEntry extends React.Component {
     }
     render() {
         const {username} = this.state;
-        if (username) {
-            return <ChatRoom username={username}/>
-        }
-        return <UsernameSelect onUsernameSelect={this.onUsernameSelect}/>
+        return <Grid> 
+            <Row>
+                <Col>
+                    <Jumbotron>
+                        {username && <ChatRoom username={username}/>}
+                        {!username && <UsernameSelect onUsernameSelect={this.onUsernameSelect}/>}
+                    </Jumbotron>
+                </Col>
+            </Row>
+        </Grid>;
     }
     onUsernameSelect = username => {
         this.setState({username});
