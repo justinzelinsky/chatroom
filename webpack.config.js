@@ -1,83 +1,75 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
-const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
-var path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const entries = {
-    app: ['babel-polyfill', './js/index.jsx', './sass/style.sass'],
-};
+const devMode = process.env.NODE_ENV !== 'production';
 
-module.exports = [{
-    cache: true,
-    entry: entries,
-    output: {
-        path: __dirname + '/public',
-        filename: '[name].js'
-    },
-    module: {
-        rules: [
-            {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        cacheDirectory: true
-                    }
-                }
-            },
-            {
-                test: /\.s[ac]ss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', {
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: () => [autoprefixer]
-                        }
-                    }, {
-                        loader: 'sass-loader',
-                        options: {
-                            outputStyle: 'nested',
-                            precision: 3,
-                            errLogToConsole: true
-                        }
-                    }]
-                })
-            },
-            {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', {
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: () => [autoprefixer]
-                        }
-                    }]
-                })
-            },
-            {
-                test: /\.(eot|ttf|svg|woff2?)$/,
-                use: 'file-loader'
-            }
+module.exports = {
+  entry: './src/index.jsx',
+  module: {
+    rules: [
+      {
+        test: /.(jsx?)$/,
+        exclude: /node_modules/,
+        use: [
+          'babel-loader',
+          'eslint-loader'
         ]
-    },
-    resolve: {
-        extensions: ['.js', '.jsx'],
-        modules: [
-            path.resolve('node_modules'),
-            path.resolve('js')
-        ]
-    },
-    plugins: [
-        new ExtractTextPlugin('[name].css'),
-        new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production')
+      },
+      {
+        test: /.scss$/,
+        use: [
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 1,
+              localIdentName: '[path]___[name]__[local]___[hash:base64:5]'
             }
-        }),
-        new CompressionPlugin()
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              data: '@import "src/styles/vars";',
+              sourceMap: devMode === true
+            }
+          }
+        ]
+      }
     ]
-}];
+  },
+  optimization: {
+    minimizer: [
+      new OptimizeCSSAssetsPlugin({}),
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: false
+      })
+    ]
+  },
+  output: {
+    filename: 'app.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  plugins: [
+    new CleanWebpackPlugin(['dist']),
+    new HtmlWebpackPlugin({template: './src/index.html'}),
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css'
+    })
+  ],
+  resolve: {
+    extensions: ['.jsx', '.js'],
+    modules: [
+      'node_modules',
+      'src',
+      'src/components'
+    ]
+  }
+};
