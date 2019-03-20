@@ -1,14 +1,9 @@
+import './ChatroomEntry.scss';
+
 import React, { useState } from 'react';
-import {
-  Jumbotron,
-  Row,
-  Col,
-  Grid
-} from 'react-bootstrap';
 
 import Chatroom from 'components/Chatroom';
 import UsernameInput from 'components/UsernameInput';
-import { emitAddedUser } from './socket';
 
 const ChatroomEntry = () => {
   const [username, setUsername] = useState('');
@@ -20,21 +15,14 @@ const ChatroomEntry = () => {
 
   const onSubmit = () => {
     setUsernameSelected(true);
-    emitAddedUser(username);
   };
   
   return (
-    <Grid> 
-      <Row>
-        <Col>
-          <Jumbotron>
-            { usernameSelected && <Chatroom username={username}/>}
-            {! usernameSelected && <UsernameInput onChange={onChange}
-                                                  onSubmit={onSubmit} />}
-          </Jumbotron>
-        </Col>
-      </Row>
-    </Grid>
+    <div styleName="container">
+      { usernameSelected && <Chatroom username={username}/>}
+      {! usernameSelected && <UsernameInput onChange={onChange}
+                                            onSubmit={onSubmit} />}
+    </div>
   );
 };
 

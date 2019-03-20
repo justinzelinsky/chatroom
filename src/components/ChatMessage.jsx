@@ -1,35 +1,35 @@
 import './ChatMessage.scss';
 
 import classnames from 'classnames';
-import { object } from 'prop-types';
-import React from 'react';
 import {
-  Row,
-  Col
-} from 'react-bootstrap';
+  bool,
+  shape,
+  string
+} from 'prop-types';
+import React from 'react';
 
 const ChatMessage = ({ chat }) => {
   const { isSystemMessage, message, username } = chat;
-  const messageStyle = classnames({ 'system': isSystemMessage });
+  const messageStyle = classnames('chat-message', { 'system': isSystemMessage });
   const displayUsername = isSystemMessage ? 'Admin' : username;
   return (
-    <Row>
-      <Col xs={3}>
+    <div styleName="chat">
         <span styleName="username">
           {displayUsername}:
         </span>
-      </Col>
-      <Col>
         <div styleName={messageStyle}>
           {message}
         </div>
-      </Col>
-    </Row>
+    </div>
   );
 };
 
 ChatMessage.propTypes = {
-  chat: object.isRequired
+  chat: shape({
+    isSystemMessage: bool,
+    message: string.isRequired,
+    username: string.isRequired
+  }).isRequired
 };
 
 export default ChatMessage;

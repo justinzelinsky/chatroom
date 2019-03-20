@@ -1,10 +1,7 @@
+import './UsernameInput.scss';
+
 import { func } from 'prop-types';
 import React from 'react';
-import {
-  FormGroup,
-  InputGroup,
-  FormControl
-} from 'react-bootstrap';
 
 const UsernameInput = ({ onChange, onSubmit }) => {
   const onKeyPress = event => {
@@ -14,15 +11,14 @@ const UsernameInput = ({ onChange, onSubmit }) => {
   };
 
   return (
-    <FormGroup>
-      <InputGroup>
-        <InputGroup.Addon>Enter your username</InputGroup.Addon>
-        <FormControl autoFocus={true} 
-                     type="text" 
-                     onKeyPress={onKeyPress} 
-                     onChange={onChange} />
-      </InputGroup>
-    </FormGroup>
+    <div styleName="username-input-wrapper">
+      <input autoFocus={true}
+             styleName="username-input"
+             onKeyPress={onKeyPress}
+             onChange={onChange} 
+             placeholder="Please enter your username"
+             type="text" />
+    </div>
   );
 };
 

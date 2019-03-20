@@ -1,7 +1,16 @@
-.username {
-  font-weight: bold;
-}
 
-.system {
-  font-style: italic;
+
+.chat {
+  .username {
+    font-weight: bold;
+  }
+  
+  .system {
+    font-style: italic;
+  }
+
+  .chat-message {
+    display: inline-block;
+    margin-left: 10px;
+  }
 }

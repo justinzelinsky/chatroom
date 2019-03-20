@@ -1,0 +1,17 @@
+.chatroom {
+  height: 100vh;
+  .chats {
+    border: 1px solid #000000;
+    padding: 20px;
+    margin-bottom: 20px;
+    .no-chats {
+      font-style: italic;
+    }
+
+    .chat-footer {
+      border-top: 1px solid #000000;
+      margin-top: 10px;
+      padding: 10px 0;
+    }
+  }
+}

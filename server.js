@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const express = require('express');
 const app = express();
@@ -54,5 +54,5 @@ io.on('connection', function(socket) {
 });
 
 http.listen(PORT, function() {
-  console.log('listening on *:', PORT);
+  console.log('listening on *:', PORT); // eslint-disable-line
 });

@@ -1,15 +1,12 @@
+import './Chatroom.scss';
+
 import { string } from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import {
-  Well,
-  Row,
-  Col,
-  Grid
-} from 'react-bootstrap';
 
 import { 
   subscribeToChatEvents,
   subscribeToUserEvents,
+  emitAddedUser,
   emitNewChat
 } from './socket';
 import ChatInput from 'components/ChatInput';
@@ -33,6 +30,7 @@ const Chatroom = ({ username }) => {
   };
 
   useEffect(() => {
+    emitAddedUser(username);
     subscribeToChatEvents(chat => updateChats(chat));
     subscribeToUserEvents(usersInChat => addUserToChat(usersInChat));
   });
@@ -40,21 +38,19 @@ const Chatroom = ({ username }) => {
   const formattedUsersInChat = usersInChat.join(', ');
 
   return (
-    <div>
-      <Well>
-        <Grid>
-          { chats.length === 0 && (
-            <Row>
-              <Col>No Chats!</Col>
-            </Row>
-          )}
-          { chats.map((chat, idx) => <ChatMessage chat={chat}
-                                                  key={idx} />)}
-        </Grid>
-      </Well>
-      <ChatInput username={username} 
-                 onSubmit={onNewChatSubmit} />
-      <div>Users in the chat: {formattedUsersInChat}</div>
+    <div styleName="chatroom">
+      <div styleName="chats">
+        { chats.length === 0 && (
+          <div styleName="no-chats">No Chats!</div>
+        )}
+        { chats.map((chat, idx) => <ChatMessage chat={chat}
+                                                key={idx} />)}
+        <div styleName="chat-footer">
+          <ChatInput username={username} 
+                     onSubmit={onNewChatSubmit} />
+          <div>Users in the chat: {formattedUsersInChat}</div>
+        </div>
+      </div>
     </div>
   );
 };

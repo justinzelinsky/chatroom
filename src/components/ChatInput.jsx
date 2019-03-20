@@ -1,13 +1,10 @@
+import './ChatInput.scss';
+
 import {
   func,
   string
 } from 'prop-types';
 import React, { useState } from 'react';
-import {
-  FormControl,
-  FormGroup, 
-  InputGroup
-} from 'react-bootstrap';
 
 const ChatInput = ({ onSubmit, username }) => {
   const [ message, setMessage ] = useState('');
@@ -25,17 +22,14 @@ const ChatInput = ({ onSubmit, username }) => {
   };
 
   return (
-    <FormGroup>
-      <InputGroup>
-        <InputGroup.Addon>
-          {username}  
-        </InputGroup.Addon>
-        <FormControl autoFocus={true} 
-                     onChange={onChange} 
-                     onKeyPress={onKeyPress} 
-                     type="text" />
-      </InputGroup>
-    </FormGroup>
+    <div styleName="chat-input-container">
+      {username}
+      <input autoFocus={true}
+             onChange={onChange} 
+             onKeyPress={onKeyPress} 
+             type="text"
+             value={message} />
+    </div>
   );
 };
 
