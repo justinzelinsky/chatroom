@@ -1,13 +1,23 @@
 import './UsernameInput.scss';
 
-import { func } from 'prop-types';
+import { 
+  object,
+  string
+} from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 
-const UsernameInput = ({ onChange, onSubmit }) => {
+import mapDispatchToProps from 'state/mapDispatchToProps';
+
+const UsernameInput = ({ actions, username }) => {
   const onKeyPress = event => {
-    if (event.key === 'Enter') {
-      onSubmit();
+    if (event.key === 'Enter' && username) {
+      actions.selectedUsername();
     }
+  };
+
+  const onChange = event => {
+    actions.updateUsername(event.target.value);
   };
 
   return (
@@ -23,8 +33,12 @@ const UsernameInput = ({ onChange, onSubmit }) => {
 };
 
 UsernameInput.propTypes = {
-  onChange: func.isRequired,
-  onSubmit: func.isRequired
+  actions: object.isRequired,
+  username: string.isRequired
 };
 
-export default UsernameInput;
+const mapStateToProps = state => ({
+  username: state.username
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsernameInput);

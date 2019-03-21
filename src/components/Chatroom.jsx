@@ -2,6 +2,7 @@ import './Chatroom.scss';
 
 import { string } from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 
 import { 
   subscribeToChatEvents,
@@ -59,4 +60,8 @@ Chatroom.propTypes = {
   username: string.isRequired
 };
 
-export default Chatroom;
+const mapStateToProps = state => ({
+  username: state.username
+});
+
+export default connect(mapStateToProps)(Chatroom);
