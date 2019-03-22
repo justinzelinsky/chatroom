@@ -11,11 +11,10 @@ import React from 'react';
 const ChatMessage = ({ chat }) => {
   const { isSystemMessage, message, username } = chat;
   const messageStyle = classnames('chat-message', { 'system': isSystemMessage });
-  const displayUsername = isSystemMessage ? 'Admin' : username;
   return (
     <div styleName="chat">
         <span styleName="username">
-          {displayUsername}:
+          {username}:
         </span>
         <div styleName={messageStyle}>
           {message}
@@ -26,7 +25,7 @@ const ChatMessage = ({ chat }) => {
 
 ChatMessage.propTypes = {
   chat: shape({
-    isSystemMessage: bool,
+    isSystemMessage: bool.isRequired,
     message: string.isRequired,
     username: string.isRequired
   }).isRequired
