@@ -9,12 +9,14 @@
     left: 0;
     right: 0;
     overflow-y: scroll;
+
+
     .no-chats {
       font-style: italic;
     }
   }
 
-  .chat-footer {
+  .chatroom-footer {
     padding: 10px;
     position: fixed;
     bottom: 0;

@@ -35,7 +35,7 @@ const Chatroom = ({ activeUsers, actions, chats, username }) => {
         { chats.map((chat, idx) => <ChatMessage chat={chat}
                                                 key={idx} />)}
       </div>
-      <div styleName="chat-footer">
+      <div styleName="chatroom-footer">
         <ChatInput />
         <div>Users in the chat: {activeUsers}</div>
       </div>

@@ -4,5 +4,5 @@ export const getActiveUsers = state => state.activeUsers;
 
 export const getFormattedActiveUsers = createSelector(
   getActiveUsers,
-  (activeUsers) => activeUsers.join(', ')
+  activeUsers => activeUsers.join(', ')
 );
