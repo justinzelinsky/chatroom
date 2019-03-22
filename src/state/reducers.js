@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux';
 
-import { 
+import {
+  ADD_CHAT,
   SELECTED_USERNAME,
-  UPDATE_USERNAME
+  UPDATE_USERNAME,
+  USER_JOINED,
+  USER_LEFT
 } from 'state/actions';
 
 export const usernameInitialState = '';
@@ -22,7 +25,43 @@ export const usernameSelected = (state = usernameSelectedInitialState, action) =
   return state;
 };
 
+export const activeUsersInitialState = [];
+export const activeUsers = (state = activeUsersInitialState, action) => {
+  if (action.type === USER_JOINED) {
+    return [
+      ...action.payload.usernames
+    ];
+  }
+
+  if (action.type === USER_LEFT) {
+    return [
+      ...action.payload.usernames
+    ];
+  }
+
+  return state;
+};
+
+export const chatsInitialState = [];
+export const chats = (state = chatsInitialState, action) => {
+  if (action.type === ADD_CHAT) {
+    const { isSystemMessage, message, username } = action.payload;
+    return [
+      ...state,
+      {
+        isSystemMessage,
+        message,
+        username
+      }
+    ];
+  }
+
+  return state;
+};
+
 export default combineReducers({
+  activeUsers,
+  chats,
   username,
   usernameSelected
 });

@@ -6,9 +6,12 @@ export const subscribeToChatEvents = callback => {
   socket.on('new chat', chat => callback(chat));
 };
 
-export const subscribeToUserEvents = callback => {
-  socket.on('user joined', usernames => callback(usernames));
-  socket.on('user left', usernames => callback(usernames));
+export const subscribeToUserLeft = callback => {
+  socket.on('user left', username => callback(username));
+};
+
+export const subscribeToUserJoin = callback => {
+  socket.on('user joined', username => callback(username));
 };
 
 export const emitNewChat = chat => {

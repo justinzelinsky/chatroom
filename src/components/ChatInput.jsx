@@ -1,12 +1,16 @@
 import './ChatInput.scss';
 
 import {
-  func,
+  object,
   string
 } from 'prop-types';
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
-const ChatInput = ({ onSubmit, username }) => {
+import { emitNewChat } from './socket';
+import mapDispatchToProps from 'state/mapDispatchToProps';
+
+const ChatInput = ({ actions, username }) => {
   const [ message, setMessage ] = useState('');
 
   const onChange = event => {
@@ -16,7 +20,8 @@ const ChatInput = ({ onSubmit, username }) => {
   const onKeyPress = event => {
     if (event.key === 'Enter' && message) {
       const chat = { username, message };
-      onSubmit(chat);
+      actions.addChat(chat);
+      emitNewChat(chat);
       setMessage('');
     }
   };
@@ -34,8 +39,12 @@ const ChatInput = ({ onSubmit, username }) => {
 };
 
 ChatInput.propTypes = {
-  onSubmit: func.isRequired,
+  actions: object.isRequired,
   username: string.isRequired
 };
 
-export default ChatInput;
+const mapStateToProps = state => ({
+  username: state.username
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatInput);

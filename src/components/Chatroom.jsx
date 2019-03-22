@@ -1,42 +1,31 @@
 import './Chatroom.scss';
 
-import { string } from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import {
+  array,
+  object,
+  string
+} from 'prop-types';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { 
   subscribeToChatEvents,
-  subscribeToUserEvents,
-  emitAddedUser,
-  emitNewChat
+  subscribeToUserJoin,
+  subscribeToUserLeft,
+  emitAddedUser
 } from './socket';
 import ChatInput from 'components/ChatInput';
 import ChatMessage from 'components/ChatMessage';
+import mapDispatchToProps from 'state/mapDispatchToProps';
+import { getFormattedActiveUsers } from 'state/selectors';
 
-const Chatroom = ({ username }) => {
-  const [ chats, setChats ] = useState([]);
-  const [ usersInChat, addUserToChat] = useState([]);
-
-  const updateChats = chat => {
-    const newChats = [
-      ...chats,
-      chat
-    ];
-    setChats(newChats);
-  };
-
-  const onNewChatSubmit = chat => {
-    emitNewChat(chat);
-    updateChats(chat);
-  };
-
+const Chatroom = ({ activeUsers, actions, chats, username }) => {
   useEffect(() => {
     emitAddedUser(username);
-    subscribeToChatEvents(chat => updateChats(chat));
-    subscribeToUserEvents(usersInChat => addUserToChat(usersInChat));
-  });
-
-  const formattedUsersInChat = usersInChat.join(', ');
+    subscribeToChatEvents(chat => actions.addChat(chat));
+    subscribeToUserJoin(usernames => actions.userJoined(usernames));
+    subscribeToUserLeft(usernames => actions.userLeft(usernames));
+  }, [username]);
 
   return (
     <div styleName="chatroom">
@@ -47,9 +36,8 @@ const Chatroom = ({ username }) => {
         { chats.map((chat, idx) => <ChatMessage chat={chat}
                                                 key={idx} />)}
         <div styleName="chat-footer">
-          <ChatInput username={username} 
-                     onSubmit={onNewChatSubmit} />
-          <div>Users in the chat: {formattedUsersInChat}</div>
+          <ChatInput />
+          <div>Users in the chat: {activeUsers}</div>
         </div>
       </div>
     </div>
@@ -57,11 +45,16 @@ const Chatroom = ({ username }) => {
 };
 
 Chatroom.propTypes = {
+  activeUsers: string.isRequired,
+  actions: object.isRequired,
+  chats: array.isRequired,
   username: string.isRequired
 };
 
 const mapStateToProps = state => ({
+  activeUsers: getFormattedActiveUsers(state), 
+  chats: state.chats,
   username: state.username
 });
 
-export default connect(mapStateToProps)(Chatroom);
+export default connect(mapStateToProps, mapDispatchToProps)(Chatroom);
