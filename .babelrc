@@ -11,7 +11,8 @@
           ".scss": {
             "syntax": "postcss-scss"
           }
-        }
+        },
+        "webpackHotModuleReloading": true
       }
     ],
     "@babel/plugin-proposal-class-properties"

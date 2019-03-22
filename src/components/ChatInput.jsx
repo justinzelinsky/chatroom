@@ -1,5 +1,6 @@
 import './ChatInput.scss';
 
+import moment from 'moment';
 import {
   object,
   string
@@ -19,7 +20,8 @@ const ChatInput = ({ actions, username }) => {
 
   const onKeyPress = event => {
     if (event.key === 'Enter' && message) {
-      const chat = { username, message };
+      const ts = moment().format('HH:mm');
+      const chat = { username, message, ts };
       actions.addChat(chat);
       emitNewChat(chat);
       setMessage('');
@@ -28,7 +30,11 @@ const ChatInput = ({ actions, username }) => {
 
   return (
     <div styleName="chat-input-container">
-      {username} - 
+      <div styleName="chat-input-username">
+        <span styleName="username-display">
+          {username} 
+        </span>
+      </div>
       <input autoFocus={true}
              onChange={onChange} 
              onKeyPress={onKeyPress} 

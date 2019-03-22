@@ -9,15 +9,17 @@ import {
 import React from 'react';
 
 const ChatMessage = ({ chat }) => {
-  const { isSystemMessage, message, username } = chat;
-  const messageStyle = classnames('chat-message', { 'system': isSystemMessage });
+  const chatStyleName = classnames('chat-message', { 'admin-message': chat.isAdminMessage });
   return (
     <div styleName="chat">
-        <span styleName="username">
-          {username}:
-        </span>
-        <div styleName={messageStyle}>
-          {message}
+        <div styleName="timestamp">
+          {chat.ts}
+        </div>
+        <div styleName="username">
+          {chat.username}
+        </div>
+        <div styleName={chatStyleName}>
+          {chat.message}
         </div>
     </div>
   );
@@ -25,8 +27,9 @@ const ChatMessage = ({ chat }) => {
 
 ChatMessage.propTypes = {
   chat: shape({
-    isSystemMessage: bool.isRequired,
+    isAdminMessage: bool.isRequired,
     message: string.isRequired,
+    ts: string.isRequired,
     username: string.isRequired
   }).isRequired
 };

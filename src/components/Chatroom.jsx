@@ -13,8 +13,7 @@ import ChatInput from 'components/ChatInput';
 import ChatMessage from 'components/ChatMessage';
 import { 
   subscribeToChatEvents,
-  subscribeToUserJoin,
-  subscribeToUserLeft,
+  subscribeToUserEvents,
   emitAddedUser
 } from 'components/Socket';
 import mapDispatchToProps from 'state/mapDispatchToProps';
@@ -24,8 +23,7 @@ const Chatroom = ({ activeUsers, actions, chats, username }) => {
   useEffect(() => {
     emitAddedUser(username);
     subscribeToChatEvents(chat => actions.addChat(chat));
-    subscribeToUserJoin(usernames => actions.userJoined(usernames));
-    subscribeToUserLeft(usernames => actions.userLeft(usernames));
+    subscribeToUserEvents(usernames => actions.updateActiveUsers(usernames));
   }, [username]);
 
   return (
@@ -36,10 +34,10 @@ const Chatroom = ({ activeUsers, actions, chats, username }) => {
         )}
         { chats.map((chat, idx) => <ChatMessage chat={chat}
                                                 key={idx} />)}
-        <div styleName="chat-footer">
-          <ChatInput />
-          <div>Users in the chat: {activeUsers}</div>
-        </div>
+      </div>
+      <div styleName="chat-footer">
+        <ChatInput />
+        <div>Users in the chat: {activeUsers}</div>
       </div>
     </div>
   );

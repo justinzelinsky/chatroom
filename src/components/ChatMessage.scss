@@ -1,16 +1,24 @@
 
 
 .chat {
-  .username {
-    font-weight: bold;
+  font-size: 16px;
+  display: flex;
+
+  .timestamp {
+    font-style: italic;
+    width: 45px;
   }
   
-  .system {
-    font-style: italic;
+  .username {
+    font-weight: bold;
+    width: 60px;
   }
 
   .chat-message {
-    display: inline-block;
-    margin-left: 10px;
+    flex: 1;
+  }
+
+  .admin-message {
+    font-style: italic;
   }
 }

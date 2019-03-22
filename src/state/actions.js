@@ -11,37 +11,29 @@ export const selectedUsername = () => ({
   type: SELECTED_USERNAME
 });
 
-export const USER_JOINED = 'USER_JOINED';
-export const userJoined = usernames => ({
-  type: USER_JOINED,
-  payload: {
-    usernames
-  }
-});
-
-export const USER_LEFT = 'USER_LEFT';
-export const userLeft = usernames => ({
-  type: USER_LEFT,
+export const UPDATE_ACTIVE_USERS = 'UPDATE_ACTIVE_USERS';
+export const updateActiveUsers = (usernames) => ({
+  type: UPDATE_ACTIVE_USERS,
   payload: {
     usernames
   }
 });
 
 export const ADD_CHAT = 'ADD_CHAT';
-export const addChat = ({ isSystemMessage = false, username, message }) => ({
+export const addChat = ({ isAdminMessage = false, message, ts, username }) => ({
   type: ADD_CHAT,
   payload: {
+    isAdminMessage,
     message,
-    username,
-    isSystemMessage
+    ts,
+    username
   }
 });
 
 export default {
   addChat,
   updateUsername,
-  userJoined,
-  userLeft,
+  updateActiveUsers,
   selectedUsername
 };
 

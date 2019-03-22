@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const moment = require('moment');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -35,8 +36,9 @@ io.on('connection', function(socket) {
     io.emit(USER_JOINED, connectedUsers);
 
     socket.broadcast.emit(NEW_CHAT, {
+      isAdminMessage: true,
       username: 'Admin',
-      isSystemMessage: true,
+      ts: moment().format('HH:mm'),
       message: socket.username + ' has joined the chat'
     });
   });
@@ -48,7 +50,9 @@ io.on('connection', function(socket) {
       io.emit(USER_LEFT, connectedUsers);
 
       socket.broadcast.emit(NEW_CHAT, {
-        isSystemMessage: true,
+        isAdminMessage: true,
+        username: 'Admin',
+        ts: moment().format('HH:mm'),
         message: socket.username + ' has left the chat'
       });
     }

@@ -4,8 +4,7 @@ import {
   ADD_CHAT,
   SELECTED_USERNAME,
   UPDATE_USERNAME,
-  USER_JOINED,
-  USER_LEFT
+  UPDATE_ACTIVE_USERS
 } from 'state/actions';
 
 export const usernameInitialState = '';
@@ -27,15 +26,10 @@ export const usernameSelected = (state = usernameSelectedInitialState, action) =
 
 export const activeUsersInitialState = [];
 export const activeUsers = (state = activeUsersInitialState, action) => {
-  if (action.type === USER_JOINED) {
+  if (action.type === UPDATE_ACTIVE_USERS) {
+    const { usernames } = action.payload;
     return [
-      ...action.payload.usernames
-    ];
-  }
-
-  if (action.type === USER_LEFT) {
-    return [
-      ...action.payload.usernames
+      ...usernames
     ];
   }
 
@@ -45,12 +39,13 @@ export const activeUsers = (state = activeUsersInitialState, action) => {
 export const chatsInitialState = [];
 export const chats = (state = chatsInitialState, action) => {
   if (action.type === ADD_CHAT) {
-    const { isSystemMessage, message, username } = action.payload;
+    const { isAdminMessage, message, ts, username } = action.payload;
     return [
       ...state,
       {
-        isSystemMessage,
+        isAdminMessage,
         message,
+        ts,
         username
       }
     ];
