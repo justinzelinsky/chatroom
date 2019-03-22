@@ -3,8 +3,7 @@
   "env": {
       "browser": true,
       "es6": true,
-      "node": true,
-      "jest/globals": true
+      "node": true
   },
   "extends": [
     "eslint:recommended",
@@ -18,8 +17,7 @@
       "sourceType": "module"
   },
   "plugins": [
-      "react",
-      "jest"
+      "react"
   ],
   "rules": {
       "indent": [2, 2, {"ignoredNodes": ["JSXElement *"]}],
@@ -35,11 +33,6 @@
           "error",
           "always"
       ],
-      "jest/no-disabled-tests": "warn",
-      "jest/no-focused-tests": "error",
-      "jest/no-identical-title": "error",
-      "jest/prefer-to-have-length": "warn",
-      "jest/valid-expect": "error",
       "react/jsx-indent": 0,
       "react/jsx-indent-props": [2, "first"],
       "object-curly-spacing": [2, "always"]

@@ -1,7 +1,4 @@
 node_modules
 *.log
 .DS_Store
-public/*.js
-public/*.gz
-public/*.map
-public/*.css
+dist
