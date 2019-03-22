@@ -8,14 +8,15 @@ import {
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
+
+import ChatInput from 'components/ChatInput';
+import ChatMessage from 'components/ChatMessage';
 import { 
   subscribeToChatEvents,
   subscribeToUserJoin,
   subscribeToUserLeft,
   emitAddedUser
-} from './socket';
-import ChatInput from 'components/ChatInput';
-import ChatMessage from 'components/ChatMessage';
+} from 'components/Socket';
 import mapDispatchToProps from 'state/mapDispatchToProps';
 import { getFormattedActiveUsers } from 'state/selectors';
 

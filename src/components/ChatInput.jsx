@@ -7,7 +7,7 @@ import {
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { emitNewChat } from './socket';
+import { emitNewChat } from 'components/Socket';
 import mapDispatchToProps from 'state/mapDispatchToProps';
 
 const ChatInput = ({ actions, username }) => {
@@ -28,7 +28,7 @@ const ChatInput = ({ actions, username }) => {
 
   return (
     <div styleName="chat-input-container">
-      {username}
+      {username} - 
       <input autoFocus={true}
              onChange={onChange} 
              onKeyPress={onKeyPress} 
