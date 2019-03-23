@@ -19,7 +19,6 @@ const ADD_USER = 'add user';
 
 io.on('connection', function(socket) {
   let addedUser = false;
-  console.log(`Active Users: ${connectedUsers}`);
   
   socket.on(NEW_CHAT, function(chat) {
     socket.broadcast.emit(NEW_CHAT, chat);

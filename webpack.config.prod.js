@@ -5,10 +5,9 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const devMode = process.env.NODE_ENV !== 'production';
-
 module.exports = {
   entry: './src/index.jsx',
+  mode: 'production',
   module: {
     rules: [
       {
@@ -22,20 +21,21 @@ module.exports = {
       {
         test: /.scss$/,
         use: [
-          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
               modules: true,
               importLoaders: 1,
-              localIdentName: '[path]___[name]__[local]___[hash:base64:5]'
+              localIdentName: '[name]__[local]:[hash:base64:5]',
+              minimize: true,
+              sourceMap: true
             }
           },
           {
             loader: 'sass-loader',
             options: {
-              data: '@import "src/styles/vars";',
-              sourceMap: devMode === true
+              data: '@import "src/styles/vars";'
             }
           }
         ]

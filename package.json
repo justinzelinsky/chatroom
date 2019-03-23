@@ -4,8 +4,8 @@
     "description": "Chatroom built with React, Redux, and Socket.IO",
     "main": "app/index.jsx",
     "scripts": {
-        "prod": "NODE_ENV=production webpack --mode=production",
-        "dev": "NODE_ENV=development webpack-dev-server --mode=development --hot"
+        "prod": "NODE_ENV=production webpack --config=webpack.config.prod.js",
+        "dev": "NODE_ENV=development webpack-dev-server --config=webpack.config.dev.js --hot"
     },
     "author": "Justin Zelinsky",
     "repository": {
