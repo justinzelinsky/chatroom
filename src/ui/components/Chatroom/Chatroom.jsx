@@ -8,25 +8,39 @@ import {
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-
-import ChatInput from 'components/ChatInput';
-import ChatMessage from 'components/ChatMessage';
-import { 
+import ChatInput from 'components/Chatroom/ChatInput';
+import ChatMessage from 'components/Chatroom/ChatMessage';
+import mapDispatchToProps from 'state/mapDispatchToProps';
+import {
+  getCurrentUserName,
+  getFormattedActiveUsers
+} from 'state/selectors';
+import {
   subscribeToChatEvents,
   subscribeToUserEvents,
-  emitAddedUser
-} from 'components/Socket';
-import mapDispatchToProps from 'state/mapDispatchToProps';
-import { getFormattedActiveUsers } from 'state/selectors';
+  subscribeToAdminChatEvents,
+  emitAddedUser,
+  closeSocket,
+} from 'utils/Socket';
 
 const Chatroom = ({ activeUsers, actions, chats, username }) => {
+  const handleLogout = () => actions.logout();
+
   useEffect(() => {
-    if (!username) {
-      actions.push('/');
-    }
     emitAddedUser(username);
-    subscribeToChatEvents(chat => actions.addChat(chat));
+    subscribeToChatEvents(chat => {
+      const { username, message, ts } = chat;
+      actions.addChat(message, ts, username);
+    });
+    subscribeToAdminChatEvents(chat => {
+      const { username, message, ts } = chat;
+      actions.addAdminChat(message, ts, username);
+    });
     subscribeToUserEvents(usernames => actions.updateActiveUsers(usernames));
+
+    return () => {
+      closeSocket();
+    };
   }, [username]);
 
   return (
@@ -41,6 +55,9 @@ const Chatroom = ({ activeUsers, actions, chats, username }) => {
       <div styleName="chatroom-footer">
         <ChatInput />
         <div>Users in the chat: {activeUsers}</div>
+        <a onClick={handleLogout}>
+          Logout
+        </a>
       </div>
     </div>
   );
@@ -54,9 +71,9 @@ Chatroom.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  activeUsers: getFormattedActiveUsers(state), 
+  activeUsers: getFormattedActiveUsers(state),
   chats: state.chats,
-  username: state.username
+  username: getCurrentUserName(state)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chatroom);

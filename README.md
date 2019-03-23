@@ -1,6 +1,6 @@
 # Chatroom
 
-A simple chatroom built with React, Redux, and Socket.IO
+A simple chatroom built with React, Redux, and Socket.IO featuring user authentication (WIP)
 
 ## Setup & Running
 
@@ -13,6 +13,10 @@ A simple chatroom built with React, Redux, and Socket.IO
 
 ### Run Server
 
-`node server.js`
+`npm run server`
 
-and navigate to `localhost:8080`
+and navigate to `localhost:8082`
+
+## Special Thanks
+
+Many thanks to Rishi Prasad for his phenomenal [tutorial](https://blog.bitsrc.io/build-a-login-auth-app-with-mern-stack-part-1-c405048e3669) on building an authentication app.

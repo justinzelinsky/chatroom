@@ -35,7 +35,8 @@
       ],
       "react/jsx-indent": 0,
       "react/jsx-indent-props": [2, "first"],
-      "object-curly-spacing": [2, "always"]
+      "object-curly-spacing": [2, "always"],
+      "no-trailing-spaces": ["error"]
   },
   "settings": {
     "react": {

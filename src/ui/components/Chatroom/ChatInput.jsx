@@ -8,8 +8,9 @@ import {
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { emitNewChat } from 'components/Socket';
 import mapDispatchToProps from 'state/mapDispatchToProps';
+import { getCurrentUserName } from 'state/selectors';
+import { emitNewChat } from 'utils/Socket';
 
 const ChatInput = ({ actions, username }) => {
   const [ message, setMessage ] = useState('');
@@ -21,9 +22,8 @@ const ChatInput = ({ actions, username }) => {
   const onKeyPress = event => {
     if (event.key === 'Enter' && message) {
       const ts = moment().format('HH:mm');
-      const chat = { username, message, ts };
-      actions.addChat(chat);
-      emitNewChat(chat);
+      actions.addChat(message, ts, username);
+      emitNewChat({ message, ts, username });
       setMessage('');
     }
   };
@@ -32,12 +32,12 @@ const ChatInput = ({ actions, username }) => {
     <div styleName="chat-input-container">
       <div styleName="chat-input-username">
         <span styleName="username-display">
-          {username} 
+          {username}
         </span>
       </div>
       <input autoFocus={true}
-             onChange={onChange} 
-             onKeyPress={onKeyPress} 
+             onChange={onChange}
+             onKeyPress={onKeyPress}
              type="text"
              value={message} />
     </div>
@@ -50,7 +50,7 @@ ChatInput.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  username: state.username
+  username: getCurrentUserName(state)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatInput);

@@ -6,7 +6,7 @@ const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: './src/ui/index.jsx',
   mode: 'production',
   module: {
     rules: [
@@ -58,7 +58,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({ template: './src/index.html' }),
+    new HtmlWebpackPlugin({ template: './src/ui/index.html' }),
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css',
       chunkFilename: '[id].[hash].css'
@@ -68,8 +68,8 @@ module.exports = {
     extensions: ['.jsx', '.js'],
     modules: [
       'node_modules',
-      'src',
-      'src/components'
+      'src/ui',
+      'src/ui/components'
     ]
   }
 };

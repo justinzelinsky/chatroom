@@ -3,10 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.jsx',
-  devServer: {
-    historyApiFallback: true,
-  },
+  entry: './src/ui/index.jsx',
   mode: 'development',
   module: {
     rules: [
@@ -33,7 +30,7 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              data: '@import "src/styles/vars";'
+              data: '@import "src/ui/styles/vars";'
             }
           }
         ]
@@ -46,14 +43,14 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({ template: './src/index.html' }),
+    new HtmlWebpackPlugin({ template: './src/ui/index.html' }),
   ],
   resolve: {
     extensions: ['.jsx', '.js'],
     modules: [
       'node_modules',
-      'src',
-      'src/components'
+      'src/ui',
+      'src/ui/components'
     ]
   }
 };

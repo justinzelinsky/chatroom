@@ -6,7 +6,7 @@ import actions from 'state/actions';
 export const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     ...actions,
-    push
+    changeRoute: push
   }, dispatch)
 });
 
