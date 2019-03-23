@@ -21,6 +21,9 @@ import { getFormattedActiveUsers } from 'state/selectors';
 
 const Chatroom = ({ activeUsers, actions, chats, username }) => {
   useEffect(() => {
+    if (!username) {
+      actions.push('/');
+    }
     emitAddedUser(username);
     subscribeToChatEvents(chat => actions.addChat(chat));
     subscribeToUserEvents(usernames => actions.updateActiveUsers(usernames));

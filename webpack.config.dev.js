@@ -4,6 +4,9 @@ const path = require('path');
 
 module.exports = {
   entry: './src/index.jsx',
+  devServer: {
+    historyApiFallback: true,
+  },
   mode: 'development',
   module: {
     rules: [

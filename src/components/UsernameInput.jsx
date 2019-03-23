@@ -12,7 +12,7 @@ import mapDispatchToProps from 'state/mapDispatchToProps';
 const UsernameInput = ({ actions, username }) => {
   const onKeyPress = event => {
     if (event.key === 'Enter' && username) {
-      actions.selectedUsername();
+      actions.push('chatroom');
     }
   };
 
@@ -38,7 +38,7 @@ UsernameInput.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  username: state.username
+  username: state.username,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsernameInput);

@@ -1,3 +1,4 @@
+import { connectRouter } from 'connected-react-router';
 import { combineReducers } from 'redux';
 
 import {
@@ -54,9 +55,10 @@ export const chats = (state = chatsInitialState, action) => {
   return state;
 };
 
-export default combineReducers({
+export default (history) => combineReducers({
   activeUsers,
   chats,
   username,
-  usernameSelected
+  usernameSelected,
+  router: connectRouter(history)
 });
