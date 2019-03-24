@@ -29,7 +29,6 @@ const Register = ({
   const [ password2, setPassword2 ] = useState('');
   const disableButton = !email || !name || !password || !password2 || password !== password2;
 
-  const handleRegister = () => actions.register(name, email, password, password2);
   const onNameChange = event => setName(event.target.value);
   const onEmailChange = event => setEmail(event.target.value);
   const onPasswordChange = event => setPassword(event.target.value);
@@ -38,7 +37,7 @@ const Register = ({
     event.preventDefault();
 
     if (!disableButton) {
-      handleRegister();
+      actions.register(name, email, password, password2);
     }
   };
   return (
@@ -92,7 +91,6 @@ const Register = ({
                type="password" />
       </div>
       <button disabled={disableButton}
-              onClick={handleRegister}
               styleName="login-button">
         Register
       </button>

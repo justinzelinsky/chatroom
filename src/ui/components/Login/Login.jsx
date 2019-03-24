@@ -20,14 +20,13 @@ const Login = ({ actions, emailError, passwordError }) => {
 
   const disableButton = !email || !password;
 
-  const handleLogin = () => actions.login(email, password);
   const onEmailChange = event => setEmail(event.target.value);
   const onPasswordChange = event => setPassword(event.target.value);
   const handleOnSubmit = event => {
     event.preventDefault();
 
     if (!disableButton) {
-      handleLogin();
+      actions.login(email, password);
     }
   };
 
@@ -59,7 +58,6 @@ const Login = ({ actions, emailError, passwordError }) => {
                type="password" />
       </div>
       <button disabled={disableButton}
-              onClick={handleLogin}
               styleName="login-button">
         Login
       </button>
@@ -67,6 +65,7 @@ const Login = ({ actions, emailError, passwordError }) => {
             to="register">
         Register
       </Link>
+      <button onClick={() => actions.trySecret()}>Try Secret</button>
     </form>
   );
 };

@@ -22,7 +22,7 @@ router.post('/register', (req, res) => {
     .then(user => {
       if (user) {
         return res.status(400).json({ email: 'Email already exists' });
-      } 
+      }
 
       const newUser = new User({
         name,
@@ -48,7 +48,7 @@ router.post('/login', (req, res) => {
     return res.status(400).json(errors);
   }
   const { email, password } = req.body;
- 
+
   User.findOne({ email })
     .then(user => {
       if (!user) {
@@ -63,11 +63,13 @@ router.post('/login', (req, res) => {
               name: user.name
             };
 
+            req.session.userId = user.id;
+
             jwt.sign(
               payload,
               keys.secretOrKey,
               {
-                expiresIn: 31556926 // 1 year in seconds
+                expiresIn: 31556926
               },
               (err, token) => {
                 res.json({
@@ -81,6 +83,18 @@ router.post('/login', (req, res) => {
           }
         });
     });
+});
+
+router.get('/logout', function (req, res, next) {
+  if (req.session) {
+    req.session.destroy(function (err) {
+      if (err) {
+        return next(err);
+      } else {
+        return res.redirect(200, '/');
+      }
+    });
+  }
 });
 
 module.exports = router;

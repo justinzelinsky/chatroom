@@ -1,6 +1,6 @@
 import { LOCATION_CHANGE } from 'connected-react-router';
-import { createLogic } from 'redux-logic';
 import jwt_decode from 'jwt-decode';
+import { createLogic } from 'redux-logic';
 
 import {
   LOGIN,
@@ -8,6 +8,7 @@ import {
   REGISTER,
   setCurrentUser,
   hasErrors,
+  SECRET,
   logout
 } from 'state/actions';
 import setAuthToken from 'utils/setAuthToken';
@@ -33,11 +34,14 @@ const loginLogic = createLogic({
 
 const logoutLogic = createLogic({
   type: LOGOUT,
-  process(_, dispatch, done) {
-    localStorage.removeItem('jwtToken');
-    setAuthToken(false);
-    dispatch(setCurrentUser({}));
-    done();
+  process({ axios }, dispatch, done) {
+    axios.get('api/users/logout')
+      .then(() => {
+        localStorage.removeItem('jwtToken');
+        setAuthToken(false);
+        dispatch(setCurrentUser({}));
+        done();
+      });
   }
 });
 
@@ -54,23 +58,25 @@ const registerLogic = createLogic({
   }
 });
 
-let firstTimeLoaded = true;
+const secretLogic = createLogic({
+  type: SECRET,
+  process({ axios }, dispatch, done) {
+    axios.get('/secret')
+      .then((res) => console.log(res.data)) // eslint-disable-line
+      .catch(error => console.log(error.data)) // eslint-disable-line
+      .finally(() => done());
+  }
+});
 
-const routeChangeLogic = createLogic({
+let firstTime = true;
+
+const locationChangeLogic = createLogic({
   type: LOCATION_CHANGE,
-  process({ history }, dispatch, done) {
-    if (localStorage.jwtToken && firstTimeLoaded) {
-      firstTimeLoaded = false;
-      const token = localStorage.jwtToken;
-      const user = jwt_decode(token);
-      const currentTime = Date.now() / 1000;
-      if (user.exp < currentTime) {
+  process(_, dispatch, done) {
+    if (firstTime) {
+      firstTime = false;
+      if (localStorage.jwtToken) {
         dispatch(logout());
-        dispatch(history.push('landing'));
-      } else {
-        setAuthToken(token);
-        dispatch(setCurrentUser(user));
-        dispatch(history.push('chatroom'));
       }
     }
     done();
@@ -81,7 +87,8 @@ const logic = [
   loginLogic,
   logoutLogic,
   registerLogic,
-  routeChangeLogic
+  secretLogic,
+  locationChangeLogic
 ];
 
 export default logic;

@@ -58,6 +58,7 @@ const Chatroom = ({ activeUsers, actions, chats, username }) => {
         <a onClick={handleLogout}>
           Logout
         </a>
+        <button onClick={() => actions.trySecret()}>Try Secret</button>
       </div>
     </div>
   );

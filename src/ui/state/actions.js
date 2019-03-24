@@ -57,6 +57,11 @@ export const register = (name, email, password, password2) => ({
   }
 });
 
+export const SECRET = 'SECRET';
+export const trySecret = () => ({
+  type: SECRET
+});
+
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const setCurrentUser = currentUser => ({
   type: SET_CURRENT_USER,
@@ -81,6 +86,7 @@ export default {
   logout,
   register,
   setCurrentUser,
-  hasErrors
+  hasErrors,
+  trySecret
 };
 
