@@ -8,6 +8,7 @@ const ChatMessage = ({ chat }) => {
   const chatStyleName = classnames('chat-message', {
     'admin-message': chat.isAdminMessage
   });
+
   return (
     <div styleName="chat">
       <div styleName="timestamp">{chat.ts}</div>

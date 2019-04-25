@@ -54,7 +54,7 @@ const Chatroom = ({ activeUsers, actions, chats, username }) => {
       </div>
       <div styleName="chatroom-footer">
         <ChatInput />
-        <a styleName="logout-link" onClick={handleLogout}>
+        <a onClick={handleLogout} styleName="logout-link">
           Logout
         </a>
       </div>

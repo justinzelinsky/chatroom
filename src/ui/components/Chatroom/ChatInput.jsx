@@ -12,9 +12,7 @@ import { emitNewChat } from 'utils/Socket';
 const ChatInput = ({ actions, username }) => {
   const [message, setMessage] = useState('');
 
-  const onChange = event => {
-    setMessage(event.target.value);
-  };
+  const onChange = event => setMessage(event.target.value);
 
   const sendMessage = () => {
     if (message) {
