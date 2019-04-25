@@ -1,20 +1,22 @@
-import {
-  func,
-  bool
-} from 'prop-types';
+import { func, bool } from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
-const UnprotectedRoute = ({ component: Component, isAuthenticated, ...rest }) => (
-  <Route {...rest}
-         render={props =>
-            isAuthenticated === false ? (
-              <Component {...props} />
-            ) : (
-              <Redirect to="/chatroom" />
-            )
-         }
+const UnprotectedRoute = ({
+  component: Component,
+  isAuthenticated,
+  ...rest
+}) => (
+  <Route
+    {...rest}
+    render={props =>
+      isAuthenticated === false ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/chatroom" />
+      )
+    }
   />
 );
 

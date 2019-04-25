@@ -41,64 +41,74 @@ const Register = ({
     }
   };
   return (
-    <form onSubmit={handleOnSubmit}
-          styleName="login">
-      <h1 styleName="login-header">Register</h1>
-      <div styleName="login-input">
-        <label>
-          Name:
-          {nameError && (
-            <div styleName="input-error">
-              {nameError}
-            </div>
-          )}
-        </label>
-        <input onChange={onNameChange} />
-      </div>
-      <div styleName="login-input">
-        <label>
-          Email:
-          {emailError && (
-            <div styleName="input-error">
-              {emailError}
-            </div>
-          )}
-        </label>
-        <input onChange={onEmailChange} />
-      </div>
-      <div styleName="login-input">
-        <label>
-          Password:
-          {passwordError && (
-            <div styleName="input-error">
-              {passwordError}
-            </div>
-          )}
-        </label>
-        <input onChange={onPasswordChange}
-               type="password" />
-      </div>
-      <div styleName="login-input">
-        <label>
-          Password (again):
-          {password2Error && (
-            <div styleName="input-error">
-              {password2Error}
-            </div>
-          )}
-        </label>
-        <input onChange={onPassword2Change}
-               type="password" />
-      </div>
-      <button disabled={disableButton}
-              styleName="login-button">
+    <div styleName="login-container">
+      <h1 styleName="login-header">
         Register
-      </button>
-      <Link styleName="action-link"
-            to="login">
-        Login
-      </Link>
-    </form>
+      </h1>
+      <form onSubmit={handleOnSubmit}
+            styleName="login-form">
+        <div styleName="login-input">
+          <label htmlFor="name">
+            Name:
+            {nameError && (
+              <div styleName="input-error">
+                {nameError}
+              </div>
+            )}
+          </label>
+          <input id="name"
+                 onChange={onNameChange} />
+        </div>
+        <div styleName="login-input">
+          <label htmlFor="email">
+            Email:
+            {emailError && (
+              <div styleName="input-error">
+                {emailError}
+              </div>
+            )}
+          </label>
+          <input id="email"
+                 onChange={onEmailChange} />
+        </div>
+        <div styleName="login-input">
+          <label htmlFor="password">
+            Password:
+            {passwordError && (
+              <div styleName="input-error">
+                {passwordError}
+              </div>
+            )}
+          </label>
+          <input id="password"
+                 onChange={onPasswordChange}
+                 type="password" />
+        </div>
+        <div styleName="login-input">
+          <label htmlFor="password-again">
+            Password (again):
+            {password2Error && (
+              <div styleName="input-error">
+                {password2Error}
+              </div>
+            )}
+          </label>
+          <input id="password-again"
+                 onChange={onPassword2Change}
+                 type="password" />
+        </div>
+        <div styleName="login-buttons">
+          <button disabled={disableButton}
+                  styleName="login-button">
+            Register
+          </button>
+          <Link styleName="action-link"
+                to="login">
+            Login
+          </Link>
+        </div>
+      </form>
+    </div>
   );
 };
 

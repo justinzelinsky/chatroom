@@ -24,7 +24,8 @@ const io = socketIO(httpServer);
 initializeWebsocketServer(io);
 
 // Setup MongoDB
-mongoose.connect(config.mongoURI, { useNewUrlParser: true })
+mongoose
+  .connect(config.mongoURI, { useNewUrlParser: true })
   .then(() => console.log('MongoDB successfully connected')) // eslint-disable-line
   .catch(err => console.log(err)); // eslint-disable-line
 const mongooseConnection = mongoose.connection;
@@ -40,25 +41,26 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-app.use(session({
-  secret: process.env.CHATROOM_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  store: new MongoStore({
-    mongooseConnection
+app.use(
+  session({
+    secret: process.env.CHATROOM_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({
+      mongooseConnection
+    })
   })
-}));
+);
 app.use(passport.initialize());
 app.use('/api/users', users);
 
 const authMiddleware = (req, res, next) => {
-  User.findById(req.session.userId)
-    .exec(function (error, user) {
-      if (user) {
-        return next();
-      }
-      return res.send('Go Away!');
-    });
+  User.findById(req.session.userId).exec(function(error, user) {
+    if (user) {
+      return next();
+    }
+    return res.send('Go Away!');
+  });
 };
 
 app.get('/secret', authMiddleware, (req, res) => {

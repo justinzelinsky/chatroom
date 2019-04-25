@@ -1,12 +1,5 @@
 import { createSelector } from 'reselect';
 
-const getActiveUsers = state => state.activeUsers;
-
-export const getFormattedActiveUsers = createSelector(
-  getActiveUsers,
-  activeUsers => activeUsers.join(', ')
-);
-
 const getCurrentUser = state => state.currentUser;
 
 export const getCurrentUserName = createSelector(

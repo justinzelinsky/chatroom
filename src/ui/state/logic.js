@@ -3,13 +3,13 @@ import jwt_decode from 'jwt-decode';
 import { createLogic } from 'redux-logic';
 
 import {
+  hasErrors,
   LOGIN,
   LOGOUT,
+  logout,
   REGISTER,
-  setCurrentUser,
-  hasErrors,
   SECRET,
-  logout
+  setCurrentUser
 } from 'state/actions';
 import setAuthToken from 'utils/setAuthToken';
 
@@ -19,7 +19,8 @@ const loginLogic = createLogic({
     const body = {
       ...action.payload
     };
-    axios.post('api/users/login', body)
+    axios
+      .post('api/users/login', body)
       .then(res => {
         const { token } = res.data;
         localStorage.setItem('jwtToken', token);
@@ -35,13 +36,12 @@ const loginLogic = createLogic({
 const logoutLogic = createLogic({
   type: LOGOUT,
   process({ axios }, dispatch, done) {
-    axios.get('api/users/logout')
-      .then(() => {
-        localStorage.removeItem('jwtToken');
-        setAuthToken(false);
-        dispatch(setCurrentUser({}));
-        done();
-      });
+    axios.get('api/users/logout').then(() => {
+      localStorage.removeItem('jwtToken');
+      setAuthToken(false);
+      dispatch(setCurrentUser({}));
+      done();
+    });
   }
 });
 
@@ -51,7 +51,8 @@ const registerLogic = createLogic({
     const body = {
       ...action.payload
     };
-    axios.post('/api/users/register', body)
+    axios
+      .post('/api/users/register', body)
       .then(() => history.push('/login'))
       .catch(err => dispatch(hasErrors(err.response.data)))
       .finally(() => done());
@@ -61,8 +62,9 @@ const registerLogic = createLogic({
 const secretLogic = createLogic({
   type: SECRET,
   process({ axios }, dispatch, done) {
-    axios.get('/secret')
-      .then((res) => console.log(res.data)) // eslint-disable-line
+    axios
+      .get('/secret')
+      .then(res => console.log(res.data)) // eslint-disable-line
       .catch(error => console.log(error.data)) // eslint-disable-line
       .finally(() => done());
   }

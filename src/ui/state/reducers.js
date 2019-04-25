@@ -23,7 +23,10 @@ export const currentUser = (state = currentUserInitialState, action) => {
 };
 
 export const isAuthenticatedInitialState = false;
-export const isAuthenticated = (state = isAuthenticatedInitialState, action) => {
+export const isAuthenticated = (
+  state = isAuthenticatedInitialState,
+  action
+) => {
   if (action.type === SET_CURRENT_USER) {
     const { currentUser } = action.payload;
     return !isEmpty(currentUser);
@@ -36,9 +39,7 @@ export const activeUsersInitialState = [];
 export const activeUsers = (state = activeUsersInitialState, action) => {
   if (action.type === UPDATE_ACTIVE_USERS) {
     const { usernames } = action.payload;
-    return [
-      ...usernames
-    ];
+    return [...usernames];
   }
 
   return state;
@@ -75,11 +76,12 @@ export const chats = (state = chatsInitialState, action) => {
   return state;
 };
 
-export default (history) => combineReducers({
-  activeUsers,
-  chats,
-  currentUser,
-  isAuthenticated,
-  errors,
-  router: connectRouter(history)
-});
+export default history =>
+  combineReducers({
+    activeUsers,
+    chats,
+    currentUser,
+    isAuthenticated,
+    errors,
+    router: connectRouter(history)
+  });

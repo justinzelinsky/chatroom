@@ -1,10 +1,7 @@
 import './ChatInput.scss';
 
 import moment from 'moment';
-import {
-  object,
-  string
-} from 'prop-types';
+import { object, string } from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
@@ -13,14 +10,14 @@ import { getCurrentUserName } from 'state/selectors';
 import { emitNewChat } from 'utils/Socket';
 
 const ChatInput = ({ actions, username }) => {
-  const [ message, setMessage ] = useState('');
+  const [message, setMessage] = useState('');
 
   const onChange = event => {
     setMessage(event.target.value);
   };
 
-  const onKeyPress = event => {
-    if (event.key === 'Enter' && message) {
+  const sendMessage = () => {
+    if (message) {
       const ts = moment().format('HH:mm');
       actions.addChat(message, ts, username);
       emitNewChat({ message, ts, username });
@@ -28,18 +25,29 @@ const ChatInput = ({ actions, username }) => {
     }
   };
 
+  const onKeyPress = event => {
+    if (event.key === 'Enter') {
+      sendMessage();
+    }
+  };
+
+  const handleSendClick = () => sendMessage();
+
   return (
     <div styleName="chat-input-container">
       <div styleName="chat-input-username">
-        <span styleName="username-display">
-          {username}
-        </span>
+        <span styleName="username-display">{username}</span>
       </div>
-      <input autoFocus={true}
-             onChange={onChange}
-             onKeyPress={onKeyPress}
-             type="text"
-             value={message} />
+      <input
+        autoFocus={true}
+        onChange={onChange}
+        onKeyPress={onKeyPress}
+        type="text"
+        value={message}
+      />
+      <button styleName="chat-button" onClick={handleSendClick}>
+        Send
+      </button>
     </div>
   );
 };
@@ -53,4 +61,7 @@ const mapStateToProps = state => ({
   username: getCurrentUserName(state)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChatInput);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChatInput);

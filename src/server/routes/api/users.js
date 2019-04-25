@@ -18,28 +18,28 @@ router.post('/register', (req, res) => {
 
   const { name, email, password } = req.body;
 
-  User.findOne({ email })
-    .then(user => {
-      if (user) {
-        return res.status(400).json({ email: 'Email already exists' });
-      }
+  User.findOne({ email }).then(user => {
+    if (user) {
+      return res.status(400).json({ email: 'Email already exists' });
+    }
 
-      const newUser = new User({
-        name,
-        email,
-        password
-      });
+    const newUser = new User({
+      name,
+      email,
+      password
+    });
 
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
-          newUser.password = hash;
-          newUser.save()
-            .then(user => res.json(user))
-            .catch(err => console.log(err)); // eslint-disable-line
-        });
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newUser.password, salt, (err, hash) => {
+        if (err) throw err;
+        newUser.password = hash;
+        newUser
+          .save()
+          .then(user => res.json(user))
+          .catch(err => console.log(err)); // eslint-disable-line
       });
     });
+  });
 });
 
 router.post('/login', (req, res) => {
@@ -49,45 +49,43 @@ router.post('/login', (req, res) => {
   }
   const { email, password } = req.body;
 
-  User.findOne({ email })
-    .then(user => {
-      if (!user) {
-        return res.status(404).json({ emailnotfound: 'Email not found' });
-      }
+  User.findOne({ email }).then(user => {
+    if (!user) {
+      return res.status(404).json({ emailnotfound: 'Email not found' });
+    }
 
-      bcrypt.compare(password, user.password)
-        .then(isMatch => {
-          if (isMatch) {
-            const payload = {
-              id: user.id,
-              name: user.name
-            };
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        const payload = {
+          id: user.id,
+          name: user.name
+        };
 
-            req.session.userId = user.id;
+        req.session.userId = user.id;
 
-            jwt.sign(
-              payload,
-              keys.secretOrKey,
-              {
-                expiresIn: 31556926
-              },
-              (err, token) => {
-                res.json({
-                  success: true,
-                  token: 'Bearer ' + token
-                });
-              }
-            );
-          } else {
-            return res.status(400).json({ password: 'Password incorrect' });
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          {
+            expiresIn: 31556926
+          },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: 'Bearer ' + token
+            });
           }
-        });
+        );
+      } else {
+        return res.status(400).json({ password: 'Password incorrect' });
+      }
     });
+  });
 });
 
-router.get('/logout', function (req, res, next) {
+router.get('/logout', function(req, res, next) {
   if (req.session) {
-    req.session.destroy(function (err) {
+    req.session.destroy(function(err) {
       if (err) {
         return next(err);
       } else {

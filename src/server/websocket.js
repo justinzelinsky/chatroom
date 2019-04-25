@@ -17,8 +17,7 @@ const initializeWebsocketServer = io => {
     });
 
     socket.on(ADD_USER, function(username) {
-      if (addedUser)
-        return;
+      if (addedUser) return;
 
       socket.username = username;
       connectedUsers.push(username);

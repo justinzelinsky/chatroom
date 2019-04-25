@@ -1,5 +1,5 @@
 export const UPDATE_ACTIVE_USERS = 'UPDATE_ACTIVE_USERS';
-export const updateActiveUsers = (usernames) => ({
+export const updateActiveUsers = usernames => ({
   type: UPDATE_ACTIVE_USERS,
   payload: {
     usernames
@@ -89,4 +89,3 @@ export default {
   hasErrors,
   trySecret
 };
-

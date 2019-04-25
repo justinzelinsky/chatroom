@@ -9,13 +9,10 @@ import UnprotectedRoute from 'components/Routes/UnprotectedRoute';
 
 const App = () => (
   <Switch>
-      <UnprotectedRoute component={Register}
-                        path="/register" />
-      <UnprotectedRoute component={Login}
-                        path="/login" />
-      <ProtectedRoute component={Chatroom}
-                      path="/chatroom" />
-      <Redirect to="/login" />
+    <UnprotectedRoute component={Register} path="/register" />
+    <UnprotectedRoute component={Login} path="/login" />
+    <ProtectedRoute component={Chatroom} path="/chatroom" />
+    <Redirect to="/login" />
   </Switch>
 );
 
