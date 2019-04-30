@@ -34,7 +34,7 @@ const rules = [
     use: ['babel-loader', 'eslint-loader']
   },
   {
-    test: /.scss$/,
+    test: /.(s)?css$/,
     use: [
       styleLoader,
       {

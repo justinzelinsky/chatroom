@@ -1,42 +1,29 @@
 {
   "parser": "babel-eslint",
   "env": {
-      "browser": true,
-      "es6": true,
-      "node": true
+    "browser": true,
+    "es6": true,
+    "node": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parserOptions": {
-      "ecmaFeatures": {
-          "jsx": true
-      },
-      "ecmaVersion": 2018,
-      "sourceType": "module"
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
   },
-  "plugins": [
-      "react"
-  ],
+  "plugins": ["react"],
   "rules": {
-      "indent": [2, 2, {"ignoredNodes": ["JSXElement *"]}],
-      "linebreak-style": [
-          "error",
-          "unix"
-      ],
-      "quotes": [
-          "error",
-          "single"
-      ],
-      "semi": [
-          "error",
-          "always"
-      ],
-      "react/jsx-indent": 0,
-      "react/jsx-indent-props": [2, "first"],
-      "object-curly-spacing": [2, "always"],
-      "no-trailing-spaces": ["error"]
+    "indent": [2, 2, { "ignoredNodes": ["JSXElement *"] }],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "react/jsx-indent": 0,
+    "react/jsx-indent-props": [2, "first"],
+    "object-curly-spacing": [2, "always"],
+    "no-trailing-spaces": ["error"],
+    "no-console": 0
   },
   "settings": {
     "react": {

@@ -1,5 +1,13 @@
 import './Login.scss';
 
+import {
+  Button,
+  ButtonToolbar,
+  Container,
+  Form,
+  Row,
+  Col
+} from 'react-bootstrap';
 import { object, string } from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
@@ -25,35 +33,46 @@ const Login = ({ actions, emailError, passwordError }) => {
   };
 
   return (
-    <div styleName="login-container">
-      <h1 styleName="login-header">Login</h1>
-      <form onSubmit={handleOnSubmit} styleName="login-form">
-        <div styleName="login-input">
-          <label htmlFor="email">
-            Email:
-            {emailError && <div styleName="input-error">{emailError}</div>}
-          </label>
-          <input id="email" onChange={onEmailChange} />
-        </div>
-        <div styleName="login-input">
-          <label htmlFor="password">
-            Password:
-            {passwordError && (
-              <div styleName="input-error">{passwordError}</div>
-            )}
-          </label>
-          <input id="password" onChange={onPasswordChange} type="password" />
-        </div>
-        <div styleName="login-buttons">
-          <button disabled={disableButton} styleName="login-button">
-            Login
-          </button>
-          <Link styleName="action-link" to="register">
-            Register
-          </Link>
-        </div>
-      </form>
-    </div>
+    <Container styleName="login-container">
+      <Row>
+        <Col md={{ span: 6, offset: 3 }}>
+          <h1 styleName="login-header">Login</h1>
+          <Form styleName="login-form" onSubmit={handleOnSubmit}>
+            <Form.Group as={Row} controlId="email">
+              <Form.Label column={true} sm={3}>
+                Email address
+              </Form.Label>
+              <Col sm={9}>
+                <Form.Control onChange={onEmailChange} type="email" />
+                {emailError && (
+                  <Form.Text className="text-muted">{emailError}</Form.Text>
+                )}
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="password">
+              <Form.Label column={true} sm={3}>
+                Password
+              </Form.Label>
+              <Col sm={9}>
+                <Form.Control onChange={onPasswordChange} type="password" />
+                {passwordError && (
+                  <Form.Text className="text-muted">{passwordError}</Form.Text>
+                )}
+              </Col>
+            </Form.Group>
+            <ButtonToolbar>
+              <Button disabled={disableButton} variant="primary" type="submit">
+                Login
+              </Button>
+              <Link to="register" className="btn btn-link">
+                Register
+              </Link>
+            </ButtonToolbar>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

@@ -1,34 +1,16 @@
 .chat-input-container {
-  display: flex;
   height: 45px;
-
-  .chat-input-username {
-    align-items: center;
-    border-bottom: 1px solid rgb(238, 238, 238);
-    border-left: 1px solid rgb(238, 238, 238);
-    border-top: 1px solid rgb(238, 238, 238);
-    display: flex;
-    height: 42px;
-    padding: 0 30px 0 10px;
-  }
+  border-top: 1px solid black;
+  padding-top: 10px;
 
   .username-display {
     font-size: 16px;
     font-weight: bold;
   }
 
-  input {
-    flex: 1;
-    font-size: 16px;
-    height: 20px;
-    padding: 10px;
-  }
-
-  .chat-button {
-    border-radius: 4px;
-    font-size: 16px;
-    height: 44px;
-    padding: 10px 20px;
-    width: 100px;
+  .logout-link {
+    font-weight: normal;
+    font-size: 12px;
+    margin-left: 15px;
   }
 }

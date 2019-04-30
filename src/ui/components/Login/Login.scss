@@ -1,11 +1,5 @@
 .login-container {
-  margin: 50px auto 0 auto;
-  width: 500px;
-
-  @include mobile {
-    padding: 0 10px;
-    width: auto;
-  }
+  margin-top: 50px;
 
   .login-header {
     margin-bottom: 20px;
@@ -15,54 +9,5 @@
     border: 1px solid black;
     border-radius: 5px;
     padding: 20px;
-
-    .login-input {
-      align-items: center;
-      display: flex;
-      margin-bottom: 20px;
-
-      label {
-        font-size: 16px;
-        width: 135px;
-
-        .input-error {
-          color: red;
-          margin-top: 5px;
-        }
-      }
-
-      input {
-        flex: 1;
-        font-size: 16px;
-        height: 40px;
-        padding: 0 20px;
-      }
-    }
-
-    .login-buttons {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-      width: 160px;
-
-      .login-button {
-        border-radius: 4px;
-        font-size: 16px;
-        padding: 10px 20px;
-
-        &:hover {
-          cursor: pointer;
-
-          &:disabled {
-            cursor: not-allowed;
-          }
-        }
-      }
-    }
-  }
-
-  .action-link {
-    display: inline-block;
-    margin: 0 5px;
   }
 }

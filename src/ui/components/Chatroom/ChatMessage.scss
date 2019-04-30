@@ -5,6 +5,10 @@
   .timestamp {
     font-style: italic;
     width: 45px;
+
+    @include mobile {
+      margin-right: 5px;
+    }
   }
 
   .username {

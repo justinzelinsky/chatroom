@@ -1,7 +1,8 @@
 import './Chatroom.scss';
 
+import { Container, Jumbotron, Row, Col } from 'react-bootstrap';
 import { array, object, string } from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import ChatInput from 'components/Chatroom/ChatInput';
@@ -17,7 +18,7 @@ import {
 } from 'utils/Socket';
 
 const Chatroom = ({ activeUsers, actions, chats, username }) => {
-  const handleLogout = () => actions.logout();
+  const chatEndRef = useRef(null);
 
   useEffect(() => {
     emitAddedUser(username);
@@ -31,34 +32,40 @@ const Chatroom = ({ activeUsers, actions, chats, username }) => {
     });
     subscribeToUserEvents(usernames => actions.updateActiveUsers(usernames));
 
-    return () => {
-      closeSocket();
-    };
+    return () => closeSocket();
   }, [username]);
 
+  useEffect(() => {
+    chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, [chats]);
+
   return (
-    <div styleName="chatroom">
-      <div styleName="users-in-chat-wrapper">
-        <div styleName="users-in-chat-label">Users in the chat:</div>
-        {activeUsers.map((user, idx) => (
-          <div styleName="user-in-chat" key={idx}>
-            {user}
-          </div>
-        ))}
-      </div>
-      <div styleName="chats">
-        {chats.length === 0 && <div styleName="no-chats">No Chats!</div>}
-        {chats.map((chat, idx) => (
-          <ChatMessage chat={chat} key={idx} />
-        ))}
-      </div>
-      <div styleName="chatroom-footer">
+    <Container fluid={true} styleName="chatroom">
+      <Row>
+        <Col md={2} className="d-none d-sm-block">
+          <div styleName="users-in-chat-label">Users in the chat:</div>
+          {activeUsers.map((user, idx) => (
+            <div styleName="user-in-chat" key={idx}>
+              {user}
+            </div>
+          ))}
+        </Col>
+        <Col>
+          <Jumbotron fluid={true} styleName="chats">
+            <Container fluid={true}>
+              {chats.length === 0 && <div styleName="no-chats">No Chats!</div>}
+              {chats.map((chat, idx) => (
+                <ChatMessage chat={chat} key={idx} />
+              ))}
+              <div styleName="chat-end" ref={chatEndRef} />
+            </Container>
+          </Jumbotron>
+        </Col>
+      </Row>
+      <Row>
         <ChatInput />
-        <a onClick={handleLogout} styleName="logout-link">
-          Logout
-        </a>
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 };
 

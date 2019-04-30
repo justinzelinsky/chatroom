@@ -1,5 +1,6 @@
 import './ChatInput.scss';
 
+import { Button, Container, Form, Row, Col } from 'react-bootstrap';
 import moment from 'moment';
 import { object, string } from 'prop-types';
 import React, { useState } from 'react';
@@ -29,24 +30,52 @@ const ChatInput = ({ actions, username }) => {
     }
   };
 
+  const handleOnSubmit = event => {
+    event.preventDefault();
+    sendMessage();
+  };
+
   const handleSendClick = () => sendMessage();
 
+  const handleLogout = () => {
+    console.log('logout');
+    actions.logout();
+  };
+
   return (
-    <div styleName="chat-input-container">
-      <div styleName="chat-input-username">
-        <span styleName="username-display">{username}</span>
-      </div>
-      <input
-        autoFocus={true}
-        onChange={onChange}
-        onKeyPress={onKeyPress}
-        type="text"
-        value={message}
-      />
-      <button styleName="chat-button" onClick={handleSendClick}>
-        Send
-      </button>
-    </div>
+    <Container fluid={true} styleName="chat-input-container">
+      <Row>
+        <Col>
+          <Form onSubmit={handleOnSubmit}>
+            <Form.Group as={Row} controlId="message">
+              <Form.Label styleName="username-display" column={true}>
+                {username}
+                <a onClick={handleLogout} styleName="logout-link">
+                  (logout)
+                </a>
+              </Form.Label>
+              <Col xs={9}>
+                <Form.Control
+                  autoFocus={true}
+                  onChange={onChange}
+                  onKeyPress={onKeyPress}
+                  type="text"
+                  value={message}
+                />
+              </Col>
+              <Col>
+                <Button
+                  variant="primary"
+                  onClick={handleSendClick}
+                  block={true}>
+                  Send
+                </Button>
+              </Col>
+            </Form.Group>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

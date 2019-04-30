@@ -1,34 +1,22 @@
 .chatroom {
   .chats {
-    border: 1px solid #000000;
-    bottom: 92px;
-    left: 130px;
+    height: 90vh;
     overflow-y: scroll;
-    padding: 20px;
-    position: fixed;
-    top: 0;
-    right: 0;
+    padding-top: 10px;
+    margin-bottom: 0;
 
     @include mobile {
-      left: 0;
+      height: 80vh;
+      margin-top: 10px;
     }
 
     .no-chats {
       font-style: italic;
     }
-  }
 
-  .chatroom-footer {
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    right: 0;
-
-    .logout-link {
-      display: block;
-      padding-bottom: 10px;
-      padding-left: 10px;
-      padding-top: 10px;
+    .chat-end {
+      float: left;
+      clear: both;
     }
   }
 
