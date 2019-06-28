@@ -5,7 +5,7 @@
     padding-top: 10px;
     margin-bottom: 0;
 
-    @include mobile {
+    @include tablet {
       height: 80vh;
       margin-top: 10px;
     }
@@ -20,20 +20,11 @@
     }
   }
 
-  .users-in-chat-wrapper {
-    padding: 10px;
-    width: 130px;
+  .users-in-chat-label {
+    margin: 10px 0;
+  }
 
-    @include mobile {
-      display: none;
-    }
-
-    .users-in-chat-label {
-      margin-bottom: 10px;
-    }
-
-    .user-in-chat {
-      font-style: italic;
-    }
+  .user-in-chat {
+    font-style: italic;
   }
 }

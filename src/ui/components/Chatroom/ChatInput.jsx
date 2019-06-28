@@ -48,13 +48,13 @@ const ChatInput = ({ actions, username }) => {
         <Col>
           <Form onSubmit={handleOnSubmit}>
             <Form.Group as={Row} controlId="message">
-              <Form.Label styleName="username-display" column={true}>
+              <Form.Label column={true} styleName="username-display" sm={2}>
                 {username}
                 <a onClick={handleLogout} styleName="logout-link">
                   (logout)
                 </a>
               </Form.Label>
-              <Col xs={9}>
+              <Col sm={8}>
                 <Form.Control
                   autoFocus={true}
                   onChange={onChange}
@@ -63,8 +63,9 @@ const ChatInput = ({ actions, username }) => {
                   value={message}
                 />
               </Col>
-              <Col>
+              <Col sm={2}>
                 <Button
+                  styleName="send-button"
                   variant="primary"
                   onClick={handleSendClick}
                   block={true}>
