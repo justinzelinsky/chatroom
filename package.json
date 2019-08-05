@@ -2,12 +2,12 @@
   "name": "chatroom",
   "version": "2.0.0",
   "description": "Chatroom built with React, Redux, and Socket.IO",
-  "main": "src/server/server.js",
+  "main": "src/server/index.js",
   "scripts": {
     "prod": "NODE_ENV=production webpack",
     "dev": "NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0",
-    "start": "node src/server/server.js",
-    "server": "nodemon src/server/server.js"
+    "start": "node src/server/index.js",
+    "server": "nodemon src/server/index.js"
   },
   "author": "Justin Zelinsky",
   "repository": {
