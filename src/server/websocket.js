@@ -29,7 +29,7 @@ const initializeWebsocketServer = io => {
         isAdminMessage: true,
         username: 'Admin',
         ts: dayjs().format('HH:mm'),
-        message: socket.username + ' has joined the chat'
+        message: `${socket.username} has joined the chat`
       };
 
       socket.broadcast.emit(NEW_ADMIN_CHAT, userHasJoinedChat);
@@ -45,7 +45,7 @@ const initializeWebsocketServer = io => {
           isAdminMessage: true,
           username: 'Admin',
           ts: dayjs().format('HH:mm'),
-          message: socket.username + ' has left the chat'
+          message: `${socket.username} has left the chat`
         };
 
         socket.broadcast.emit(NEW_ADMIN_CHAT, userHasLeftChat);
