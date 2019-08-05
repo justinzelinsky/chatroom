@@ -13,11 +13,13 @@ A simple chatroom built with React, Redux, and Socket.IO featuring user authenti
 
 `npm install`
 
-### Run UI
+### Usage
+
+#### UI
 
 `npm run dev`
 
-### Run Server
+#### Run Server
 
 `npm run server`
 
