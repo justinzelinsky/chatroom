@@ -14,12 +14,7 @@ const configurePassport = passport => {
   passport.use(
     new JwtStrategy(opts, (jwt_payload, done) => {
       User.findById(jwt_payload.id)
-        .then(user => {
-          if (user) {
-            return done(null, user);
-          }
-          return done(null, false);
-        })
+        .then(user => done(null, user || false))
         .catch(err => console.log(err)); // eslint-disable-line
     })
   );
