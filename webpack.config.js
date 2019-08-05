@@ -25,6 +25,8 @@ const devServer = {
   }
 };
 
+const devtool = devMode ? 'inline-source-map' : '';
+
 const mode = devMode ? 'development' : 'production';
 
 const rules = [
@@ -79,7 +81,16 @@ const optimization = {
       parallel: true,
       sourceMap: false
     })
-  ]
+  ],
+  splitChunks: {
+    cacheGroups: {
+      commons: {
+        test: /[\\/]node_modules[\\/]/,
+        name: 'vendors',
+        chunks: 'all'
+      }
+    }
+  }
 };
 
 if (!devMode) {
@@ -98,8 +109,9 @@ const resolve = {
 
 module.exports = {
   entry,
-  mode,
   devServer,
+  devtool,
+  mode,
   module: {
     rules
   },
