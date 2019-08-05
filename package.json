@@ -8,12 +8,16 @@
     "dev": "NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0",
     "start": "node src/server/index.js",
     "server": "nodemon src/server/index.js",
-    "test": "jest --coverage"
+    "test": "jest"
   },
   "author": "Justin Zelinsky",
   "repository": {
     "type": "git",
     "url": "git://github.com/justinzelinsky/chatroom.git"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   },
   "license": "MIT",
   "dependencies": {
