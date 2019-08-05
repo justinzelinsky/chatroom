@@ -37,10 +37,7 @@ const ChatInput = ({ actions, username }) => {
 
   const handleSendClick = () => sendMessage();
 
-  const handleLogout = () => {
-    console.log('logout');
-    actions.logout();
-  };
+  const handleLogout = () => actions.logout();
 
   return (
     <Container fluid={true} styleName="chat-input-container">
