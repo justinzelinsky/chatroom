@@ -3,7 +3,8 @@
   "env": {
     "browser": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "jest/globals": true
   },
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parserOptions": {
@@ -13,7 +14,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["react", "jest"],
   "rules": {
     "indent": [2, 2, { "ignoredNodes": ["JSXElement *"] }],
     "linebreak-style": ["error", "unix"],
@@ -23,7 +24,12 @@
     "react/jsx-indent-props": [2, "first"],
     "object-curly-spacing": [2, "always"],
     "no-trailing-spaces": ["error"],
-    "no-console": 0
+    "no-console": 0,
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
   },
   "settings": {
     "react": {
