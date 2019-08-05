@@ -72,7 +72,14 @@ const plugins = [
 ];
 
 const optimization = {
-  minimizer: []
+  minimizer: [
+    new OptimizeCSSAssetsPlugin({}),
+    new UglifyJsPlugin({
+      cache: true,
+      parallel: true,
+      sourceMap: false
+    })
+  ]
 };
 
 if (!devMode) {
@@ -82,15 +89,6 @@ if (!devMode) {
       chunkFilename: '[id].[hash].css'
     })
   );
-
-  optimization.minimizer.concat([
-    new OptimizeCSSAssetsPlugin({}),
-    new UglifyJsPlugin({
-      cache: true,
-      parallel: true,
-      sourceMap: false
-    })
-  ]);
 }
 
 const resolve = {
