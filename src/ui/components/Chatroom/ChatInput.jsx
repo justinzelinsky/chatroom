@@ -1,7 +1,7 @@
 import './ChatInput.scss';
 
+import dayjs from 'dayjs';
 import { Button, Container, Form, Row, Col } from 'react-bootstrap';
-import moment from 'moment';
 import { object, string } from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
@@ -17,7 +17,7 @@ const ChatInput = ({ actions, username }) => {
 
   const sendMessage = () => {
     if (message) {
-      const ts = moment().format('HH:mm');
+      const ts = dayjs().format('HH:mm');
       actions.addChat(message, ts, username);
       emitNewChat({ message, ts, username });
       setMessage('');

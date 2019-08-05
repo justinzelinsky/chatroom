@@ -1,4 +1,4 @@
-const moment = require('moment');
+const dayjs = require('dayjs');
 
 const initializeWebsocketServer = io => {
   const connectedUsers = [];
@@ -28,7 +28,7 @@ const initializeWebsocketServer = io => {
       const userHasJoinedChat = {
         isAdminMessage: true,
         username: 'Admin',
-        ts: moment().format('HH:mm'),
+        ts: dayjs().format('HH:mm'),
         message: socket.username + ' has joined the chat'
       };
 
@@ -44,7 +44,7 @@ const initializeWebsocketServer = io => {
         const userHasLeftChat = {
           isAdminMessage: true,
           username: 'Admin',
-          ts: moment().format('HH:mm'),
+          ts: dayjs().format('HH:mm'),
           message: socket.username + ' has left the chat'
         };
 
