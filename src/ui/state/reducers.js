@@ -1,6 +1,6 @@
 import { connectRouter, LOCATION_CHANGE } from 'connected-react-router';
 import { combineReducers } from 'redux';
-import isEmpty from 'is-empty';
+import isEmpty from 'lodash/isEmpty';
 
 import {
   ADD_CHAT,

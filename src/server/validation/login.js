@@ -1,5 +1,5 @@
 const Validator = require('validator');
-const isEmpty = require('is-empty');
+const isEmpty = require('lodash/isEmpty');
 
 const validateRegisterInput = data => {
   const errors = {};
