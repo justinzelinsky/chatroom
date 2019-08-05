@@ -1,4 +1,4 @@
-import './ChatInput.scss';
+import './styles.scss';
 
 import dayjs from 'dayjs';
 import { Button, Container, Form, Row, Col } from 'react-bootstrap';

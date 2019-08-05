@@ -1,4 +1,4 @@
-import './ChatMessage.scss';
+import './styles.scss';
 
 import classnames from 'classnames';
 import { bool, shape, string } from 'prop-types';

@@ -1,4 +1,4 @@
-import './Chatroom.scss';
+import './styles.scss';
 
 import { Container, Jumbotron, Row, Col } from 'react-bootstrap';
 import { array, object, string } from 'prop-types';
