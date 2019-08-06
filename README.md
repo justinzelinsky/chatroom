@@ -16,15 +16,13 @@ A simple chatroom built with React, Redux, and Socket.IO featuring user authenti
 
 ### Usage
 
-#### UI
-
-`npm run dev`
-
-#### Run Server
-
-`npm run server`
+`npm start`
 
 and navigate to `localhost:9000`
+
+## Docker
+
+Run production code using `npm run docker` and navigating to `localhost:8082`
 
 ## Special Thanks
 

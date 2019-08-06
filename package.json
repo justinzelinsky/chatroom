@@ -1,14 +1,16 @@
 {
   "name": "chatroom",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Chatroom built with React, Redux, and Socket.IO",
   "main": "src/server/index.js",
   "scripts": {
-    "prod": "NODE_ENV=production webpack",
-    "dev": "NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0",
-    "start": "node src/server/index.js",
-    "server": "nodemon src/server/index.js",
-    "test": "jest --coverage"
+    "docker": "npm run build && docker-compose up",
+    "build": "NODE_ENV=production webpack",
+    "start": "concurrently \"npm:watch-js\" \"npm:watch-server\"",
+    "start:prod": "node src/server/index.js",
+    "test": "jest --coverage",
+    "watch-js": "NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0",
+    "watch-server": "nodemon src/server/index.js"
   },
   "author": "Justin Zelinsky",
   "repository": {
@@ -55,6 +57,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-react-css-modules": "^5.2.6",
     "clean-webpack-plugin": "^2.0.2",
+    "concurrently": "^4.1.1",
     "css-loader": "^1.0.1",
     "eslint": "^5.9.0",
     "eslint-loader": "^2.2.1",

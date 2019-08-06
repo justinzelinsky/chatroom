@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    environment:
+      - MONGO_DB=mongodb://mongo:27017/my-db
+      - CHATROOM_SECRET=${CHATROOM_SECRET}
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 8082:8082
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - data-volume:/data/db
+volumes:
+  data-volume:
