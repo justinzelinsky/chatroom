@@ -50,6 +50,7 @@ export const errors = (state = errorsInitialState, action) => {
   if (action.type === HAS_ERRORS) {
     const { errors } = action.payload;
     return {
+      ...state,
       ...errors
     };
   }
