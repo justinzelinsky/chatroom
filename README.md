@@ -6,7 +6,11 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
-A simple chatroom built with React, Redux, and Socket.IO featuring user authentication (WIP)
+A simple chatroom built with React, Redux, and Socket.IO featuring user authentication.
+
+## Purpose
+
+This is my pet project which allows me to test my knowledge of JavaScript and Web Development. The end goal is to have a full CI/CD pipeline.
 
 ## Setup & Running
 
