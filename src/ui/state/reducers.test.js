@@ -8,7 +8,7 @@ import {
   setCurrentUser,
   updateActiveUsers
 } from 'state/actions';
-import {
+import createRootReducer, {
   activeUsers,
   activeUsersInitialState,
   chats,
@@ -20,6 +20,7 @@ import {
   isAuthenticated,
   isAuthenticatedInitialState
 } from 'state/reducers';
+import { history } from 'state/store';
 
 describe('Current User Reducer', () => {
   it('should correctly set the initial state of the active user', () => {
@@ -174,5 +175,12 @@ describe('Errors', () => {
     const state3 = errors(state2, action2);
 
     expect(state3).toEqual(errorsInitialState);
+  });
+});
+
+describe('Combine Reducers', () => {
+  it('should return a valid root reducer', () => {
+    const rootReducer = createRootReducer(history);
+    expect(typeof rootReducer).toEqual('function');
   });
 });
