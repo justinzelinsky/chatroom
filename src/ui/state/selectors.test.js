@@ -26,6 +26,7 @@ describe('Current Username Selector', () => {
       currentUser: currentUser(currentUserInitialState, action)
     };
     const currentUsername = getCurrentUserName(state);
+
     expect(currentUsername).toEqual(currentUserObj.name);
   });
 });
@@ -40,6 +41,7 @@ describe('Error Selectors', () => {
       errors: errors(errorState, action)
     };
     const emailError = getEmailError(state);
+
     expect(emailError).toEqual(error.email);
   });
 
@@ -52,6 +54,7 @@ describe('Error Selectors', () => {
       errors: errors(errorState, action)
     };
     const passwordError = getPasswordError(state);
+
     expect(passwordError).toEqual(error.password);
   });
 
@@ -64,6 +67,7 @@ describe('Error Selectors', () => {
       errors: errors(errorState, action)
     };
     const password2Error = getPassword2Error(state);
+
     expect(password2Error).toEqual(error.password2);
   });
 
@@ -76,6 +80,7 @@ describe('Error Selectors', () => {
       errors: errors(errorState, action)
     };
     const nameError = getNameError(state);
+
     expect(nameError).toEqual(error.name);
   });
 
@@ -87,14 +92,14 @@ describe('Error Selectors', () => {
     const state = {
       errors: errors(errorState, action)
     };
-    console.log(state);
+
     const error2 = { email: 'Email error' };
     const action2 = hasErrors(error2);
     const state2 = {
       errors: errors(state.errors, action2)
     };
-    console.log(state2);
     const nameError = getNameError(state2);
+
     expect(nameError).toEqual(error.name);
   });
 });
