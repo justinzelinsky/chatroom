@@ -5,7 +5,7 @@ import { hasErrors, LOGIN, setCurrentUser } from 'state/actions';
 
 const loginLogic = createLogic({
   type: LOGIN,
-  process({ action, post, setAuthToken }, dispatch, done) {
+  process({ action, openSocket, post, setAuthToken }, dispatch, done) {
     const body = {
       ...action.payload
     };
@@ -16,6 +16,7 @@ const loginLogic = createLogic({
         setAuthToken(token);
         const user = jwt_decode(token);
         dispatch(setCurrentUser(user));
+        openSocket();
       })
       .catch(err => dispatch(hasErrors(err)))
       .finally(() => done());

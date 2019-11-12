@@ -1,6 +1,6 @@
-import openSocket from 'socket.io-client';
+import openSocketClient from 'socket.io-client';
 
-const socket = openSocket('http://localhost:8082');
+let socket = null;
 
 export const subscribeToChatEvents = callback => {
   socket.on('new chat', chat => callback(chat));
@@ -22,5 +22,8 @@ export const emitNewChat = chat => {
 export const emitAddedUser = username => {
   socket.emit('add user', username);
 };
+
+export const openSocket = () =>
+  (socket = openSocketClient('http://localhost:8082'));
 
 export const closeSocket = () => socket.close();

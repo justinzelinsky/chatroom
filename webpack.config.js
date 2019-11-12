@@ -1,4 +1,4 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -11,48 +11,52 @@ const paths = {
 };
 const devMode = process.env.NODE_ENV !== 'production';
 const styleLoader = devMode ? 'style-loader' : MiniCssExtractPlugin.loader;
-const indexHtml = path.join(paths.source, 'index.html');
 
 const entry = path.join(paths.source, 'index.jsx');
 
 const devServer = {
   contentBase: paths.dist,
   compress: true,
-  port: 9000,
   historyApiFallback: true,
+  hot: true,
+  open: 'Google Chrome',
+  port: 9000,
   proxy: {
     '/api': 'http://localhost:8082'
   }
 };
 
-const devtool = devMode ? 'inline-source-map' : '';
+const devtool = devMode ? 'cheap-module-eval-source-map' : 'inline-source-map';
 
 const mode = devMode ? 'development' : 'production';
 
 const rules = [
   {
     test: /.(jsx?)$/,
+    include: paths.source,
     exclude: /node_modules/,
     use: ['babel-loader', 'eslint-loader']
   },
   {
     test: /.scss$/,
+    include: paths.source,
     use: [
       styleLoader,
       {
         loader: 'css-loader',
         options: {
-          modules: true,
           importLoaders: 1,
-          localIdentName: '[name]__[local]:[hash:base64:5]',
-          minimize: !devMode,
-          sourceMap: !devMode
+          sourceMap: !devMode,
+          modules: {
+            mode: 'local',
+            localIdentName: '[name]-[local]-[hash:base64:6]'
+          }
         }
       },
       {
         loader: 'sass-loader',
         options: {
-          data: '@import "src/ui/styles/vars";'
+          prependData: '@import "src/ui/styles/vars";'
         }
       }
     ]
@@ -63,19 +67,9 @@ const rules = [
   }
 ];
 
-const output = {
-  filename: 'app.js',
-  path: paths.dist
-};
-
-const plugins = [
-  new CleanWebpackPlugin(),
-  new HtmlWebpackPlugin({ template: indexHtml })
-];
-
 const optimization = {
   minimizer: [
-    new OptimizeCSSAssetsPlugin({}),
+    new OptimizeCSSAssetsPlugin(),
     new UglifyJsPlugin({
       cache: true,
       parallel: true,
@@ -83,15 +77,22 @@ const optimization = {
     })
   ],
   splitChunks: {
-    cacheGroups: {
-      commons: {
-        test: /[\\/]node_modules[\\/]/,
-        name: 'vendors',
-        chunks: 'all'
-      }
-    }
+    chunks: 'all'
   }
 };
+
+const output = {
+  filename: 'app.js',
+  path: paths.dist
+};
+
+const plugins = [
+  new CleanWebpackPlugin(),
+  new HtmlWebpackPlugin({
+    template: path.join(paths.source, 'index.html'),
+    title: 'React/Redux Chatroom'
+  })
+];
 
 if (!devMode) {
   plugins.push(
@@ -104,7 +105,8 @@ if (!devMode) {
 
 const resolve = {
   extensions: ['.jsx', '.js'],
-  modules: ['node_modules', 'src/ui', 'src/ui/components']
+  modules: ['node_modules', 'src/ui', 'src/ui/components'],
+  symlinks: false
 };
 
 module.exports = {

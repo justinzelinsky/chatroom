@@ -1,4 +1,4 @@
-import { func, bool } from 'prop-types';
+import { bool, elementType } from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
@@ -21,7 +21,7 @@ const UnprotectedRoute = ({
 );
 
 UnprotectedRoute.propTypes = {
-  component: func.isRequired,
+  component: elementType.isRequired,
   isAuthenticated: bool.isRequired
 };
 

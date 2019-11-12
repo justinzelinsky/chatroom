@@ -4,7 +4,7 @@
     [
       "react-css-modules",
       {
-        "generateScopedName": "[name]__[local]:[hash:base64:5]",
+        "generateScopedName": "[name]-[local]-[hash:base64:6]",
         "filetypes": {
           ".scss": {
             "syntax": "postcss-scss"
