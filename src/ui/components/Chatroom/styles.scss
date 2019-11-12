@@ -1,13 +1,14 @@
 .chatroom {
+  padding: 0;
+
   .chats {
     height: 90vh;
     overflow-y: scroll;
     padding-top: 10px;
     margin-bottom: 0;
 
-    @include tablet {
+    @include mobile {
       height: 80vh;
-      margin-top: 10px;
     }
 
     .no-chats {
@@ -21,7 +22,7 @@
   }
 
   .users-in-chat-label {
-    margin: 10px 0;
+    margin: 10px;
   }
 
   .user-in-chat {

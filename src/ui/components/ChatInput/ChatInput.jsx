@@ -1,14 +1,14 @@
 import './styles.scss';
 
 import dayjs from 'dayjs';
-import { Button, Container, Form, Row, Col } from 'react-bootstrap';
 import { object, string } from 'prop-types';
 import React, { useState } from 'react';
+import { Button, Container, Form, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
+import LogoutButton from 'components/LogoutButton';
 import mapDispatchToProps from 'state/mapDispatchToProps';
 import { getCurrentUserName } from 'state/selectors';
-import { emitNewChat } from 'utils/socket';
 
 const ChatInput = ({ actions, username }) => {
   const [message, setMessage] = useState('');
@@ -19,7 +19,6 @@ const ChatInput = ({ actions, username }) => {
     if (message) {
       const ts = dayjs().format('HH:mm');
       actions.addChat(message, ts, username);
-      emitNewChat({ message, ts, username });
       setMessage('');
     }
   };
@@ -37,21 +36,17 @@ const ChatInput = ({ actions, username }) => {
 
   const handleSendClick = () => sendMessage();
 
-  const handleLogout = () => actions.logout();
-
   return (
     <Container fluid={true} styleName="chat-input-container">
-      <Row>
+      <Row noGutters={true}>
         <Col>
           <Form onSubmit={handleOnSubmit}>
             <Form.Group as={Row} controlId="message">
               <Form.Label column={true} styleName="username-display" sm={2}>
                 {username}
-                <a onClick={handleLogout} styleName="logout-link">
-                  (logout)
-                </a>
+                <LogoutButton />
               </Form.Label>
-              <Col sm={8}>
+              <Col>
                 <Form.Control
                   autoFocus={true}
                   onChange={onChange}

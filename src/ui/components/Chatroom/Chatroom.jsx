@@ -13,7 +13,6 @@ import {
   subscribeToChatEvents,
   subscribeToUserEvents,
   subscribeToAdminChatEvents,
-  emitAddedUser,
   closeSocket
 } from 'utils/socket';
 
@@ -21,10 +20,9 @@ const Chatroom = ({ activeUsers, actions, chats, username }) => {
   const chatEndRef = useRef(null);
 
   useEffect(() => {
-    emitAddedUser(username);
     subscribeToChatEvents(chat => {
       const { username, message, ts } = chat;
-      actions.addChat(message, ts, username);
+      actions.addChat(message, ts, username, false);
     });
     subscribeToAdminChatEvents(chat => {
       const { username, message, ts } = chat;
@@ -41,7 +39,7 @@ const Chatroom = ({ activeUsers, actions, chats, username }) => {
 
   return (
     <Container fluid={true} styleName="chatroom">
-      <Row>
+      <Row noGutters={true}>
         <Col md={2} className="d-none d-sm-block">
           <div styleName="users-in-chat-label">Users in the chat:</div>
           {activeUsers.map((user, idx) => (
@@ -62,7 +60,7 @@ const Chatroom = ({ activeUsers, actions, chats, username }) => {
           </Jumbotron>
         </Col>
       </Row>
-      <Row>
+      <Row noGutters={true}>
         <ChatInput />
       </Row>
     </Container>

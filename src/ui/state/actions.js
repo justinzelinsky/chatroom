@@ -7,9 +7,10 @@ export const updateActiveUsers = usernames => ({
 });
 
 export const ADD_CHAT = 'ADD_CHAT';
-export const addChat = (message, ts, username) => ({
+export const addChat = (message, ts, username, isLocalMessage = true) => ({
   type: ADD_CHAT,
   payload: {
+    isLocalMessage,
     chat: {
       isAdminMessage: false,
       message,

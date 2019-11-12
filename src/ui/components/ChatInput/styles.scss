@@ -1,9 +1,11 @@
 .chat-input-container {
-  height: 45px;
   border-top: 1px solid black;
+  border-radius: 5px;
+  height: 100%;
   padding-top: 10px;
 
-  @include tablet {
+  @include mobile {
+    padding-top: 0;
   }
 
   .username-display {
@@ -11,15 +13,9 @@
     font-weight: bold;
   }
 
-  .logout-link {
-    font-weight: normal;
-    font-size: 12px;
-    margin-left: 15px;
-  }
-
   .send-button {
     @include mobile {
-      margin-top: 20px;
+      margin-top: 10px;
     }
   }
 }
