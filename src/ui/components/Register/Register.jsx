@@ -1,4 +1,4 @@
-import '../styles.scss';
+import './styles.scss';
 
 import {
   Button,
@@ -131,7 +131,4 @@ const mapStateToProps = state => ({
   password2Error: getPassword2Error(state)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

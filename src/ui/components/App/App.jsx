@@ -1,11 +1,11 @@
 import React from 'react';
 import { Redirect, Switch } from 'react-router-dom';
 
-import Chatroom from 'components/Chatroom/Chatroom';
-import Login from 'components/Login/Login';
-import ProtectedRoute from 'components/Routes/ProtectedRoute';
-import Register from 'components/Login/Register';
-import UnprotectedRoute from 'components/Routes/UnprotectedRoute';
+import Chatroom from 'components/Chatroom';
+import Login from 'components/Login';
+import ProtectedRoute from 'components/ProtectedRoute';
+import Register from 'components/Register';
+import UnprotectedRoute from 'components/UnprotectedRoute';
 
 const App = () => (
   <Switch>

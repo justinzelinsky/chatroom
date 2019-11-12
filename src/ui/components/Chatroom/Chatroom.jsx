@@ -5,8 +5,8 @@ import { array, object, string } from 'prop-types';
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 
-import ChatInput from 'components/Chatroom/ChatInput';
-import ChatMessage from 'components/Chatroom/ChatMessage';
+import ChatInput from 'components/ChatInput';
+import ChatMessage from 'components/ChatMessage';
 import mapDispatchToProps from 'state/mapDispatchToProps';
 import { getCurrentUserName } from 'state/selectors';
 import {
@@ -15,7 +15,7 @@ import {
   subscribeToAdminChatEvents,
   emitAddedUser,
   closeSocket
-} from 'utils/Socket';
+} from 'utils/socket';
 
 const Chatroom = ({ activeUsers, actions, chats, username }) => {
   const chatEndRef = useRef(null);
@@ -82,7 +82,4 @@ const mapStateToProps = state => ({
   username: getCurrentUserName(state)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Chatroom);
+export default connect(mapStateToProps, mapDispatchToProps)(Chatroom);

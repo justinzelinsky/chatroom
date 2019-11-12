@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 import mapDispatchToProps from 'state/mapDispatchToProps';
 import { getCurrentUserName } from 'state/selectors';
-import { emitNewChat } from 'utils/Socket';
+import { emitNewChat } from 'utils/socket';
 
 const ChatInput = ({ actions, username }) => {
   const [message, setMessage] = useState('');
@@ -65,7 +65,8 @@ const ChatInput = ({ actions, username }) => {
                   styleName="send-button"
                   variant="primary"
                   onClick={handleSendClick}
-                  block={true}>
+                  block={true}
+                >
                   Send
                 </Button>
               </Col>
@@ -86,7 +87,4 @@ const mapStateToProps = state => ({
   username: getCurrentUserName(state)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChatInput);
+export default connect(mapStateToProps, mapDispatchToProps)(ChatInput);
