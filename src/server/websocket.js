@@ -9,15 +9,15 @@ const initializeWebsocketServer = io => {
   const USER_LEFT = 'user left';
   const ADD_USER = 'add user';
 
-  io.on('connection', function(socket) {
+  io.on('connection', socket => {
     let addedUser = false;
 
-    socket.on(NEW_CHAT, function(chat) {
-      socket.broadcast.emit(NEW_CHAT, chat);
-    });
+    socket.on(NEW_CHAT, chat => socket.broadcast.emit(NEW_CHAT, chat));
 
-    socket.on(ADD_USER, function(username) {
-      if (addedUser) return;
+    socket.on(ADD_USER, username => {
+      if (addedUser) {
+        return;
+      }
 
       socket.username = username;
       connectedUsers.push(username);
@@ -25,14 +25,12 @@ const initializeWebsocketServer = io => {
 
       io.emit(USER_JOINED, connectedUsers);
 
-      const userHasJoinedChat = {
+      socket.broadcast.emit(NEW_ADMIN_CHAT, {
         isAdminMessage: true,
         username: 'Admin',
         ts: dayjs().format('HH:mm'),
         message: `${socket.username} has joined the chat`
-      };
-
-      socket.broadcast.emit(NEW_ADMIN_CHAT, userHasJoinedChat);
+      });
     });
 
     socket.on('disconnect', function() {
@@ -41,14 +39,12 @@ const initializeWebsocketServer = io => {
 
         io.emit(USER_LEFT, connectedUsers);
 
-        const userHasLeftChat = {
+        socket.broadcast.emit(NEW_ADMIN_CHAT, {
           isAdminMessage: true,
           username: 'Admin',
           ts: dayjs().format('HH:mm'),
           message: `${socket.username} has left the chat`
-        };
-
-        socket.broadcast.emit(NEW_ADMIN_CHAT, userHasLeftChat);
+        });
       }
     });
   });
