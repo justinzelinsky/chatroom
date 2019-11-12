@@ -11,12 +11,10 @@ export const addChat = (message, ts, username, isLocalMessage = true) => ({
   type: ADD_CHAT,
   payload: {
     isLocalMessage,
-    chat: {
-      isAdminMessage: false,
-      message,
-      ts,
-      username
-    }
+    isAdminMessage: false,
+    message,
+    ts,
+    username
   }
 });
 
@@ -24,12 +22,10 @@ export const ADD_ADMIN_CHAT = 'ADD_ADMIN_CHAT';
 export const addAdminChat = (message, ts, username) => ({
   type: ADD_ADMIN_CHAT,
   payload: {
-    chat: {
-      isAdminMessage: true,
-      message,
-      ts,
-      username
-    }
+    isAdminMessage: true,
+    message,
+    ts,
+    username
   }
 });
 
@@ -80,13 +76,13 @@ export const hasErrors = errors => ({
 });
 
 export default {
-  addChat,
   addAdminChat,
-  updateActiveUsers,
+  addChat,
+  hasErrors,
   login,
   logout,
   register,
   setCurrentUser,
-  hasErrors,
-  trySecret
+  trySecret,
+  updateActiveUsers
 };

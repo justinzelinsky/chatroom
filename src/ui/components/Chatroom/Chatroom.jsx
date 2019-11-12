@@ -1,37 +1,22 @@
 import './styles.scss';
 
 import { Container, Jumbotron, Row, Col } from 'react-bootstrap';
-import { array, object, string } from 'prop-types';
+import { array } from 'prop-types';
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import ChatInput from 'components/ChatInput';
 import ChatMessage from 'components/ChatMessage';
 import mapDispatchToProps from 'state/mapDispatchToProps';
-import { getCurrentUserName } from 'state/selectors';
-import {
-  subscribeToChatEvents,
-  subscribeToUserEvents,
-  subscribeToAdminChatEvents,
-  closeSocket
-} from 'utils/socket';
+import useSockets from 'utils/useSockets';
 
-const Chatroom = ({ activeUsers, actions, chats, username }) => {
+const Chatroom = ({ activeUsers, chats }) => {
   const chatEndRef = useRef(null);
+  const handleClose = useSockets();
 
   useEffect(() => {
-    subscribeToChatEvents(chat => {
-      const { username, message, ts } = chat;
-      actions.addChat(message, ts, username, false);
-    });
-    subscribeToAdminChatEvents(chat => {
-      const { username, message, ts } = chat;
-      actions.addAdminChat(message, ts, username);
-    });
-    subscribeToUserEvents(usernames => actions.updateActiveUsers(usernames));
-
-    return () => closeSocket();
-  }, [username]);
+    return handleClose;
+  }, []);
 
   useEffect(() => {
     chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -69,15 +54,12 @@ const Chatroom = ({ activeUsers, actions, chats, username }) => {
 
 Chatroom.propTypes = {
   activeUsers: array.isRequired,
-  actions: object.isRequired,
-  chats: array.isRequired,
-  username: string.isRequired
+  chats: array.isRequired
 };
 
 const mapStateToProps = state => ({
   activeUsers: state.activeUsers,
-  chats: state.chats,
-  username: getCurrentUserName(state)
+  chats: state.chats
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chatroom);

@@ -65,11 +65,10 @@ export const errors = (state = errorsInitialState, action) => {
 export const chatsInitialState = [];
 export const chats = (state = chatsInitialState, action) => {
   if (action.type === ADD_CHAT || action.type === ADD_ADMIN_CHAT) {
-    const { chat } = action.payload;
     return [
       ...state,
       {
-        ...chat
+        ...action.payload
       }
     ];
   }
