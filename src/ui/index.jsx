@@ -1,5 +1,6 @@
 import './styles/globals.scss';
 
+import 'regenerator-runtime/runtime';
 import { ConnectedRouter } from 'connected-react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';

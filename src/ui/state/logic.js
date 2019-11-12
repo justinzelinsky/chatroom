@@ -11,32 +11,30 @@ import {
   SECRET,
   setCurrentUser
 } from 'state/actions';
-import setAuthToken from 'utils/setAuthToken';
 
 const loginLogic = createLogic({
   type: LOGIN,
-  process({ action, axios }, dispatch, done) {
+  process({ action, post, setAuthToken }, dispatch, done) {
     const body = {
       ...action.payload
     };
-    axios
-      .post('api/users/login', body)
-      .then(res => {
-        const { token } = res.data;
+    post('api/users/login', body)
+      .then(resp => resp.json())
+      .then(({ token }) => {
         localStorage.setItem('jwtToken', token);
         setAuthToken(token);
         const user = jwt_decode(token);
         dispatch(setCurrentUser(user));
       })
-      .catch(err => dispatch(hasErrors(err.response.data)))
+      .catch(err => dispatch(hasErrors(err)))
       .finally(() => done());
   }
 });
 
 const logoutLogic = createLogic({
   type: LOGOUT,
-  process({ axios }, dispatch, done) {
-    axios.get('api/users/logout').then(() => {
+  process({ get, setAuthToken }, dispatch, done) {
+    get('api/users/logout').then(() => {
       localStorage.removeItem('jwtToken');
       setAuthToken(false);
       dispatch(setCurrentUser({}));
@@ -47,12 +45,11 @@ const logoutLogic = createLogic({
 
 const registerLogic = createLogic({
   type: REGISTER,
-  process({ action, axios, history }, dispatch, done) {
+  process({ action, post, history }, dispatch, done) {
     const body = {
       ...action.payload
     };
-    axios
-      .post('/api/users/register', body)
+    post('/api/users/register', body)
       .then(() => history.push('/login'))
       .catch(err => dispatch(hasErrors(err.response.data)))
       .finally(() => done());
@@ -61,9 +58,8 @@ const registerLogic = createLogic({
 
 const secretLogic = createLogic({
   type: SECRET,
-  process({ axios }, dispatch, done) {
-    axios
-      .get('/secret')
+  process({ get }, dispatch, done) {
+    get('/secret')
       .then(res => console.log(res.data)) // eslint-disable-line
       .catch(error => console.log(error.data)) // eslint-disable-line
       .finally(() => done());
