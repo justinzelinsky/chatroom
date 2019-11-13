@@ -22,6 +22,11 @@
     &::after {
       content: ':';
     }
+
+    @include phone {
+      text-align: left;
+      width: 100%;
+    }
   }
 
   input {

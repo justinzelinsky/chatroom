@@ -26,7 +26,7 @@ const Chatroom = ({ activeUsers, chats }) => {
   return (
     <Container fluid={true} styleName="chatroom">
       <Row noGutters={true}>
-        <Col md={2} className="d-none d-sm-block">
+        <Col md={1} className="d-none d-sm-block">
           <ActiveUsers activeUsers={activeUsers} />
         </Col>
         <Col>

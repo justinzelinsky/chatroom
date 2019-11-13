@@ -5,7 +5,7 @@ import React from 'react';
 
 const ActiveUsers = ({ activeUsers }) => (
   <div styleName="active-users">
-    <div styleName="header">Users in the chat:</div>
+    <div styleName="header">Active Users:</div>
     {activeUsers.map((user, idx) => (
       <div styleName="user-in-chat" key={idx}>
         {user}

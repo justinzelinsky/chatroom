@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import LogoutButton from 'components/LogoutButton';
 import mapDispatchToProps from 'state/mapDispatchToProps';
 import { getCurrentUserName } from 'state/selectors';
 
@@ -39,7 +38,6 @@ const ChatInput = ({ actions, username }) => {
   return (
     <Form onSubmit={handleOnSubmit}>
       <Form.Group controlId="message" styleName="chat-input-container">
-        <LogoutButton />
         <Form.Label styleName="username-display">{username}</Form.Label>
         <Form.Control
           autoFocus={true}
@@ -52,50 +50,12 @@ const ChatInput = ({ actions, username }) => {
           styleName="send-button"
           variant="primary"
           onClick={handleSendClick}
-          block={true}
-        >
+          block={true}>
           Send
         </Button>
       </Form.Group>
     </Form>
   );
-
-  /*return (
-    <Container fluid={true} styleName="chat-input-container">
-      <Row noGutters={true}>
-        <Col>
-          <Form onSubmit={handleOnSubmit}>
-            <Form.Group as={Row} controlId="message">
-              <Form.Label column={true} styleName="username-display" sm={2}>
-                {username}
-                <LogoutButton />
-              </Form.Label>
-              <Col>
-                <Form.Control
-                  autoFocus={true}
-                  onChange={onChange}
-                  onKeyPress={onKeyPress}
-                  type="text"
-                  value={message}
-                />
-              </Col>
-              <Col sm={2}>
-                <Button
-                  styleName="send-button"
-                  variant="primary"
-                  onClick={handleSendClick}
-                  block={true}
-                >
-                  Send
-                </Button>
-              </Col>
-            </Form.Group>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
-  );
-  */
 };
 
 ChatInput.propTypes = {

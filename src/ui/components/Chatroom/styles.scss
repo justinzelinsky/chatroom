@@ -3,13 +3,13 @@
 
   .chats {
     background-color: #add8e6;
-    height: calc(100vh - 75px);
+    height: calc(100vh - 75px - 56px);
     overflow-y: scroll;
     padding: 0;
     padding: 10px 10px 0 10px;
 
     @include phone {
-      height: calc(100vh - 132px);
+      height: calc(100vh - 132px - 56px);
     }
 
     .no-chats {
