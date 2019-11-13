@@ -33,20 +33,21 @@ const Chatroom = ({ chats, darkMode }) => {
           <ActiveUsers />
         </Col>
         <Col>
-          <Container fluid={true} styleName={chatsClassname}>
-            {chats.length === 0 && <div styleName="no-chats">No Chats!</div>}
-            <ListGroup>
-              {chats.map((chat, idx) => (
-                <ChatMessage
-                  chat={chat}
-                  darkMode={darkMode}
-                  index={idx}
-                  key={idx}
-                />
-              ))}
-            </ListGroup>
-            <div styleName="chat-end" ref={chatEndRef} />
-          </Container>
+          <ListGroup styleName={chatsClassname}>
+            {chats.length === 0 && (
+              <ChatMessage darkMode={darkMode} noChats={true} />
+            )}
+
+            {chats.map((chat, idx) => (
+              <ChatMessage
+                chat={chat}
+                darkMode={darkMode}
+                index={idx}
+                key={idx}
+              />
+            ))}
+          </ListGroup>
+          <div styleName="chat-end" ref={chatEndRef} />
         </Col>
       </Row>
       <Row noGutters={true}>

@@ -5,9 +5,9 @@ import { bool, shape, string, number } from 'prop-types';
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 
-const ChatMessage = ({ chat, darkMode, index }) => {
+const ChatMessage = ({ chat, darkMode, index, noChats }) => {
   const chatStyleName = classnames('chat-message', {
-    'admin-message': chat.isAdminMessage
+    'admin-message': chat && chat.isAdminMessage
   });
 
   let chatVariant;
@@ -16,6 +16,14 @@ const ChatMessage = ({ chat, darkMode, index }) => {
     chatVariant = index % 2 ? 'primary' : 'info';
   } else {
     chatVariant = index % 2 ? 'light' : 'dark';
+  }
+
+  if (noChats) {
+    return (
+      <ListGroup.Item styleName="chat" variant={chatVariant}>
+        No chats!
+      </ListGroup.Item>
+    );
   }
 
   return (
@@ -33,9 +41,14 @@ ChatMessage.propTypes = {
     message: string.isRequired,
     ts: string.isRequired,
     username: string.isRequired
-  }).isRequired,
+  }),
   darkMode: bool.isRequired,
-  index: number.isRequired
+  index: number,
+  noChats: bool.isRequired
+};
+
+ChatMessage.defaultProps = {
+  noChats: false
 };
 
 export default ChatMessage;
