@@ -75,6 +75,14 @@ export const hasErrors = errors => ({
   }
 });
 
+export const SET_DARK_MODE = 'SET_DARK_MODE';
+export const setDarkMode = isDarkMode => ({
+  type: SET_DARK_MODE,
+  payload: {
+    isDarkMode
+  }
+});
+
 export default {
   addAdminChat,
   addChat,
@@ -83,6 +91,7 @@ export default {
   logout,
   register,
   setCurrentUser,
+  setDarkMode,
   trySecret,
   updateActiveUsers
 };

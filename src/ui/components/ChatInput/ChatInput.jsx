@@ -1,7 +1,8 @@
 import './styles.scss';
 
+import classnames from 'classnames';
 import dayjs from 'dayjs';
-import { object, string } from 'prop-types';
+import { object, string, bool } from 'prop-types';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -9,7 +10,7 @@ import { connect } from 'react-redux';
 import mapDispatchToProps from 'state/mapDispatchToProps';
 import { getCurrentUserName } from 'state/selectors';
 
-const ChatInput = ({ actions, username }) => {
+const ChatInput = ({ actions, darkMode, username }) => {
   const [message, setMessage] = useState('');
 
   const onChange = event => setMessage(event.target.value);
@@ -35,9 +36,15 @@ const ChatInput = ({ actions, username }) => {
 
   const handleSendClick = () => sendMessage();
 
+  const buttonVariant = darkMode ? 'dark' : 'light';
+
+  const chatInputClassname = classnames('chat-input-container', {
+    'dark-mode': darkMode
+  });
+
   return (
     <Form onSubmit={handleOnSubmit}>
-      <Form.Group controlId="message" styleName="chat-input-container">
+      <Form.Group controlId="message" styleName={chatInputClassname}>
         <Form.Label styleName="username-display">{username}</Form.Label>
         <Form.Control
           autoFocus={true}
@@ -48,7 +55,7 @@ const ChatInput = ({ actions, username }) => {
         />
         <Button
           styleName="send-button"
-          variant="primary"
+          variant={buttonVariant}
           onClick={handleSendClick}
           block={true}>
           Send
@@ -60,10 +67,12 @@ const ChatInput = ({ actions, username }) => {
 
 ChatInput.propTypes = {
   actions: object.isRequired,
+  darkMode: bool.isRequired,
   username: string.isRequired
 };
 
 const mapStateToProps = state => ({
+  darkMode: state.darkMode,
   username: getCurrentUserName(state)
 });
 

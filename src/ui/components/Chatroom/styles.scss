@@ -8,6 +8,10 @@
     padding: 0;
     padding: 10px 10px 0 10px;
 
+    &.dark-mode {
+      background-color: #343a67;
+    }
+
     @include phone {
       height: calc(100vh - 132px - 56px);
     }

@@ -7,6 +7,7 @@ import {
   ADD_ADMIN_CHAT,
   UPDATE_ACTIVE_USERS,
   SET_CURRENT_USER,
+  SET_DARK_MODE,
   HAS_ERRORS
 } from 'state/actions';
 
@@ -76,11 +77,20 @@ export const chats = (state = chatsInitialState, action) => {
   return state;
 };
 
+export const darkModeInitialState = false;
+export const darkMode = (state = darkModeInitialState, action) => {
+  if (action.type === SET_DARK_MODE) {
+    return action.payload.isDarkMode;
+  }
+  return state;
+};
+
 export default history =>
   combineReducers({
     activeUsers,
     chats,
     currentUser,
+    darkMode,
     isAuthenticated,
     errors,
     router: connectRouter(history)

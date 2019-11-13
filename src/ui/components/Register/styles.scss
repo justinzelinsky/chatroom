@@ -2,10 +2,17 @@
   margin: 0;
   width: 50%;
 
+  &.dark-mode {
+    background-color: #343a40;
+
+    input {
+      background-color: #000000;
+      border: #bd93f9;
+      color: #ffffff;
+    }
+  }
+
   @include phone {
-    position: fixed;
-    top: 50%;
-    transform: translate(0, -50%);
     width: 100%;
   }
 

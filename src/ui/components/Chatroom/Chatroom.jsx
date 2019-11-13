@@ -1,6 +1,7 @@
 import './styles.scss';
 
-import { array } from 'prop-types';
+import classnames from 'classnames';
+import { array, bool } from 'prop-types';
 import React, { useEffect, useRef } from 'react';
 import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -11,7 +12,7 @@ import ChatMessage from 'components/ChatMessage';
 import mapDispatchToProps from 'state/mapDispatchToProps';
 import useSockets from 'utils/useSockets';
 
-const Chatroom = ({ activeUsers, chats }) => {
+const Chatroom = ({ activeUsers, chats, darkMode }) => {
   const chatEndRef = useRef(null);
   const handleClose = useSockets();
 
@@ -23,6 +24,8 @@ const Chatroom = ({ activeUsers, chats }) => {
     chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
   }, [chats]);
 
+  const chatsClassname = classnames('chats', { 'dark-mode': darkMode });
+
   return (
     <Container fluid={true} styleName="chatroom">
       <Row noGutters={true}>
@@ -30,11 +33,16 @@ const Chatroom = ({ activeUsers, chats }) => {
           <ActiveUsers activeUsers={activeUsers} />
         </Col>
         <Col>
-          <Container fluid={true} styleName="chats">
+          <Container fluid={true} styleName={chatsClassname}>
             {chats.length === 0 && <div styleName="no-chats">No Chats!</div>}
             <ListGroup>
               {chats.map((chat, idx) => (
-                <ChatMessage chat={chat} index={idx} key={idx} />
+                <ChatMessage
+                  chat={chat}
+                  darkMode={darkMode}
+                  index={idx}
+                  key={idx}
+                />
               ))}
             </ListGroup>
             <div styleName="chat-end" ref={chatEndRef} />
@@ -52,12 +60,14 @@ const Chatroom = ({ activeUsers, chats }) => {
 
 Chatroom.propTypes = {
   activeUsers: array.isRequired,
-  chats: array.isRequired
+  chats: array.isRequired,
+  darkMode: bool.isRequired
 };
 
 const mapStateToProps = state => ({
   activeUsers: state.activeUsers,
-  chats: state.chats
+  chats: state.chats,
+  darkMode: state.darkMode
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chatroom);

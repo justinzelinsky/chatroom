@@ -4,9 +4,10 @@ import { Nav, Navbar } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import AboutModal from 'components/AboutModal';
+import ThemeToggle from 'components/ThemeToggle';
 import mapDispatchToProps from 'state/mapDispatchToProps';
 
-const Navigation = ({ actions, isAuthenticated }) => {
+const Navigation = ({ actions, darkMode, isAuthenticated }) => {
   const [showModal, setShowModal] = useState(false);
   const [expandMenu, setExpandMenu] = useState(false);
 
@@ -21,18 +22,22 @@ const Navigation = ({ actions, isAuthenticated }) => {
   };
   const handleMenuToggle = () => setExpandMenu(!expandMenu);
 
+  const variant = darkMode ? 'dark' : 'light';
+
   return (
     <Fragment>
       <Navbar
-        bg="light"
+        bg={variant}
         defaultExpanded={false}
         expand="lg"
         expanded={expandMenu}
         onToggle={handleMenuToggle}
-        stick={'top'}>
+        stick={'top'}
+        variant={variant}>
         <Navbar.Brand>React-Redux Chatroom</Navbar.Brand>
         <Navbar.Toggle aria-controls="chatroom-navbar-nav" />
         <Navbar.Collapse id="chatroom-navbar-nav">
+          <ThemeToggle />
           <Nav>
             <Nav.Link onClick={showAboutModal}>About</Nav.Link>
             {isAuthenticated && (
@@ -41,17 +46,23 @@ const Navigation = ({ actions, isAuthenticated }) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <AboutModal show={showModal} handleClose={hideAboutModal} />
+      <AboutModal
+        darkMode={darkMode}
+        show={showModal}
+        handleClose={hideAboutModal}
+      />
     </Fragment>
   );
 };
 
 Navigation.propTypes = {
   actions: object.isRequired,
+  darkMode: bool.isRequired,
   isAuthenticated: bool.isRequired
 };
 
 const mapStateToProps = state => ({
+  darkMode: state.darkMode,
   isAuthenticated: state.isAuthenticated
 });
 

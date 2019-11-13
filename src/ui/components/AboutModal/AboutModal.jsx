@@ -1,9 +1,15 @@
+import './style.scss';
+
+import classnames from 'classnames';
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { bool, func } from 'prop-types';
 
-const AboutModal = ({ show, handleClose }) => (
-  <Modal show={show} onHide={handleClose}>
+const AboutModal = ({ darkMode, show, handleClose }) => (
+  <Modal
+    styleName={classnames('about-modal', { 'dark-mode': darkMode })}
+    show={show}
+    onHide={handleClose}>
     <Modal.Header closeButton>
       <Modal.Title>About React-Redux Chatroom</Modal.Title>
     </Modal.Header>
@@ -14,6 +20,7 @@ const AboutModal = ({ show, handleClose }) => (
 );
 
 AboutModal.propTypes = {
+  darkMode: bool.isRequired,
   show: bool.isRequired,
   handleClose: func.isRequired
 };

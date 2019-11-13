@@ -3,6 +3,11 @@ body {
   padding: 0;
 }
 
+body:global(.dark-mode) {
+  background-color: #232323;
+  color: #dfdfdf;
+}
+
 a {
   color: blue;
   text-decoration: underline;

@@ -1,5 +1,6 @@
 import './styles.scss';
 
+import classnames from 'classnames';
 import {
   Button,
   ButtonToolbar,
@@ -8,7 +9,7 @@ import {
   Jumbotron,
   Row
 } from 'react-bootstrap';
-import { string, object } from 'prop-types';
+import { bool, object, string } from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -23,6 +24,7 @@ import {
 
 const Register = ({
   actions,
+  darkMode,
   emailError,
   nameError,
   passwordError,
@@ -47,10 +49,17 @@ const Register = ({
     }
   };
 
+  const registerClassname = classnames('login-container', {
+    'dark-mode': darkMode
+  });
+
   return (
-    <Jumbotron styleName="login-container">
+    <Jumbotron styleName={registerClassname}>
       <h1 styleName="login-header">Register</h1>
-      <Form styleName="login-form" onSubmit={handleOnSubmit}>
+      <Form
+        autoComplete={'off'}
+        styleName="login-form"
+        onSubmit={handleOnSubmit}>
         <Form.Group as={Row} controlId="name">
           <Form.Label column={true} xs={4}>
             Name
@@ -114,6 +123,7 @@ const Register = ({
 
 Register.propTypes = {
   actions: object.isRequired,
+  darkMode: bool.isRequired,
   emailError: string,
   nameError: string,
   passwordError: string,
@@ -121,6 +131,7 @@ Register.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  darkMode: state.darkMode,
   emailError: getEmailError(state),
   nameError: getNameError(state),
   passwordError: getPasswordError(state),

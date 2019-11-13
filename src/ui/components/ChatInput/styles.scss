@@ -38,6 +38,14 @@
     }
   }
 
+  &.dark-mode {
+    input {
+      background-color: #000000;
+      border: #bd93f9;
+      color: #ffffff;
+    }
+  }
+
   .send-button {
     margin: 5px;
     width: 130px;

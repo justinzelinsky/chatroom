@@ -1,5 +1,6 @@
 import './styles.scss';
 
+import classnames from 'classnames';
 import {
   Button,
   ButtonToolbar,
@@ -8,7 +9,7 @@ import {
   Jumbotron,
   Row
 } from 'react-bootstrap';
-import { object, string } from 'prop-types';
+import { object, string, bool } from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -16,7 +17,7 @@ import { Link } from 'react-router-dom';
 import mapDispatchToProps from 'state/mapDispatchToProps';
 import { getEmailError, getPasswordError } from 'state/selectors';
 
-const Login = ({ actions, emailError, passwordError }) => {
+const Login = ({ actions, darkMode, emailError, passwordError }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -32,10 +33,17 @@ const Login = ({ actions, emailError, passwordError }) => {
     }
   };
 
+  const loginClassame = classnames('login-container', {
+    'dark-mode': darkMode
+  });
+
   return (
-    <Jumbotron styleName="login-container">
+    <Jumbotron styleName={loginClassame}>
       <h1 styleName="login-header">Login</h1>
-      <Form styleName="login-form" onSubmit={handleOnSubmit}>
+      <Form
+        autoComplete={'off'}
+        styleName="login-form"
+        onSubmit={handleOnSubmit}>
         <Form.Group as={Row} controlId="email">
           <Form.Label column={true} sm={3}>
             Email address
@@ -74,11 +82,13 @@ const Login = ({ actions, emailError, passwordError }) => {
 
 Login.propTypes = {
   actions: object.isRequired,
+  darkMode: bool.isRequired,
   emailError: string,
   passwordError: string
 };
 
 const mapStateToProps = state => ({
+  darkMode: state.darkMode,
   emailError: getEmailError(state),
   passwordError: getPasswordError(state)
 });
