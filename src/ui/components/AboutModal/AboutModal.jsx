@@ -7,9 +7,10 @@ import { bool, func } from 'prop-types';
 
 const AboutModal = ({ darkMode, show, handleClose }) => (
   <Modal
-    styleName={classnames('about-modal', { 'dark-mode': darkMode })}
+    centered={true}
     show={show}
-    onHide={handleClose}>
+    onHide={handleClose}
+    styleName={classnames('about-modal', { 'dark-mode': darkMode })}>
     <Modal.Header closeButton>
       <Modal.Title>About React-Redux Chatroom</Modal.Title>
     </Modal.Header>
