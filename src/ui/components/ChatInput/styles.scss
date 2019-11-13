@@ -1,21 +1,44 @@
 .chat-input-container {
+  align-items: center;
   border-top: 1px solid black;
   border-radius: 5px;
-  height: 100%;
+  display: flex;
   padding-top: 10px;
+  margin: 0;
+  height: 75px;
 
   @include mobile {
-    padding-top: 0;
+    height: 122px;
+    display: block;
+    padding: 0 10px;
   }
 
   .username-display {
+    margin: 5px;
     font-size: 16px;
     font-weight: bold;
+    width: 120px;
+    text-align: right;
+    &::after {
+      content: ':';
+    }
+  }
+
+  input {
+    flex: 1;
+    margin: 5px;
+
+    @include mobile {
+      margin: 0;
+    }
   }
 
   .send-button {
+    margin: 5px;
+    width: 130px;
     @include mobile {
-      margin-top: 10px;
+      margin: 10px 0 0 0;
+      width: 100%;
     }
   }
 }

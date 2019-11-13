@@ -3,7 +3,7 @@ import './styles.scss';
 import dayjs from 'dayjs';
 import { object, string } from 'prop-types';
 import React, { useState } from 'react';
-import { Button, Container, Form, Row, Col } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import LogoutButton from 'components/LogoutButton';
@@ -37,6 +37,30 @@ const ChatInput = ({ actions, username }) => {
   const handleSendClick = () => sendMessage();
 
   return (
+    <Form onSubmit={handleOnSubmit}>
+      <Form.Group controlId="message" styleName="chat-input-container">
+        <LogoutButton />
+        <Form.Label styleName="username-display">{username}</Form.Label>
+        <Form.Control
+          autoFocus={true}
+          onChange={onChange}
+          onKeyPress={onKeyPress}
+          type="text"
+          value={message}
+        />
+        <Button
+          styleName="send-button"
+          variant="primary"
+          onClick={handleSendClick}
+          block={true}
+        >
+          Send
+        </Button>
+      </Form.Group>
+    </Form>
+  );
+
+  /*return (
     <Container fluid={true} styleName="chat-input-container">
       <Row noGutters={true}>
         <Col>
@@ -71,6 +95,7 @@ const ChatInput = ({ actions, username }) => {
       </Row>
     </Container>
   );
+  */
 };
 
 ChatInput.propTypes = {

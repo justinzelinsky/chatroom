@@ -1,10 +1,11 @@
 import './styles.scss';
 
-import { Container, Jumbotron, Row, Col } from 'react-bootstrap';
 import { array } from 'prop-types';
 import React, { useEffect, useRef } from 'react';
+import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
+import ActiveUsers from 'components/ActiveUsers';
 import ChatInput from 'components/ChatInput';
 import ChatMessage from 'components/ChatMessage';
 import mapDispatchToProps from 'state/mapDispatchToProps';
@@ -26,27 +27,24 @@ const Chatroom = ({ activeUsers, chats }) => {
     <Container fluid={true} styleName="chatroom">
       <Row noGutters={true}>
         <Col md={2} className="d-none d-sm-block">
-          <div styleName="users-in-chat-label">Users in the chat:</div>
-          {activeUsers.map((user, idx) => (
-            <div styleName="user-in-chat" key={idx}>
-              {user}
-            </div>
-          ))}
+          <ActiveUsers activeUsers={activeUsers} />
         </Col>
         <Col>
-          <Jumbotron fluid={true} styleName="chats">
-            <Container fluid={true}>
-              {chats.length === 0 && <div styleName="no-chats">No Chats!</div>}
+          <Container fluid={true} styleName="chats">
+            {chats.length === 0 && <div styleName="no-chats">No Chats!</div>}
+            <ListGroup>
               {chats.map((chat, idx) => (
-                <ChatMessage chat={chat} key={idx} />
+                <ChatMessage chat={chat} index={idx} key={idx} />
               ))}
-              <div styleName="chat-end" ref={chatEndRef} />
-            </Container>
-          </Jumbotron>
+            </ListGroup>
+            <div styleName="chat-end" ref={chatEndRef} />
+          </Container>
         </Col>
       </Row>
       <Row noGutters={true}>
-        <ChatInput />
+        <Col>
+          <ChatInput />
+        </Col>
       </Row>
     </Container>
   );
