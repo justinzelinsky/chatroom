@@ -37,13 +37,13 @@ const Navigation = ({ actions, darkMode, isAuthenticated }) => {
         <Navbar.Brand>React-Redux Chatroom</Navbar.Brand>
         <Navbar.Toggle aria-controls="chatroom-navbar-nav" />
         <Navbar.Collapse id="chatroom-navbar-nav">
-          <ThemeToggle />
-          <Nav>
+          <Nav className="mr-auto">
             <Nav.Link onClick={showAboutModal}>About</Nav.Link>
             {isAuthenticated && (
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
             )}
           </Nav>
+          <ThemeToggle />
         </Navbar.Collapse>
       </Navbar>
       <AboutModal

@@ -1,4 +1,4 @@
-import './styles.scss';
+import './style.scss';
 
 import classnames from 'classnames';
 import { bool, shape, string, number } from 'prop-types';

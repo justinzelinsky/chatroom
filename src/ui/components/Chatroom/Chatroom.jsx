@@ -1,4 +1,4 @@
-import './styles.scss';
+import './style.scss';
 
 import classnames from 'classnames';
 import { array, bool } from 'prop-types';

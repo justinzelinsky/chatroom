@@ -1,4 +1,4 @@
-import './styles.scss';
+import './style.scss';
 
 import classnames from 'classnames';
 import dayjs from 'dayjs';
