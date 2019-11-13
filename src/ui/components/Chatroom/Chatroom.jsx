@@ -12,7 +12,7 @@ import ChatMessage from 'components/ChatMessage';
 import mapDispatchToProps from 'state/mapDispatchToProps';
 import useSockets from 'utils/useSockets';
 
-const Chatroom = ({ activeUsers, chats, darkMode }) => {
+const Chatroom = ({ chats, darkMode }) => {
   const chatEndRef = useRef(null);
   const handleClose = useSockets();
 
@@ -30,7 +30,7 @@ const Chatroom = ({ activeUsers, chats, darkMode }) => {
     <Container fluid={true} styleName="chatroom">
       <Row noGutters={true}>
         <Col md={1} className="d-none d-sm-block">
-          <ActiveUsers activeUsers={activeUsers} />
+          <ActiveUsers />
         </Col>
         <Col>
           <Container fluid={true} styleName={chatsClassname}>
@@ -59,13 +59,11 @@ const Chatroom = ({ activeUsers, chats, darkMode }) => {
 };
 
 Chatroom.propTypes = {
-  activeUsers: array.isRequired,
   chats: array.isRequired,
   darkMode: bool.isRequired
 };
 
 const mapStateToProps = state => ({
-  activeUsers: state.activeUsers,
   chats: state.chats,
   darkMode: state.darkMode
 });

@@ -1,12 +1,15 @@
 .active-users {
   padding: 10px;
 
-  .header {
+  h3 {
     font-size: 18px;
     text-decoration: underline;
   }
 
-  .user-in-chat {
-    font-style: italic;
+  ol.user-list {
+    padding-inline-start: 15px;
+    li {
+      font-style: italic;
+    }
   }
 }

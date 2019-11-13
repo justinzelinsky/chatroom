@@ -2,20 +2,29 @@ import './style.scss';
 
 import { array } from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 
-const ActiveUsers = ({ activeUsers }) => (
+import { getActiveUserList } from 'state/selectors';
+
+const ActiveUsers = ({ activeUserList }) => (
   <div styleName="active-users">
-    <div styleName="header">Active Users:</div>
-    {activeUsers.map((user, idx) => (
-      <div styleName="user-in-chat" key={idx}>
-        {user}
-      </div>
-    ))}
+    <h3>Active Users:</h3>
+    <ol styleName="user-list">
+      {activeUserList.map(({ isSelf, name }, idx) => (
+        <li key={idx}>
+          {name} {isSelf && '(self)'}
+        </li>
+      ))}
+    </ol>
   </div>
 );
 
 ActiveUsers.propTypes = {
-  activeUsers: array.isRequired
+  activeUserList: array.isRequired
 };
 
-export default ActiveUsers;
+const mapStateToProps = state => ({
+  activeUserList: getActiveUserList(state)
+});
+
+export default connect(mapStateToProps)(ActiveUsers);

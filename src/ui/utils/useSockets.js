@@ -20,7 +20,7 @@ const useSockets = () => {
 
     openSocket();
 
-    emitAddedUser(currentUser.name);
+    emitAddedUser(currentUser);
 
     subscribeToChatEvents(chat => {
       const { username, message, ts } = chat;

@@ -14,13 +14,13 @@ const initializeWebsocketServer = io => {
 
     socket.on(NEW_CHAT, chat => socket.broadcast.emit(NEW_CHAT, chat));
 
-    socket.on(ADD_USER, username => {
+    socket.on(ADD_USER, user => {
       if (addedUser) {
         return;
       }
 
-      socket.username = username;
-      connectedUsers.push(username);
+      socket.username = user.name;
+      connectedUsers.push(user);
       addedUser = true;
 
       io.emit(USER_JOINED, connectedUsers);
