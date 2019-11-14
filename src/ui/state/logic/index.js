@@ -1,6 +1,6 @@
 import addChat from './addChat';
 import getMessages from './getMessages';
-import locationChange from './locationChange';
+import initialLoad from './initialLoad';
 import login from './login';
 import logout from './logout';
 import register from './register';
@@ -9,7 +9,7 @@ import secret from './secret';
 export default [
   addChat,
   getMessages,
-  locationChange,
+  initialLoad,
   login,
   logout,
   register,

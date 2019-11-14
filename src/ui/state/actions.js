@@ -96,6 +96,11 @@ export const receivedMessages = messages => ({
   }
 });
 
+export const PAGE_LOAD = 'PAGE_LOAD';
+export const pageLoad = () => ({
+  type: PAGE_LOAD
+});
+
 export default {
   addAdminChat,
   addChat,
@@ -103,6 +108,7 @@ export default {
   login,
   logout,
   receivedMessages,
+  pageLoad,
   register,
   requestMessages,
   setCurrentUser,
