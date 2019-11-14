@@ -1,5 +1,7 @@
 const dayjs = require('dayjs');
 
+const Message = require('./models/Message');
+
 const initializeWebsocketServer = io => {
   const connectedUsers = [];
 
@@ -12,14 +14,22 @@ const initializeWebsocketServer = io => {
   io.on('connection', socket => {
     let addedUser = false;
 
-    socket.on(NEW_CHAT, chat => socket.broadcast.emit(NEW_CHAT, chat));
+    socket.on(NEW_CHAT, chat => {
+      const message = new Message({
+        user: chat.user,
+        message: chat.message,
+        ts: chat.ts,
+        isAdminMessage: Boolean(chat.isAdminMessage)
+      });
+      message.save().then(() => socket.broadcast.emit(NEW_CHAT, chat));
+    });
 
     socket.on(ADD_USER, user => {
       if (addedUser) {
         return;
       }
 
-      socket.username = user.name;
+      socket.user = user;
       connectedUsers.push(user);
       addedUser = true;
 
@@ -29,7 +39,7 @@ const initializeWebsocketServer = io => {
         isAdminMessage: true,
         username: 'Admin',
         ts: dayjs().format('HH:mm'),
-        message: `${socket.username} has joined the chat`
+        message: `${socket.user.name} has joined the chat`
       });
     });
 

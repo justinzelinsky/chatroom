@@ -1,7 +1,8 @@
 import './style.scss';
 
+import dayjs from 'dayjs';
 import classnames from 'classnames';
-import { bool, shape, string, number } from 'prop-types';
+import { bool, shape, string, number, object } from 'prop-types';
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 
@@ -26,10 +27,12 @@ const ChatMessage = ({ chat, darkMode, index, noChats }) => {
     );
   }
 
+  const timestamp = dayjs(chat.ts).format('hh:mm');
+
   return (
     <ListGroup.Item styleName="chat" variant={chatVariant}>
-      <div styleName="timestamp">{chat.ts}</div>
-      <div styleName="username">{chat.username}</div>
+      <div styleName="timestamp">{timestamp}</div>
+      <div styleName="username">{chat.user.name}</div>
       <div styleName={chatStyleName}>{chat.message}</div>
     </ListGroup.Item>
   );
@@ -39,8 +42,8 @@ ChatMessage.propTypes = {
   chat: shape({
     isAdminMessage: bool.isRequired,
     message: string.isRequired,
-    ts: string.isRequired,
-    username: string.isRequired
+    ts: number.isRequired,
+    user: object.isRequired
   }),
   darkMode: bool.isRequired,
   index: number,

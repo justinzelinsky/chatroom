@@ -11,6 +11,7 @@ const passport = require('passport');
 const path = require('path');
 const User = require('./models/User');
 const users = require('./routes/api/users');
+const messages = require('./routes/api/messages');
 const session = require('express-session');
 const socketIO = require('socket.io');
 
@@ -53,6 +54,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use('/api/users', users);
+app.use('/api/messages', messages);
 
 const authMiddleware = (req, res, next) => {
   User.findById(req.session.userId).exec(function(error, user) {

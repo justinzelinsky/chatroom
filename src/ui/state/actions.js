@@ -7,25 +7,25 @@ export const updateActiveUsers = usernames => ({
 });
 
 export const ADD_CHAT = 'ADD_CHAT';
-export const addChat = (message, ts, username, isLocalMessage = true) => ({
+export const addChat = (message, ts, user, isLocalMessage = true) => ({
   type: ADD_CHAT,
   payload: {
     isLocalMessage,
     isAdminMessage: false,
     message,
     ts,
-    username
+    user
   }
 });
 
 export const ADD_ADMIN_CHAT = 'ADD_ADMIN_CHAT';
-export const addAdminChat = (message, ts, username) => ({
+export const addAdminChat = (message, ts, user) => ({
   type: ADD_ADMIN_CHAT,
   payload: {
     isAdminMessage: true,
     message,
     ts,
-    username
+    user
   }
 });
 
@@ -83,13 +83,28 @@ export const setDarkMode = isDarkMode => ({
   }
 });
 
+export const REQUEST_MESSAGES = 'REQUEST_MESSAGES';
+export const requestMessages = () => ({
+  type: REQUEST_MESSAGES
+});
+
+export const RECEIVED_MESSAGES = 'RECEIVED_MESSAGES';
+export const receivedMessages = messages => ({
+  type: RECEIVED_MESSAGES,
+  payload: {
+    messages
+  }
+});
+
 export default {
   addAdminChat,
   addChat,
   hasErrors,
   login,
   logout,
+  receivedMessages,
   register,
+  requestMessages,
   setCurrentUser,
   setDarkMode,
   trySecret,

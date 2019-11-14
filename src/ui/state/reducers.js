@@ -6,6 +6,7 @@ import {
   ADD_CHAT,
   ADD_ADMIN_CHAT,
   UPDATE_ACTIVE_USERS,
+  RECEIVED_MESSAGES,
   SET_CURRENT_USER,
   SET_DARK_MODE,
   HAS_ERRORS
@@ -72,6 +73,10 @@ export const chats = (state = chatsInitialState, action) => {
         ...action.payload
       }
     ];
+  }
+
+  if (action.type === RECEIVED_MESSAGES) {
+    return [...action.payload.messages];
   }
 
   return state;

@@ -1,7 +1,12 @@
 import jwt_decode from 'jwt-decode';
 import { createLogic } from 'redux-logic';
 
-import { hasErrors, LOGIN, setCurrentUser } from 'state/actions';
+import {
+  hasErrors,
+  LOGIN,
+  requestMessages,
+  setCurrentUser
+} from 'state/actions';
 
 const loginLogic = createLogic({
   type: LOGIN,
@@ -17,6 +22,7 @@ const loginLogic = createLogic({
 
         const user = jwt_decode(token);
         dispatch(setCurrentUser(user));
+        dispatch(requestMessages());
       })
       .catch(err => dispatch(hasErrors(err)))
       .finally(() => done());

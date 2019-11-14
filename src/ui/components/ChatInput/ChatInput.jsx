@@ -2,23 +2,22 @@ import './style.scss';
 
 import classnames from 'classnames';
 import dayjs from 'dayjs';
-import { object, string, bool } from 'prop-types';
+import { object, bool } from 'prop-types';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import mapDispatchToProps from 'state/mapDispatchToProps';
-import { getCurrentUserName } from 'state/selectors';
 
-const ChatInput = ({ actions, darkMode, username }) => {
+const ChatInput = ({ actions, darkMode, currentUser }) => {
   const [message, setMessage] = useState('');
 
   const onChange = event => setMessage(event.target.value);
 
   const sendMessage = () => {
     if (message) {
-      const ts = dayjs().format('HH:mm');
-      actions.addChat(message, ts, username);
+      const ts = dayjs().valueOf();
+      actions.addChat(message, ts, currentUser);
       setMessage('');
     }
   };
@@ -43,7 +42,7 @@ const ChatInput = ({ actions, darkMode, username }) => {
   return (
     <Form onSubmit={handleOnSubmit} styleName={chatInputClassname}>
       <Form.Group controlId="message" styleName="chat-input-group">
-        <Form.Label styleName="username-display">{username}</Form.Label>
+        <Form.Label styleName="username-display">{currentUser.name}</Form.Label>
         <Form.Control
           autoFocus={true}
           onChange={onChange}
@@ -65,13 +64,13 @@ const ChatInput = ({ actions, darkMode, username }) => {
 
 ChatInput.propTypes = {
   actions: object.isRequired,
-  darkMode: bool.isRequired,
-  username: string.isRequired
+  currentUser: object.isRequired,
+  darkMode: bool.isRequired
 };
 
 const mapStateToProps = state => ({
-  darkMode: state.darkMode,
-  username: getCurrentUserName(state)
+  currentUser: state.currentUser,
+  darkMode: state.darkMode
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatInput);
