@@ -68,10 +68,10 @@ const Login = ({ actions, darkMode, emailError, passwordError }) => {
           </Col>
         </Form.Group>
         <ButtonToolbar>
-          <Button disabled={disableButton} variant="primary" type="submit">
+          <Button disabled={disableButton} type="submit" variant="primary">
             Login
           </Button>
-          <Link to="register" className="btn btn-link">
+          <Link className="btn btn-link" to="register">
             Register
           </Link>
         </ButtonToolbar>

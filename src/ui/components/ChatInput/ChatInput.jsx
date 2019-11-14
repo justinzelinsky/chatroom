@@ -36,15 +36,13 @@ const ChatInput = ({ actions, darkMode, username }) => {
 
   const handleSendClick = () => sendMessage();
 
-  const buttonVariant = darkMode ? 'dark' : 'light';
-
   const chatInputClassname = classnames('chat-input-container', {
     'dark-mode': darkMode
   });
 
   return (
-    <Form onSubmit={handleOnSubmit}>
-      <Form.Group controlId="message" styleName={chatInputClassname}>
+    <Form onSubmit={handleOnSubmit} styleName={chatInputClassname}>
+      <Form.Group controlId="message" styleName="chat-input-group">
         <Form.Label styleName="username-display">{username}</Form.Label>
         <Form.Control
           autoFocus={true}
@@ -53,14 +51,14 @@ const ChatInput = ({ actions, darkMode, username }) => {
           type="text"
           value={message}
         />
-        <Button
-          styleName="send-button"
-          variant={buttonVariant}
-          onClick={handleSendClick}
-          block={true}>
-          Send
-        </Button>
       </Form.Group>
+      <Button
+        block={true}
+        onClick={handleSendClick}
+        styleName="send-button"
+        variant="primary">
+        Send
+      </Button>
     </Form>
   );
 };

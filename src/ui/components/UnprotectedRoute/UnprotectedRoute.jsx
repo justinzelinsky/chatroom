@@ -11,11 +11,7 @@ const UnprotectedRoute = ({
   <Route
     {...rest}
     render={props =>
-      isAuthenticated === false ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to="/chatroom" />
-      )
+      !isAuthenticated ? <Component {...props} /> : <Redirect to="/chatroom" />
     }
   />
 );
