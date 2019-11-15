@@ -1,16 +1,18 @@
 import './style.scss';
 
-import { object } from 'prop-types';
+import classnames from 'classnames';
+import { bool, object } from 'prop-types';
 import React from 'react';
 import { Button, Jumbotron } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import mapDispatchToProps from 'state/mapDispatchToProps';
 
-const AdminPanel = ({ actions }) => {
+const AdminPanel = ({ actions, darkMode }) => {
   const clearChatHistory = () => actions.clearChatHistory();
+  const adminClassname = classnames('admin-panel', { 'dark-mode': darkMode });
   return (
-    <Jumbotron styleName="admin-panel">
+    <Jumbotron styleName={adminClassname}>
       <h1>Admin Panel</h1>
       <hr />
       <h2>Chat History</h2>
@@ -20,7 +22,12 @@ const AdminPanel = ({ actions }) => {
 };
 
 AdminPanel.propTypes = {
-  actions: object.isRequired
+  actions: object.isRequired,
+  darkMode: bool.isRequired
 };
 
-export default connect(null, mapDispatchToProps)(AdminPanel);
+const mapStateToProps = state => ({
+  darkMode: state.darkMode
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminPanel);

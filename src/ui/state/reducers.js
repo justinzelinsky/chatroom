@@ -1,6 +1,5 @@
 import { connectRouter, LOCATION_CHANGE } from 'connected-react-router';
 import { combineReducers } from 'redux';
-import isEmpty from 'lodash/isEmpty';
 
 import {
   ADD_CHAT,
@@ -22,19 +21,6 @@ export const currentUser = (state = currentUserInitialState, action) => {
     return {
       ...currentUser
     };
-  }
-
-  return state;
-};
-
-export const isAuthenticatedInitialState = false;
-export const isAuthenticated = (
-  state = isAuthenticatedInitialState,
-  action
-) => {
-  if (action.type === SET_CURRENT_USER) {
-    const { currentUser } = action.payload;
-    return !isEmpty(currentUser);
   }
 
   return state;
@@ -116,7 +102,6 @@ export default history =>
     chats,
     currentUser,
     darkMode,
-    isAuthenticated,
     errors,
     notification,
     router: connectRouter(history)

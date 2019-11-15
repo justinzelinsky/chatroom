@@ -1,3 +1,4 @@
+import isEmpty from 'lodash/isEmpty';
 import { createSelector } from 'reselect';
 
 const getCurrentUser = state => state.currentUser;
@@ -40,4 +41,14 @@ export const getActiveUserList = createSelector(
       ...otherUsers
     ];
   }
+);
+
+export const getIsAuthenticated = createSelector(
+  getCurrentUser,
+  currentUser => !isEmpty(currentUser)
+);
+
+export const getIsAdmin = createSelector(
+  getCurrentUser,
+  currentUser => !!currentUser.admin
 );

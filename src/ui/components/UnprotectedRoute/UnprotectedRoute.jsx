@@ -3,6 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
+import { getIsAuthenticated } from 'state/selectors';
+
 const UnprotectedRoute = ({
   component: Component,
   isAuthenticated,
@@ -22,7 +24,7 @@ UnprotectedRoute.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.isAuthenticated
+  isAuthenticated: getIsAuthenticated(state)
 });
 
 export default connect(mapStateToProps)(UnprotectedRoute);

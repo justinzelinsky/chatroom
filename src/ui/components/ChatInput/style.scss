@@ -15,6 +15,7 @@
     align-items: center;
     display: flex;
     flex: 1;
+    margin-bottom: 0;
 
     @include phone {
       margin-top: 10px;

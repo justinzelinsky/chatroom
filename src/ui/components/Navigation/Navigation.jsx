@@ -7,8 +7,15 @@ import { withRouter } from 'react-router-dom';
 import AboutModal from 'components/AboutModal';
 import ThemeToggle from 'components/ThemeToggle';
 import mapDispatchToProps from 'state/mapDispatchToProps';
+import { getIsAdmin, getIsAuthenticated } from 'state/selectors';
 
-const Navigation = ({ actions, darkMode, history, isAuthenticated }) => {
+const Navigation = ({
+  actions,
+  darkMode,
+  history,
+  isAdmin,
+  isAuthenticated
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [expandMenu, setExpandMenu] = useState(false);
 
@@ -22,8 +29,14 @@ const Navigation = ({ actions, darkMode, history, isAuthenticated }) => {
     setExpandMenu(false);
   };
   const handleMenuToggle = () => setExpandMenu(!expandMenu);
-  const goToChatroom = () => history.push('/chatroom');
-  const goToAdmin = () => history.push('/admin');
+  const goToChatroom = () => {
+    history.push('/chatroom');
+    setExpandMenu(false);
+  };
+  const goToAdmin = () => {
+    history.push('/admin');
+    setExpandMenu(false);
+  };
 
   const variant = darkMode ? 'dark' : 'light';
 
@@ -42,8 +55,10 @@ const Navigation = ({ actions, darkMode, history, isAuthenticated }) => {
         <Navbar.Collapse id="chatroom-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link onClick={showAboutModal}>About</Nav.Link>
-            <Nav.Link onClick={goToChatroom}>Chatroom</Nav.Link>
-            <Nav.Link onClick={goToAdmin}>Admin</Nav.Link>
+            {isAuthenticated && (
+              <Nav.Link onClick={goToChatroom}>Chatroom</Nav.Link>
+            )}
+            {isAdmin && <Nav.Link onClick={goToAdmin}>Admin</Nav.Link>}
             {isAuthenticated && (
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
             )}
@@ -64,12 +79,14 @@ Navigation.propTypes = {
   actions: object.isRequired,
   darkMode: bool.isRequired,
   history: object.isRequired,
+  isAdmin: bool.isRequired,
   isAuthenticated: bool.isRequired
 };
 
 const mapStateToProps = state => ({
   darkMode: state.darkMode,
-  isAuthenticated: state.isAuthenticated
+  isAdmin: getIsAdmin(state),
+  isAuthenticated: getIsAuthenticated(state)
 });
 
 export default withRouter(
