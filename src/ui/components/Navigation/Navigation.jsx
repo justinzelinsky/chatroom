@@ -2,12 +2,13 @@ import { object, bool } from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import AboutModal from 'components/AboutModal';
 import ThemeToggle from 'components/ThemeToggle';
 import mapDispatchToProps from 'state/mapDispatchToProps';
 
-const Navigation = ({ actions, darkMode, isAuthenticated }) => {
+const Navigation = ({ actions, darkMode, history, isAuthenticated }) => {
   const [showModal, setShowModal] = useState(false);
   const [expandMenu, setExpandMenu] = useState(false);
 
@@ -21,6 +22,8 @@ const Navigation = ({ actions, darkMode, isAuthenticated }) => {
     setExpandMenu(false);
   };
   const handleMenuToggle = () => setExpandMenu(!expandMenu);
+  const goToChatroom = () => history.push('/chatroom');
+  const goToAdmin = () => history.push('/admin');
 
   const variant = darkMode ? 'dark' : 'light';
 
@@ -39,6 +42,8 @@ const Navigation = ({ actions, darkMode, isAuthenticated }) => {
         <Navbar.Collapse id="chatroom-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link onClick={showAboutModal}>About</Nav.Link>
+            <Nav.Link onClick={goToChatroom}>Chatroom</Nav.Link>
+            <Nav.Link onClick={goToAdmin}>Admin</Nav.Link>
             {isAuthenticated && (
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
             )}
@@ -48,8 +53,8 @@ const Navigation = ({ actions, darkMode, isAuthenticated }) => {
       </Navbar>
       <AboutModal
         darkMode={darkMode}
-        show={showModal}
         handleClose={hideAboutModal}
+        show={showModal}
       />
     </Fragment>
   );
@@ -58,6 +63,7 @@ const Navigation = ({ actions, darkMode, isAuthenticated }) => {
 Navigation.propTypes = {
   actions: object.isRequired,
   darkMode: bool.isRequired,
+  history: object.isRequired,
   isAuthenticated: bool.isRequired
 };
 
@@ -66,4 +72,6 @@ const mapStateToProps = state => ({
   isAuthenticated: state.isAuthenticated
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Navigation)
+);

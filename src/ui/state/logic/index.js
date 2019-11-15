@@ -1,4 +1,5 @@
 import addChat from './addChat';
+import clearChatHistory from './clearChatHistory';
 import getMessages from './getMessages';
 import initialLoad from './initialLoad';
 import login from './login';
@@ -8,6 +9,7 @@ import secret from './secret';
 
 export default [
   addChat,
+  clearChatHistory,
   getMessages,
   initialLoad,
   login,

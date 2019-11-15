@@ -5,11 +5,14 @@ import isEmpty from 'lodash/isEmpty';
 import {
   ADD_CHAT,
   ADD_ADMIN_CHAT,
-  UPDATE_ACTIVE_USERS,
+  CHAT_HISTORY_CLEARED,
+  HAS_ERRORS,
+  HIDE_NOTIFICATION,
   RECEIVED_MESSAGES,
   SET_CURRENT_USER,
   SET_DARK_MODE,
-  HAS_ERRORS
+  SHOW_NOTIFICATION,
+  UPDATE_ACTIVE_USERS
 } from 'state/actions';
 
 export const currentUserInitialState = {};
@@ -79,6 +82,10 @@ export const chats = (state = chatsInitialState, action) => {
     return [...action.payload.messages];
   }
 
+  if (action.type === CHAT_HISTORY_CLEARED) {
+    return chatsInitialState;
+  }
+
   return state;
 };
 
@@ -90,6 +97,19 @@ export const darkMode = (state = darkModeInitialState, action) => {
   return state;
 };
 
+export const notificationInitialState = '';
+export const notification = (state = notificationInitialState, action) => {
+  if (action.type === SHOW_NOTIFICATION) {
+    return action.payload.notification;
+  }
+
+  if (action.type === HIDE_NOTIFICATION) {
+    return notificationInitialState;
+  }
+
+  return state;
+};
+
 export default history =>
   combineReducers({
     activeUsers,
@@ -98,5 +118,6 @@ export default history =>
     darkMode,
     isAuthenticated,
     errors,
+    notification,
     router: connectRouter(history)
   });

@@ -101,10 +101,36 @@ export const pageLoad = () => ({
   type: PAGE_LOAD
 });
 
+export const CLEAR_CHAT_HISTORY = 'CLEAR_CHAT_HISTORY';
+export const clearChatHistory = () => ({
+  type: CLEAR_CHAT_HISTORY
+});
+
+export const CHAT_HISTORY_CLEARED = 'CHAT_HISTORY_CLEARED';
+export const chatHistoryCleared = () => ({
+  type: CHAT_HISTORY_CLEARED
+});
+
+export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION';
+export const showNotification = notification => ({
+  type: SHOW_NOTIFICATION,
+  payload: {
+    notification
+  }
+});
+
+export const HIDE_NOTIFICATION = 'HIDE_NOTIFICATION';
+export const hideNotification = () => ({
+  type: HIDE_NOTIFICATION
+});
+
 export default {
   addAdminChat,
   addChat,
+  chatHistoryCleared,
+  clearChatHistory,
   hasErrors,
+  hideNotification,
   login,
   logout,
   receivedMessages,
@@ -113,6 +139,7 @@ export default {
   requestMessages,
   setCurrentUser,
   setDarkMode,
+  showNotification,
   trySecret,
   updateActiveUsers
 };
