@@ -1,24 +1,25 @@
 'use strict';
 
-const bodyParser = require('body-parser');
-const config = require('./config/keys');
 const connectMongo = require('connect-mongo');
+const bodyParser = require('body-parser');
 const express = require('express');
+const expressSession = require('express-session');
 const http = require('http');
-const initializeWebsocketServer = require('./websocket.js');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const path = require('path');
-const User = require('./models/User');
-const users = require('./routes/api/users');
-const messages = require('./routes/api/messages');
-const session = require('express-session');
 const socketIO = require('socket.io');
+
+const config = require('./config/keys');
+const User = require('./models/User');
+const messages = require('./routes/api/messages');
+const users = require('./routes/api/users');
+const initializeWebsocketServer = require('./websocket.js');
 
 const PORT = process.env.PORT || 8082;
 const app = express();
 const httpServer = http.Server(app);
-const MongoStore = connectMongo(session);
+const MongoStore = connectMongo(expressSession);
 
 // Setup Websocket Server
 const io = socketIO(httpServer);
@@ -26,7 +27,7 @@ initializeWebsocketServer(io);
 
 // Setup MongoDB
 mongoose
-  .connect(config.mongoURI, { useNewUrlParser: true })
+  .connect(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB successfully connected')) // eslint-disable-line
   .catch(err => console.log(err)); // eslint-disable-line
 const mongooseConnection = mongoose.connection;
@@ -43,7 +44,7 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(
-  session({
+  expressSession({
     secret: process.env.CHATROOM_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -61,7 +62,7 @@ const authMiddleware = (req, res, next) => {
     if (user) {
       return next();
     }
-    return res.send('Go Away!');
+    return res.sendStatus(401);
   });
 };
 
