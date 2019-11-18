@@ -4,6 +4,7 @@
   "description": "Chatroom built with React, Redux, and Socket.IO",
   "main": "src/server/index.js",
   "scripts": {
+    "analyze": "WEBPACK_ANALYZE=true npm run build",
     "docker": "npm run build && docker-compose up",
     "build": "NODE_ENV=production webpack",
     "start": "concurrently \"npm:watch-js\" \"npm:watch-server\"",
@@ -73,6 +74,7 @@
     "style-loader": "^1.0.0",
     "terser-webpack-plugin": "^2.2.1",
     "webpack": "^4.41.2",
+    "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"
   }

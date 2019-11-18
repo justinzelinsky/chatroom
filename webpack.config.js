@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const paths = {
   source: path.join(__dirname, 'src/ui'),
@@ -71,7 +72,7 @@ const optimization = {
   minimize: true,
   minimizer: [
     new OptimizeCSSAssetsPlugin(),
-    new TerserPlugin({ extractComments: false })
+    new TerserPlugin({ extractComments: false, parallel: true })
   ],
   splitChunks: {
     chunks: 'all'
@@ -98,6 +99,10 @@ if (!devMode) {
       chunkFilename: '[id].[hash].css'
     })
   );
+}
+
+if (process.env.WEBPACK_ANALYZE) {
+  plugins.push(new BundleAnalyzerPlugin());
 }
 
 const resolve = {
