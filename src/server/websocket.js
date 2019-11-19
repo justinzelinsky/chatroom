@@ -2,6 +2,10 @@ const dayjs = require('dayjs');
 
 const Message = require('./models/Message');
 
+const adminUser = {
+  user: 'Admin'
+};
+
 const initializeWebsocketServer = io => {
   const connectedUsers = [];
 
@@ -37,8 +41,8 @@ const initializeWebsocketServer = io => {
 
       socket.broadcast.emit(NEW_ADMIN_CHAT, {
         isAdminMessage: true,
-        username: 'Admin',
-        ts: dayjs().format('HH:mm'),
+        user: adminUser,
+        ts: dayjs().valueOf(),
         message: `${socket.user.name} has joined the chat`
       });
     });
@@ -51,9 +55,9 @@ const initializeWebsocketServer = io => {
 
         socket.broadcast.emit(NEW_ADMIN_CHAT, {
           isAdminMessage: true,
-          username: 'Admin',
-          ts: dayjs().format('HH:mm'),
-          message: `${socket.username} has left the chat`
+          user: adminUser,
+          ts: dayjs().valueOf(),
+          message: `${socket.user.name} has left the chat`
         });
       }
     });

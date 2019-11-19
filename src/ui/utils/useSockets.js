@@ -23,13 +23,13 @@ const useSockets = () => {
     emitAddedUser(currentUser);
 
     subscribeToChatEvents(chat => {
-      const { username, message, ts } = chat;
-      dispatch(addChat(message, ts, username, false));
+      const { user, message, ts } = chat;
+      dispatch(addChat(message, ts, user, false));
     });
 
     subscribeToAdminChatEvents(chat => {
-      const { username, message, ts } = chat;
-      dispatch(addAdminChat(message, ts, username));
+      const { user, message, ts } = chat;
+      dispatch(addAdminChat(message, ts, user));
     });
 
     subscribeToUserEvents(usernames => {
