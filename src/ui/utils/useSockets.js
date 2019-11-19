@@ -11,6 +11,9 @@ import {
   subscribeToUserEvents
 } from 'utils/socket';
 
+const documentTitle = document.title;
+let unreadNotifications = 0;
+
 const useSockets = () => {
   const dispatch = useDispatch();
   const store = useStore();
@@ -25,6 +28,20 @@ const useSockets = () => {
     subscribeToChatEvents(chat => {
       const { user, message, ts } = chat;
       dispatch(addChat(message, ts, user, false));
+
+      if (document.hidden) {
+        unreadNotifications++;
+        document.title = `${documentTitle} (${unreadNotifications})`;
+        const onDocumentFocus = () => {
+          if (!document.hidden) {
+            unreadNotifications = 0;
+            document.title = documentTitle;
+            document.removeEventListener('visibilitychange', onDocumentFocus);
+          }
+        };
+
+        document.addEventListener('visibilitychange', onDocumentFocus);
+      }
     });
 
     subscribeToAdminChatEvents(chat => {

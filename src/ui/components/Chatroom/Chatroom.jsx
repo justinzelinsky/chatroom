@@ -37,7 +37,6 @@ const Chatroom = ({ chats, darkMode }) => {
             {chats.length === 0 && (
               <ChatMessage darkMode={darkMode} noChats={true} />
             )}
-
             {chats.map((chat, idx) => (
               <ChatMessage
                 chat={chat}
@@ -46,8 +45,8 @@ const Chatroom = ({ chats, darkMode }) => {
                 key={idx}
               />
             ))}
+            <ListGroup.Item ref={chatEndRef} styleName="chat-end" />
           </ListGroup>
-          <div styleName="chat-end" ref={chatEndRef} />
         </Col>
       </Row>
       <Row noGutters={true}>
