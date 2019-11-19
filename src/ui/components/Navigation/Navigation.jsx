@@ -14,7 +14,8 @@ const Navigation = ({
   darkMode,
   history,
   isAdmin,
-  isAuthenticated
+  isAuthenticated,
+  router
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [expandMenu, setExpandMenu] = useState(false);
@@ -38,6 +39,8 @@ const Navigation = ({
     setExpandMenu(false);
   };
 
+  const isActive = path => router.location.pathname.indexOf(path) !== -1;
+
   const variant = darkMode ? 'dark' : 'light';
 
   return (
@@ -56,9 +59,15 @@ const Navigation = ({
           <Nav className="mr-auto">
             <Nav.Link onClick={showAboutModal}>About</Nav.Link>
             {isAuthenticated && (
-              <Nav.Link onClick={goToChatroom}>Chatroom</Nav.Link>
+              <Nav.Link active={isActive('chatroom')} onClick={goToChatroom}>
+                Chatroom
+              </Nav.Link>
             )}
-            {isAdmin && <Nav.Link onClick={goToAdmin}>Admin</Nav.Link>}
+            {isAdmin && (
+              <Nav.Link active={isActive('admin')} onClick={goToAdmin}>
+                Admin
+              </Nav.Link>
+            )}
             {isAuthenticated && (
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
             )}
@@ -80,13 +89,15 @@ Navigation.propTypes = {
   darkMode: bool.isRequired,
   history: object.isRequired,
   isAdmin: bool.isRequired,
-  isAuthenticated: bool.isRequired
+  isAuthenticated: bool.isRequired,
+  router: object.isRequired
 };
 
 const mapStateToProps = state => ({
   darkMode: state.darkMode,
   isAdmin: getIsAdmin(state),
-  isAuthenticated: getIsAuthenticated(state)
+  isAuthenticated: getIsAuthenticated(state),
+  router: state.router
 });
 
 export default withRouter(
