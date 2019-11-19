@@ -69,19 +69,24 @@ export const chats = (state = chatsInitialState, action) => {
     const {
       payload: { messages }
     } = action;
-    const lastMessage = messages[messages.length - 1];
-    const lastMessageTimestamp = dayjs(lastMessage.ts).format(
-      'MM/DD/YYYY HH:MM'
-    );
-    const lastMessageSent = {
-      isAdminMessage: true,
-      message: `Last message sent at ${lastMessageTimestamp}`,
-      ts: dayjs().valueOf(),
-      user: {
-        name: 'Admin'
-      }
-    };
-    return [...messages, lastMessageSent];
+
+    if (messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      const lastMessageTimestamp = dayjs(lastMessage.ts).format(
+        'MM/DD/YYYY HH:MM'
+      );
+      const lastMessageSent = {
+        isAdminMessage: true,
+        message: `Last message sent at ${lastMessageTimestamp}`,
+        ts: dayjs().valueOf(),
+        user: {
+          name: 'Admin'
+        }
+      };
+      return [...messages, lastMessageSent];
+    }
+
+    return [...messages];
   }
 
   if (action.type === CHAT_HISTORY_CLEARED) {
