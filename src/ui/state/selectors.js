@@ -4,11 +4,6 @@ import { createSelector } from 'reselect';
 const getCurrentUser = state => state.currentUser;
 const getActiveUsers = state => state.activeUsers;
 
-export const getCurrentUserName = createSelector(
-  getCurrentUser,
-  currentUser => currentUser.name
-);
-
 const getErrors = state => state.errors;
 
 export const getEmailError = createSelector(getErrors, errors => errors.email);
@@ -31,9 +26,10 @@ export const getActiveUserList = createSelector(
   (currentUser, activeUsers) => {
     const otherUsers = activeUsers
       .filter(user => user.id !== currentUser.id)
-      .map(({ id, name }) => ({ id, name }));
+      .map(({ admin, id, name }) => ({ admin, id, name }));
     return [
       {
+        admin: currentUser.admin,
         id: currentUser.id,
         isSelf: true,
         name: currentUser.name

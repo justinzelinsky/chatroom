@@ -30,8 +30,8 @@ export const currentUser = (state = currentUserInitialState, action) => {
 export const activeUsersInitialState = [];
 export const activeUsers = (state = activeUsersInitialState, action) => {
   if (action.type === UPDATE_ACTIVE_USERS) {
-    const { usernames } = action.payload;
-    return [...usernames];
+    const { users } = action.payload;
+    return [...users];
   }
 
   return state;

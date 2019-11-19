@@ -1,8 +1,8 @@
 export const UPDATE_ACTIVE_USERS = 'UPDATE_ACTIVE_USERS';
-export const updateActiveUsers = usernames => ({
+export const updateActiveUsers = users => ({
   type: UPDATE_ACTIVE_USERS,
   payload: {
-    usernames
+    users
   }
 });
 
@@ -52,11 +52,6 @@ export const register = (name, email, password, password2) => ({
     password,
     password2
   }
-});
-
-export const SECRET = 'SECRET';
-export const trySecret = () => ({
-  type: SECRET
 });
 
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
@@ -140,6 +135,5 @@ export default {
   setCurrentUser,
   setDarkMode,
   showNotification,
-  trySecret,
   updateActiveUsers
 };

@@ -1,7 +1,7 @@
 const Validator = require('validator');
 const isEmpty = require('lodash/isEmpty');
 
-const validateRegisterInput = data => {
+const validateLoginInput = data => {
   const errors = {};
 
   data.email = !isEmpty(data.email) ? data.email : '';
@@ -23,4 +23,4 @@ const validateRegisterInput = data => {
   };
 };
 
-module.exports = validateRegisterInput;
+module.exports = validateLoginInput;

@@ -1,35 +1,24 @@
-import { hasErrors, setCurrentUser } from 'state/actions';
 import {
+  hasErrors,
+  setCurrentUser,
+  updateActiveUsers
+} from '../../../src/ui/state/actions';
+import {
+  activeUsers,
   currentUser,
-  currentUserInitialState,
   errors,
-  errorsInitialState
-} from 'state/reducers';
+  errorsInitialState,
+  currentUserInitialState
+} from '../../../src/ui/state/reducers';
 import {
-  getCurrentUserName,
+  getActiveUserList,
   getEmailError,
   getPasswordError,
   getPassword2Error,
-  getNameError
-} from 'state/selectors';
-
-describe('Current Username Selector', () => {
-  it('should properly get the username of the current user logged in', () => {
-    const currentUserObj = {
-      id: '123',
-      name: 'Justin',
-      iat: 456,
-      exp: 789
-    };
-    const action = setCurrentUser(currentUserObj);
-    const state = {
-      currentUser: currentUser(currentUserInitialState, action)
-    };
-    const currentUsername = getCurrentUserName(state);
-
-    expect(currentUsername).toEqual(currentUserObj.name);
-  });
-});
+  getNameError,
+  getIsAuthenticated,
+  getIsAdmin
+} from '../../../src/ui/state/selectors';
 
 describe('Error Selectors', () => {
   it('should get the correct email error', () => {
@@ -101,5 +90,79 @@ describe('Error Selectors', () => {
     const nameError = getNameError(state2);
 
     expect(nameError).toEqual(error.name);
+  });
+});
+
+const loggedInUser = {
+  admin: true,
+  id: 1,
+  name: 'Justin'
+};
+
+const otherUsers = [
+  {
+    admin: false,
+    id: 2,
+    name: 'Alex'
+  },
+  {
+    admin: false,
+    id: 3,
+    name: 'Gene'
+  }
+];
+
+describe('getActiveUserList selector', () => {
+  it('should return the list of active users with the currently logged in user first', () => {
+    const state = {
+      currentUser: currentUser({}, setCurrentUser(loggedInUser)),
+      activeUsers: activeUsers({}, updateActiveUsers(otherUsers))
+    };
+
+    const [firstActiveUser, ...otherActiveUsers] = getActiveUserList(state);
+
+    expect(firstActiveUser.name).toEqual(loggedInUser.name);
+    expect(firstActiveUser.isSelf).toEqual(true);
+    expect(otherActiveUsers).toEqual(otherUsers);
+  });
+});
+
+describe('getIsAuthenticated selector', () => {
+  it('should return false when not logged in', () => {
+    const state = {
+      currentUser: currentUserInitialState
+    };
+
+    const isAuthenticated = getIsAuthenticated(state);
+    expect(isAuthenticated).toEqual(false);
+  });
+
+  it('should return true when logged in', () => {
+    const state = {
+      currentUser: currentUser({}, setCurrentUser(loggedInUser))
+    };
+
+    const isAuthenticated = getIsAuthenticated(state);
+    expect(isAuthenticated).toEqual(true);
+  });
+});
+
+describe('getIsAdmin selector', () => {
+  it('should return false for a non-admin user', () => {
+    const state = {
+      currentUser: currentUser({}, setCurrentUser(otherUsers[0]))
+    };
+
+    const isAdmin = getIsAdmin(state);
+    expect(isAdmin).toEqual(false);
+  });
+
+  it('should return true for an admin user', () => {
+    const state = {
+      currentUser: currentUser({}, setCurrentUser(loggedInUser))
+    };
+
+    const isAdmin = getIsAdmin(state);
+    expect(isAdmin).toEqual(true);
   });
 });
