@@ -1,4 +1,5 @@
 import { connectRouter, LOCATION_CHANGE } from 'connected-react-router';
+import dayjs from 'dayjs';
 import { combineReducers } from 'redux';
 
 import {
@@ -65,7 +66,22 @@ export const chats = (state = chatsInitialState, action) => {
   }
 
   if (action.type === RECEIVED_MESSAGES) {
-    return [...action.payload.messages];
+    const {
+      payload: { messages }
+    } = action;
+    const lastMessage = messages[messages.length - 1];
+    const lastMessageTimestamp = dayjs(lastMessage.ts).format(
+      'MM/DD/YYYY HH:MM'
+    );
+    const lastMessageSent = {
+      isAdminMessage: true,
+      message: `Last message sent at ${lastMessageTimestamp}`,
+      ts: dayjs().valueOf(),
+      user: {
+        name: 'Admin'
+      }
+    };
+    return [...messages, lastMessageSent];
   }
 
   if (action.type === CHAT_HISTORY_CLEARED) {
