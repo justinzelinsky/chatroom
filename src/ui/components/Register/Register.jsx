@@ -19,7 +19,7 @@ import {
   getEmailError,
   getNameError,
   getPasswordError,
-  getPassword2Error
+  getPasswordConfirmationError
 } from 'state/selectors';
 
 const Register = ({
@@ -28,24 +28,29 @@ const Register = ({
   emailError,
   nameError,
   passwordError,
-  password2Error
+  passwordConfirmationError
 }) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [password2, setPassword2] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const disableButton =
-    !email || !name || !password || !password2 || password !== password2;
+    !email ||
+    !name ||
+    !password ||
+    !passwordConfirmation ||
+    password !== passwordConfirmation;
 
   const onNameChange = event => setName(event.target.value);
   const onEmailChange = event => setEmail(event.target.value);
   const onPasswordChange = event => setPassword(event.target.value);
-  const onPassword2Change = event => setPassword2(event.target.value);
+  const onPasswordConfirmationChange = event =>
+    setPasswordConfirmation(event.target.value);
   const handleOnSubmit = event => {
     event.preventDefault();
 
     if (!disableButton) {
-      actions.register({ name, email, password, password2 });
+      actions.register({ name, email, password, passwordConfirmation });
     }
   };
 
@@ -96,14 +101,19 @@ const Register = ({
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} controlId="password2">
+        <Form.Group as={Row} controlId="passwordConfirmation">
           <Form.Label column={true} xs={4}>
             Password (again)
           </Form.Label>
           <Col xs={8}>
-            <Form.Control onChange={onPassword2Change} type="password" />
-            {password2Error && (
-              <Form.Text className="text-muted">{password2Error}</Form.Text>
+            <Form.Control
+              onChange={onPasswordConfirmationChange}
+              type="password"
+            />
+            {passwordConfirmationError && (
+              <Form.Text className="text-muted">
+                {passwordConfirmationError}
+              </Form.Text>
             )}
           </Col>
         </Form.Group>
@@ -127,7 +137,7 @@ Register.propTypes = {
   emailError: string,
   nameError: string,
   passwordError: string,
-  password2Error: string
+  passwordConfirmationError: string
 };
 
 const mapStateToProps = state => ({
@@ -135,7 +145,7 @@ const mapStateToProps = state => ({
   emailError: getEmailError(state),
   nameError: getNameError(state),
   passwordError: getPasswordError(state),
-  password2Error: getPassword2Error(state)
+  passwordConfirmationError: getPasswordConfirmationError(state)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

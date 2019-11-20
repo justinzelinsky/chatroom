@@ -6,7 +6,7 @@ describe('validateRegisterInput test', () => {
       name: 'Justin Zelinsky',
       email: 'justin@zelinsky.com',
       password: 'helloWorld',
-      password2: 'helloWorld'
+      passwordConfirmation: 'helloWorld'
     });
 
     expect(errors).toEqual({});
@@ -44,14 +44,16 @@ describe('validateRegisterInput test', () => {
   it('should return an error when missing a confirm password', () => {
     const { errors, isValid } = validateRegisterInput({});
 
-    expect(errors.password2).toEqual('Confirm password field is required');
+    expect(errors.passwordConfirmation).toEqual(
+      'Confirm password field is required'
+    );
     expect(isValid).toEqual(false);
   });
 
   it('should return an error when password length requirements are not met', () => {
     const { errors, isValid } = validateRegisterInput({
       password: 'hi',
-      password2: 'hi'
+      passwordConfirmation: 'hi'
     });
 
     expect(errors.password).toEqual(
@@ -63,10 +65,10 @@ describe('validateRegisterInput test', () => {
   it('should return an error when passwords do not match', () => {
     const { errors, isValid } = validateRegisterInput({
       password: 'helloWorld',
-      password2: 'greetingsPlanet'
+      passwordConfirmation: 'greetingsPlanet'
     });
 
-    expect(errors.password2).toEqual('Passwords must match');
+    expect(errors.passwordConfirmation).toEqual('Passwords must match');
     expect(isValid).toEqual(false);
   });
 });

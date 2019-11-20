@@ -13,9 +13,9 @@ export const getPasswordError = createSelector(
   errors => errors.password
 );
 
-export const getPassword2Error = createSelector(
+export const getPasswordConfirmationError = createSelector(
   getErrors,
-  errors => errors.password2
+  errors => errors.passwordConfirmation
 );
 
 export const getNameError = createSelector(getErrors, errors => errors.name);

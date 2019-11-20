@@ -72,13 +72,13 @@ export const receivedMessages = messages => ({
 });
 
 export const REGISTER = 'REGISTER';
-export const register = ({ name, email, password, password2 }) => ({
+export const register = ({ name, email, password, passwordConfirmation }) => ({
   type: REGISTER,
   payload: {
     name,
     email,
     password,
-    password2
+    passwordConfirmation
   }
 });
 

@@ -14,7 +14,7 @@ import {
   getActiveUserList,
   getEmailError,
   getPasswordError,
-  getPassword2Error,
+  getPasswordConfirmationError,
   getNameError,
   getIsAuthenticated,
   getIsAdmin
@@ -47,17 +47,17 @@ describe('Error Selectors', () => {
     expect(passwordError).toEqual(error.password);
   });
 
-  it('should get the correct password 2 error', () => {
+  it('should get the correct password confirmation error', () => {
     const errorState = errors(errorsInitialState, {});
 
-    const error = { password2: 'Password 2 Error' };
+    const error = { passwordConfirmation: 'Password Confirmation Error' };
     const action = hasErrors(error);
     const state = {
       errors: errors(errorState, action)
     };
-    const password2Error = getPassword2Error(state);
+    const passwordConfirmationError = getPasswordConfirmationError(state);
 
-    expect(password2Error).toEqual(error.password2);
+    expect(passwordConfirmationError).toEqual(error.passwordConfirmation);
   });
 
   it('should get the correct name error', () => {

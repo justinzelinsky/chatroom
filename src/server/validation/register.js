@@ -1,5 +1,5 @@
-const Validator = require('validator');
 const isEmpty = require('lodash/isEmpty');
+const Validator = require('validator');
 
 const validateRegisterInput = data => {
   const errors = {};
@@ -7,7 +7,9 @@ const validateRegisterInput = data => {
   data.name = !isEmpty(data.name) ? data.name : '';
   data.email = !isEmpty(data.email) ? data.email : '';
   data.password = !isEmpty(data.password) ? data.password : '';
-  data.password2 = !isEmpty(data.password2) ? data.password2 : '';
+  data.passwordConfirmation = !isEmpty(data.passwordConfirmation)
+    ? data.passwordConfirmation
+    : '';
 
   if (Validator.isEmpty(data.name)) {
     errors.name = 'Name field is required';
@@ -25,10 +27,10 @@ const validateRegisterInput = data => {
     errors.password = 'Password must be between 6 and 30 characters';
   }
 
-  if (Validator.isEmpty(data.password2)) {
-    errors.password2 = 'Confirm password field is required';
-  } else if (!Validator.equals(data.password, data.password2)) {
-    errors.password2 = 'Passwords must match';
+  if (Validator.isEmpty(data.passwordConfirmation)) {
+    errors.passwordConfirmation = 'Confirm password field is required';
+  } else if (!Validator.equals(data.password, data.passwordConfirmation)) {
+    errors.passwordConfirmation = 'Passwords must match';
   }
 
   return {
