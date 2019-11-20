@@ -45,7 +45,7 @@ const Register = ({
     event.preventDefault();
 
     if (!disableButton) {
-      actions.register(name, email, password, password2);
+      actions.register({ name, email, password, password2 });
     }
   };
 

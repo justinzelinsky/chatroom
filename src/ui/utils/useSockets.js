@@ -27,7 +27,7 @@ const useSockets = () => {
 
     subscribeToChatEvents(chat => {
       const { user, message, ts } = chat;
-      dispatch(addChat(message, ts, user, false));
+      dispatch(addChat({ isLocalMessage: false, message, ts, user }));
 
       if (document.hidden) {
         unreadNotifications++;
@@ -44,10 +44,7 @@ const useSockets = () => {
       }
     });
 
-    subscribeToAdminChatEvents(chat => {
-      const { user, message, ts } = chat;
-      dispatch(addAdminChat(message, ts, user));
-    });
+    subscribeToAdminChatEvents(chat => dispatch(addAdminChat(chat)));
 
     subscribeToUserEvents(usernames => {
       dispatch(updateActiveUsers(usernames));

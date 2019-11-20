@@ -29,7 +29,7 @@ const Login = ({ actions, darkMode, emailError, passwordError }) => {
     event.preventDefault();
 
     if (!disableButton) {
-      actions.login(email, password);
+      actions.login({ email, password });
     }
   };
 

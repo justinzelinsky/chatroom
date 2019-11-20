@@ -119,7 +119,7 @@ describe('chats reducer', () => {
     const ts = dayjs().valueOf();
     const chatMessage = 'Konnichiwa!';
     const state2 = {
-      chats: chats(state.chats, addChat(chatMessage, ts, user))
+      chats: chats(state.chats, addChat({ message: chatMessage, ts, user }))
     };
     expect(state2.chats).toHaveLength(1);
     expect(state2.chats[0].message).toEqual(chatMessage);
@@ -137,7 +137,10 @@ describe('chats reducer', () => {
     const ts = dayjs().valueOf();
     const chatMessage = 'Konnichiwa!';
     const state2 = {
-      chats: chats(state.chats, addAdminChat(chatMessage, ts, user))
+      chats: chats(
+        state.chats,
+        addAdminChat({ message: chatMessage, ts, user })
+      )
     };
     expect(state2.chats).toHaveLength(1);
     expect(state2.chats[0].message).toEqual(chatMessage);

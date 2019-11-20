@@ -17,7 +17,7 @@ const ChatInput = ({ actions, darkMode, currentUser }) => {
   const sendMessage = () => {
     if (message) {
       const ts = dayjs().valueOf();
-      actions.addChat(message, ts, currentUser);
+      actions.addChat({ message, ts, user: currentUser });
       setMessage('');
     }
   };
