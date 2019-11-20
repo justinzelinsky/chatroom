@@ -30,17 +30,12 @@ const Navigation = ({
     setExpandMenu(false);
   };
   const handleMenuToggle = () => setExpandMenu(!expandMenu);
-  const goToChatroom = () => {
-    history.push('/chatroom');
-    setExpandMenu(false);
-  };
-  const goToAdmin = () => {
-    history.push('/admin');
+  const goTo = path => () => {
+    history.push(path);
     setExpandMenu(false);
   };
 
   const isActive = path => router.location.pathname.indexOf(path) !== -1;
-
   const variant = darkMode ? 'dark' : 'light';
 
   return (
@@ -59,12 +54,12 @@ const Navigation = ({
           <Nav className="mr-auto">
             <Nav.Link onClick={showAboutModal}>About</Nav.Link>
             {isAuthenticated && (
-              <Nav.Link active={isActive('chatroom')} onClick={goToChatroom}>
+              <Nav.Link active={isActive('chatroom')} onClick={goTo('/chatroom')}>
                 Chatroom
               </Nav.Link>
             )}
             {isAdmin && (
-              <Nav.Link active={isActive('admin')} onClick={goToAdmin}>
+              <Nav.Link active={isActive('admin')} onClick={goTo('/admin')}>
                 Admin
               </Nav.Link>
             )}

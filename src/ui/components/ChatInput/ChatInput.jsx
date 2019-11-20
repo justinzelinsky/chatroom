@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 
 import mapDispatchToProps from 'state/mapDispatchToProps';
 
-const ChatInput = ({ actions, darkMode, currentUser }) => {
+const ChatInput = ({ actions, currentUser, darkMode  }) => {
   const [message, setMessage] = useState('');
 
   const onChange = event => setMessage(event.target.value);

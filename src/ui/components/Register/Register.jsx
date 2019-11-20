@@ -63,8 +63,8 @@ const Register = ({
       <h1 styleName="login-header">Register</h1>
       <Form
         autoComplete={'off'}
-        styleName="login-form"
-        onSubmit={handleOnSubmit}>
+        onSubmit={handleOnSubmit}
+        styleName="login-form">
         <Form.Group as={Row} controlId="name">
           <Form.Label column={true} xs={4}>
             Name
@@ -119,7 +119,7 @@ const Register = ({
         </Form.Group>
 
         <ButtonToolbar>
-          <Button disabled={disableButton} variant="primary" type="submit">
+          <Button disabled={disableButton} type="submit" variant="primary">
             Register
           </Button>
           <Link to="login" className="btn btn-link">
