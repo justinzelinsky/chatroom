@@ -5,7 +5,6 @@ import initialLoad from './initialLoad';
 import login from './login';
 import logout from './logout';
 import register from './register';
-import secret from './secret';
 
 export default [
   addChat,
@@ -14,6 +13,5 @@ export default [
   initialLoad,
   login,
   logout,
-  register,
-  secret
+  register
 ];
