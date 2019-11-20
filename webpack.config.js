@@ -5,6 +5,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { DefinePlugin } = require('webpack');
 
 const paths = {
   source: path.join(__dirname, 'src/ui'),
@@ -15,6 +16,8 @@ const styleLoader = devMode ? 'style-loader' : MiniCssExtractPlugin.loader;
 
 const entry = path.join(paths.source, 'index.jsx');
 
+const apiAddress = 'http://localhost:8082';
+
 const devServer = {
   contentBase: paths.dist,
   compress: true,
@@ -23,7 +26,7 @@ const devServer = {
   open: 'Google Chrome',
   port: 9000,
   proxy: {
-    '/api': 'http://localhost:8082'
+    '/api': apiAddress
   }
 };
 
@@ -89,6 +92,9 @@ const plugins = [
   new HtmlWebpackPlugin({
     template: path.join(paths.source, 'index.html'),
     title: 'React/Redux Chatroom'
+  }),
+  new DefinePlugin({
+    API_ADDRESS: JSON.stringify(apiAddress)
   })
 ];
 

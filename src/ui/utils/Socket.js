@@ -23,7 +23,6 @@ export const emitAddedUser = username => {
   socket.emit('add user', username);
 };
 
-export const openSocket = () =>
-  (socket = openSocketClient('http://localhost:8082'));
+export const openSocket = () => (socket = openSocketClient(API_ADDRESS));
 
 export const closeSocket = () => socket.close();
