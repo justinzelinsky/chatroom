@@ -17,41 +17,31 @@ import {
 
 export const currentUserInitialState = {};
 export const currentUser = (state = currentUserInitialState, action) => {
-  if (action.type === SET_CURRENT_USER) {
-    const { currentUser } = action.payload;
-    return {
-      ...currentUser
-    };
-  }
-
-  return state;
+  return action.type === SET_CURRENT_USER
+    ? { ...action.payload.currentUser }
+    : state;
 };
 
 export const activeUsersInitialState = [];
 export const activeUsers = (state = activeUsersInitialState, action) => {
-  if (action.type === UPDATE_ACTIVE_USERS) {
-    const { users } = action.payload;
-    return [...users];
-  }
-
-  return state;
+  return action.type === UPDATE_ACTIVE_USERS
+    ? [...action.payload.users]
+    : state;
 };
 
 export const errorsInitialState = {};
 export const errors = (state = errorsInitialState, action) => {
-  if (action.type === HAS_ERRORS) {
-    const { errors } = action.payload;
-    return {
-      ...state,
-      ...errors
-    };
+  switch (action.type) {
+    case HAS_ERRORS:
+      return {
+        ...state,
+        ...action.payload.errors
+      };
+    case LOCATION_CHANGE:
+      return errorsInitialState;
+    default:
+      return state;
   }
-
-  if (action.type === LOCATION_CHANGE) {
-    return errorsInitialState;
-  }
-
-  return state;
 };
 
 export const chatsInitialState = [];
@@ -63,6 +53,10 @@ export const chats = (state = chatsInitialState, action) => {
         ...action.payload
       }
     ];
+  }
+
+  if (action.type === CHAT_HISTORY_CLEARED) {
+    return chatsInitialState;
   }
 
   if (action.type === RECEIVED_MESSAGES) {
@@ -85,12 +79,6 @@ export const chats = (state = chatsInitialState, action) => {
       };
       return [...messages, lastMessageSent];
     }
-
-    return [...messages];
-  }
-
-  if (action.type === CHAT_HISTORY_CLEARED) {
-    return chatsInitialState;
   }
 
   return state;
@@ -98,23 +86,19 @@ export const chats = (state = chatsInitialState, action) => {
 
 export const darkModeInitialState = false;
 export const darkMode = (state = darkModeInitialState, action) => {
-  if (action.type === SET_DARK_MODE) {
-    return action.payload.isDarkMode;
-  }
-  return state;
+  return action.type === SET_DARK_MODE ? action.payload.isDarkMode : state;
 };
 
 export const notificationInitialState = '';
 export const notification = (state = notificationInitialState, action) => {
-  if (action.type === SHOW_NOTIFICATION) {
-    return action.payload.notification;
+  switch (action.type) {
+    case SHOW_NOTIFICATION:
+      return action.payload.notification;
+    case HIDE_NOTIFICATION:
+      return notificationInitialState;
+    default:
+      return state;
   }
-
-  if (action.type === HIDE_NOTIFICATION) {
-    return notificationInitialState;
-  }
-
-  return state;
 };
 
 export default history =>

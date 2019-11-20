@@ -1,35 +1,32 @@
-const isEmpty = require('lodash/isEmpty');
-const Validator = require('validator');
+const { isEmail, isEmpty, isLength } = require('../utils');
 
-const validateRegisterInput = data => {
+const validateRegisterInput = ({
+  name = '',
+  email = '',
+  password = '',
+  passwordConfirmation = ''
+}) => {
   const errors = {};
 
-  data.name = !isEmpty(data.name) ? data.name : '';
-  data.email = !isEmpty(data.email) ? data.email : '';
-  data.password = !isEmpty(data.password) ? data.password : '';
-  data.passwordConfirmation = !isEmpty(data.passwordConfirmation)
-    ? data.passwordConfirmation
-    : '';
-
-  if (Validator.isEmpty(data.name)) {
+  if (!name) {
     errors.name = 'Name field is required';
   }
 
-  if (Validator.isEmpty(data.email)) {
+  if (!email) {
     errors.email = 'Email field is required';
-  } else if (!Validator.isEmail(data.email)) {
+  } else if (!isEmail(email)) {
     errors.email = 'Email is invalid';
   }
 
-  if (Validator.isEmpty(data.password)) {
+  if (!password) {
     errors.password = 'Password field is required';
-  } else if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
+  } else if (!isLength(password, { min: 6, max: 30 })) {
     errors.password = 'Password must be between 6 and 30 characters';
   }
 
-  if (Validator.isEmpty(data.passwordConfirmation)) {
+  if (!passwordConfirmation) {
     errors.passwordConfirmation = 'Confirm password field is required';
-  } else if (!Validator.equals(data.password, data.passwordConfirmation)) {
+  } else if (password !== passwordConfirmation) {
     errors.passwordConfirmation = 'Passwords must match';
   }
 

@@ -1,9 +1,9 @@
-import isEmpty from 'lodash/isEmpty';
 import { createSelector } from 'reselect';
+
+import isEmpty from 'utils/isEmpty';
 
 const getCurrentUser = state => state.currentUser;
 const getActiveUsers = state => state.activeUsers;
-
 const getErrors = state => state.errors;
 
 export const getEmailError = createSelector(getErrors, errors => errors.email);
@@ -21,9 +21,9 @@ export const getPasswordConfirmationError = createSelector(
 export const getNameError = createSelector(getErrors, errors => errors.name);
 
 export const getActiveUserList = createSelector(
-  getCurrentUser,
   getActiveUsers,
-  (currentUser, activeUsers) => {
+  getCurrentUser,
+  (activeUsers, currentUser) => {
     const otherUsers = activeUsers
       .filter(user => user.id !== currentUser.id)
       .map(({ admin, id, name }) => ({ admin, id, name }));
