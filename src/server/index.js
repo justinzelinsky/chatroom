@@ -13,7 +13,7 @@ const socketIO = require('socket.io');
 const config = require('config/keys');
 const configurePassport = require('config/configurePassport');
 const { messages, users } = require('routes/api');
-const initializeWebsocketServer = require('websocket.js');
+const initializeWebsocketServer = require('websocket');
 
 const PORT = process.env.PORT || 8082;
 const app = express();

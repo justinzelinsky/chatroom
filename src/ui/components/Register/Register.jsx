@@ -54,17 +54,17 @@ const Register = ({
     }
   };
 
-  const registerClassname = classnames('login-container', {
+  const registerClassname = classnames('register-container', {
     'dark-mode': darkMode
   });
 
   return (
     <Jumbotron styleName={registerClassname}>
-      <h1 styleName="login-header">Register</h1>
+      <h1 styleName="register-header">Register</h1>
       <Form
-        autoComplete={'off'}
+        autoComplete="off"
         onSubmit={handleOnSubmit}
-        styleName="login-form">
+        styleName="register-form">
         <Form.Group as={Row} controlId="name">
           <Form.Label column={true} xs={4}>
             Name

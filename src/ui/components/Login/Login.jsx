@@ -41,7 +41,7 @@ const Login = ({ actions, darkMode, emailError, passwordError }) => {
     <Jumbotron styleName={loginClassame}>
       <h1 styleName="login-header">Login</h1>
       <Form
-        autoComplete={'off'}
+        autoComplete="off"
         styleName="login-form"
         onSubmit={handleOnSubmit}>
         <Form.Group as={Row} controlId="email">
