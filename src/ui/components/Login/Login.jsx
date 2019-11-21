@@ -49,7 +49,7 @@ const Login = ({ actions, darkMode, emailError, passwordError }) => {
             Email address
           </Form.Label>
           <Col sm={9}>
-            <Form.Control onChange={onEmailChange} type="email" />
+            <Form.Control autoFocus={true} onChange={onEmailChange} type="email" />
             {emailError && (
               <Form.Text className="text-muted">{emailError}</Form.Text>
             )}
