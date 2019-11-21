@@ -8,10 +8,10 @@
     "docker": "npm run build && docker-compose up",
     "build": "NODE_ENV=production webpack",
     "start": "concurrently \"npm:watch-js\" \"npm:watch-server\"",
-    "start:prod": "node src/server/index.js",
+    "start:prod": "NODE_PATH=src/server node src/server/index.js",
     "test": "jest --coverage",
     "watch-js": "NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0",
-    "watch-server": "nodemon src/server/index.js"
+    "watch-server": "NODE_PATH=src/server nodemon src/server/index.js"
   },
   "author": "Justin Zelinsky",
   "repository": {

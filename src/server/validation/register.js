@@ -1,4 +1,4 @@
-const { isEmail, isEmpty, isLength } = require('../utils');
+const { isEmail, isEmpty, isLength } = require('utils');
 
 const validateRegisterInput = ({
   name = '',

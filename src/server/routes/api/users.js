@@ -1,11 +1,10 @@
-const express = require('express');
 const bcrypt = require('bcryptjs');
+const express = require('express');
 const jwt = require('jsonwebtoken');
 
-const keys = require('../../config/keys');
-const User = require('../../models/User');
-const validateRegisterInput = require('../../validation/register');
-const validateLoginInput = require('../../validation/login');
+const keys = require('config/keys');
+const { User } = require('models');
+const { validateLoginInput, validateRegisterInput } = require('validation');
 
 const router = express.Router();
 

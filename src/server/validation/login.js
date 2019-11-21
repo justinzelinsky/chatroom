@@ -1,4 +1,4 @@
-const { isEmpty, isEmail } = require('../utils');
+const { isEmpty, isEmail } = require('utils');
 
 const validateLoginInput = ({ email = '', password = '' }) => {
   const errors = {};
