@@ -111,7 +111,7 @@ if (process.env.WEBPACK_ANALYZE) {
 
 const resolve = {
   extensions: ['.jsx', '.js'],
-  modules: ['node_modules', 'src/ui', 'src/ui/components'],
+  modules: ['node_modules', 'src/ui'],
   symlinks: false
 };
 
