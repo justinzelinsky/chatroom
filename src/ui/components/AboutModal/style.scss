@@ -1,12 +1,10 @@
-.about-modal {
-  &.dark-mode {
-    div:global(.modal-content) {
-      background-color: #343a40;
-      color: #ffffff;
+.about-modal.dark-mode {
+  div:global(.modal-content) {
+    background-color: #343a40;
+    color: #ffffff;
 
-      button {
-        color: #ffffff;
-      }
+    button {
+      color: #ffffff;
     }
   }
 }

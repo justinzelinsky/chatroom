@@ -2,6 +2,17 @@
   margin: 0;
   width: 50%;
 
+  @include phone {
+    width: 100%;
+  }
+
+  @include desktop {
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   &.dark-mode {
     background-color: #343a40;
 
@@ -12,27 +23,16 @@
     }
   }
 
-  @include phone {
-    width: 100%;
-  }
-
-  @include desktop {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .register-form {
+    padding: 20px;
   }
 
   .register-header {
-    text-align: center;
     margin: 0 0 20px 20px;
+    text-align: center;
 
     @include phone {
       text-align: left;
     }
-  }
-
-  .register-form {
-    padding: 20px;
   }
 }
