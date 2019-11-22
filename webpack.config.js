@@ -11,12 +11,10 @@ const paths = {
   source: path.join(__dirname, 'src/ui'),
   dist: path.join(__dirname, 'dist')
 };
+const apiAddress = 'http://localhost:8082';
 const devMode = process.env.NODE_ENV !== 'production';
-const styleLoader = devMode ? 'style-loader' : MiniCssExtractPlugin.loader;
 
 const entry = path.join(paths.source, 'index.jsx');
-
-const apiAddress = 'http://localhost:8082';
 
 const devServer = {
   contentBase: paths.dist,
@@ -45,7 +43,7 @@ const rules = [
     test: /.scss$/,
     include: paths.source,
     use: [
-      styleLoader,
+      devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
       {
         loader: 'css-loader',
         options: {
