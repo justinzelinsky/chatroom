@@ -2,14 +2,14 @@
   padding: 0;
 
   .chats {
-    background-color: #add8e6;
+    background-color: $very-soft-cyan;
     height: calc(100vh - 75px - 56px);
     overflow-y: scroll;
     padding: 0;
     padding: 10px 10px 0 10px;
 
     &.dark-mode {
-      background-color: #343a67;
+      background-color: $very-dark-desaturated-blue;
     }
 
     @include phone {

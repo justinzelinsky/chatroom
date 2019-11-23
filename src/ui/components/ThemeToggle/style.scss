@@ -2,14 +2,15 @@
   display: flex;
 
   & > button {
-    font-size: 1.2em;
     background: none;
     border: none;
-    color: #ffe600;
+    color: $yellow;
     cursor: pointer;
+    font-size: 1.2em;
     transition: color 0.3s ease;
+
     &:last-child {
-      color: #666;
+      color: $very-dark-grey;
     }
 
     &:focus {
@@ -18,49 +19,45 @@
   }
 
   .toggle-control {
-    position: relative;
-    padding: 0 4px;
-    display: flex;
     align-items: center;
-
-    label {
-      visibility: hidden;
-    }
+    display: flex;
+    padding: 0 4px;
+    position: relative;
   }
 
   input[type='checkbox'].dmcheck {
-    width: 40px;
-    height: 10px;
-    background: #555;
-    position: relative;
-    border-radius: 5px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
+    background: $very-dark-grey;
+    border-radius: 5px;
     cursor: pointer;
-    vertical-align: 2px;
+    height: 10px;
+    position: relative;
     outline: none;
+    vertical-align: 2px;
+    width: 40px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
 
     &:checked + label {
       left: 30px;
     }
 
     &:focus-visible {
-      outline: solid 2px white;
+      outline: solid 2px $white;
     }
 
     & + label {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
       border-radius: 50%;
-      transition: all 0.3s ease;
+      background: $white;
+      background-color: $dark-grey;
       cursor: pointer;
-      position: absolute;
+      display: inline-block;
+      height: 18px;
       left: 2px;
-      background: #fff;
-      opacity: 0.9;
-      background-color: #f6f6f6;
+      opacity: 1.0;
+      position: absolute;
+      transition: all 0.3s ease;
+      width: 18px;
     }
   }
 }

@@ -1,10 +1,10 @@
 .about-modal.dark-mode {
   div:global(.modal-content) {
-    background-color: #343a40;
-    color: #ffffff;
+    background-color: $dark-grey-blue;
+    color: $white;
 
     button {
-      color: #ffffff;
+      color: $white;
     }
   }
 }

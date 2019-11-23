@@ -1,6 +1,6 @@
 .chat-input-container {
   align-items: center;
-  border-top: 1px solid black;
+  border-top: 1px solid $black;
   border-radius: 5px;
   display: flex;
   padding-top: 10px;
@@ -42,17 +42,16 @@
     }
   }
 
-  &.dark-mode {
-    input {
-      background-color: #000000;
-      border: #bd93f9;
-      color: #ffffff;
-    }
+  &.dark-mode input {
+    background-color: $black;
+    border: $very-soft-violet;
+    color: $white;
   }
 
   .send-button {
     margin: 5px;
     width: 130px;
+
     @include phone {
       margin: 10px 0 0 0;
       width: 100%;

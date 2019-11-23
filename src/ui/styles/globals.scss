@@ -4,8 +4,8 @@ body {
 }
 
 body:global(.dark-mode) {
-  background-color: #232323;
-  color: #dfdfdf;
+  background-color: $very-dark-grey-black;
+  color: $very-light-grey;
 }
 
 a {

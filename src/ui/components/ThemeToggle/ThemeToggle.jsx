@@ -29,7 +29,7 @@ const ThemeToggle = ({ actions, darkMode }) => {
           styleName="dmcheck"
           type="checkbox"
         />
-        <label htmlFor="dmcheck">Dark Mode Toggle</label>
+        <label htmlFor="dmcheck"/>
       </span>
       <button type="button" onClick={() => setDarkMode(true)}>
         ☾
