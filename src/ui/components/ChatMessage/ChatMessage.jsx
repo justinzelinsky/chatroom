@@ -5,8 +5,10 @@ import classnames from 'classnames';
 import { bool, shape, string, number, object } from 'prop-types';
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
-const ChatMessage = ({ chat = {}, darkMode, index, noChats }) => {
+const ChatMessage = ({ chat = {}, index, noChats }) => {
+  const darkMode = useSelector(state => state.darkMode);
   const { isAdminMessage, message, ts, user } = chat;
 
   const chatStyleName = classnames('chat-message', {
@@ -49,7 +51,6 @@ ChatMessage.propTypes = {
     ts: number.isRequired,
     user: object.isRequired
   }),
-  darkMode: bool.isRequired,
   index: number,
   noChats: bool.isRequired
 };

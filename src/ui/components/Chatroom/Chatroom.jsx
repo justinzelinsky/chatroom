@@ -31,21 +31,14 @@ const Chatroom = () => {
   return (
     <Container fluid={true} styleName="chatroom">
       <div styleName="chatroom-userlist-container">
-        <UserList />
         <ListGroup styleName={chatsClassname}>
-          {chats.length === 0 && (
-            <ChatMessage darkMode={darkMode} noChats={true} />
-          )}
+          {chats.length === 0 && <ChatMessage noChats={true} />}
           {chats.map((chat, idx) => (
-            <ChatMessage
-              chat={chat}
-              darkMode={darkMode}
-              index={idx}
-              key={idx}
-            />
+            <ChatMessage chat={chat} index={idx} key={idx} />
           ))}
           <ListGroup.Item ref={chatEndRef} styleName="chat-end" />
         </ListGroup>
+        <UserList />
       </div>
       <ChatInput />
     </Container>
