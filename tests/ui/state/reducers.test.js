@@ -10,7 +10,7 @@ import {
   hideNotification,
   addAdminChat
 } from '../../../src/ui/state/actions';
-import {
+import createRootReducer, {
   activeUsers,
   currentUser,
   activeUsersInitialState,
@@ -260,5 +260,13 @@ describe('notification reducer', () => {
       notification: notification(state.notification, hideNotification())
     };
     expect(state2.notification).toEqual(notificationInitialState);
+  });
+});
+
+describe('createRootReducer reducer', () => {
+  it('should return a function', () => {
+    const history = {};
+    const rootReducer = createRootReducer(history);
+    expect(typeof rootReducer).toEqual('function');
   });
 });
