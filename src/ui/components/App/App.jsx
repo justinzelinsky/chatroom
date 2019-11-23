@@ -6,8 +6,7 @@ import { Redirect, Switch } from 'react-router-dom';
 import LoadingSpinner from 'components/LoadingSpinner';
 import NavigationBar from 'components/NavigationBar';
 import NotificationBar from 'components/NotificationBar';
-import ProtectedRoute from 'components/ProtectedRoute';
-import UnprotectedRoute from 'components/UnprotectedRoute';
+import { ProtectedRoute, UnprotectedRoute } from 'components/Routes';
 import mapDispatchToProps from 'state/mapDispatchToProps';
 
 const AdminPanel = lazy(() => import('components/AdminPanel'));
