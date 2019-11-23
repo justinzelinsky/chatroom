@@ -229,10 +229,21 @@ describe('notification reducer', () => {
     const state = {
       notification: notification(
         notificationInitialState,
-        showNotification(message)
+        showNotification({ message })
       )
     };
-    expect(state.notification).toEqual(message);
+    expect(state.notification.message).toEqual(message);
+    expect(state.notification.variant).toEqual('primary');
+
+    const variant = 'warning';
+    const state2 = {
+      notification: notification(
+        notificationInitialState,
+        showNotification({ message, variant })
+      )
+    };
+    expect(state2.notification.message).toEqual(message);
+    expect(state2.notification.variant).toEqual(variant);
   });
 
   it('should hide a notification', () => {
@@ -240,10 +251,10 @@ describe('notification reducer', () => {
     const state = {
       notification: notification(
         notificationInitialState,
-        showNotification(message)
+        showNotification({ message })
       )
     };
-    expect(state.notification).toEqual(message);
+    expect(state.notification.message).toEqual(message);
 
     const state2 = {
       notification: notification(state.notification, hideNotification())

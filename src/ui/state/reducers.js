@@ -89,7 +89,7 @@ export const darkMode = (state = darkModeInitialState, action) => {
   return action.type === SET_DARK_MODE ? action.payload.isDarkMode : state;
 };
 
-export const notificationInitialState = '';
+export const notificationInitialState = null;
 export const notification = (state = notificationInitialState, action) => {
   switch (action.type) {
     case SHOW_NOTIFICATION:

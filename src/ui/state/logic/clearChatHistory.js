@@ -8,7 +8,11 @@ const clearChatHistoryLogic = createLogic({
   process({ post }, dispatch, done) {
     post('/api/messages/clear').then(() => {
       dispatch(chatHistoryCleared());
-      dispatch(showNotification('Chat history cleared!'));
+      dispatch(
+        showNotification({
+          message: 'Chat history cleared!'
+        })
+      );
       setTimeout(() => {
         dispatch(hideNotification());
         done();

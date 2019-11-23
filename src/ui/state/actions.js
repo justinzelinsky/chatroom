@@ -104,10 +104,13 @@ export const setDarkMode = isDarkMode => ({
 });
 
 export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION';
-export const showNotification = notification => ({
+export const showNotification = ({ message, variant = 'primary' }) => ({
   type: SHOW_NOTIFICATION,
   payload: {
-    notification
+    notification: {
+      message,
+      variant
+    }
   }
 });
 
