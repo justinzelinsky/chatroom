@@ -33,9 +33,11 @@ const ChatMessage = ({ chat = {}, darkMode, index, noChats }) => {
 
   return (
     <ListGroup.Item styleName="chat" variant={chatVariant}>
+      <div styleName="username-chat">
+        <div styleName="username">{user.name}</div>
+        <div styleName={chatStyleName}>{message}</div>
+      </div>
       <div styleName="timestamp">{timestamp}</div>
-      <div styleName="username">{user.name}</div>
-      <div styleName={chatStyleName}>{message}</div>
     </ListGroup.Item>
   );
 };
