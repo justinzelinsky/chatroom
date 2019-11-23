@@ -1,6 +1,7 @@
 import './style.scss';
 
 import classnames from 'classnames';
+import { object, string, bool } from 'prop-types';
 import {
   Button,
   ButtonToolbar,
@@ -9,7 +10,6 @@ import {
   Jumbotron,
   Row
 } from 'react-bootstrap';
-import { object, string, bool } from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -40,16 +40,17 @@ const Login = ({ actions, darkMode, emailError, passwordError }) => {
   return (
     <Jumbotron styleName={loginClassame}>
       <h1 styleName="login-header">Login</h1>
-      <Form
-        autoComplete="off"
-        styleName="login-form"
-        onSubmit={handleOnSubmit}>
+      <Form autoComplete="off" styleName="login-form" onSubmit={handleOnSubmit}>
         <Form.Group as={Row} controlId="email">
           <Form.Label column={true} sm={3}>
             Email address
           </Form.Label>
           <Col sm={9}>
-            <Form.Control autoFocus={true} onChange={onEmailChange} type="email" />
+            <Form.Control
+              autoFocus={true}
+              onChange={onEmailChange}
+              type="email"
+            />
             {emailError && (
               <Form.Text className="text-muted">{emailError}</Form.Text>
             )}

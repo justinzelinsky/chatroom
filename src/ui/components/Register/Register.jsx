@@ -1,6 +1,8 @@
 import './style.scss';
 
 import classnames from 'classnames';
+import { bool, object, string } from 'prop-types';
+import React, { useState } from 'react';
 import {
   Button,
   ButtonToolbar,
@@ -9,8 +11,6 @@ import {
   Jumbotron,
   Row
 } from 'react-bootstrap';
-import { bool, object, string } from 'prop-types';
-import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 

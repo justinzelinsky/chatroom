@@ -1,8 +1,8 @@
 import './style.scss';
 
+import { object, bool } from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { object, bool } from 'prop-types';
 
 import mapDispatchToProps from 'state/mapDispatchToProps';
 
@@ -18,7 +18,7 @@ const ThemeToggle = ({ actions, darkMode }) => {
 
   return (
     <div styleName="dark-mode-toggle">
-      <button type="button" onClick={() => setDarkMode(false)}>
+      <button onClick={() => setDarkMode(false)} type="button">
         ☀
       </button>
       <span styleName="toggle-control">
@@ -29,9 +29,9 @@ const ThemeToggle = ({ actions, darkMode }) => {
           styleName="dmcheck"
           type="checkbox"
         />
-        <label htmlFor="dmcheck"/>
+        <label htmlFor="dmcheck" />
       </span>
-      <button type="button" onClick={() => setDarkMode(true)}>
+      <button onClick={() => setDarkMode(true)} type="button">
         ☾
       </button>
     </div>

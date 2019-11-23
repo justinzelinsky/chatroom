@@ -2,12 +2,12 @@ import './style.scss';
 
 import { shape, string } from 'prop-types';
 import React from 'react';
-import { connect } from 'react-redux';
 import { Alert } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 const NotificationBar = ({ notification }) =>
   notification && (
-    <Alert styleName="notification-bar" variant={notification.variant} >
+    <Alert styleName="notification-bar" variant={notification.variant}>
       {notification.message}
     </Alert>
   );

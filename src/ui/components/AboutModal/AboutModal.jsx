@@ -1,9 +1,9 @@
 import './style.scss';
 
 import classnames from 'classnames';
+import { bool, func } from 'prop-types';
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import { bool, func } from 'prop-types';
 
 const AboutModal = ({ darkMode, show, handleClose }) => (
   <Modal
