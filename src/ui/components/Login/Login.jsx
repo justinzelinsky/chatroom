@@ -1,7 +1,6 @@
 import './style.scss';
 
 import classnames from 'classnames';
-import { object, string, bool } from 'prop-types';
 import {
   Button,
   ButtonToolbar,
@@ -11,13 +10,20 @@ import {
   Row
 } from 'react-bootstrap';
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import mapDispatchToProps from 'state/mapDispatchToProps';
+import actions from 'state/actions';
 import { getEmailError, getPasswordError } from 'state/selectors';
 
-const Login = ({ actions, darkMode, emailError, passwordError }) => {
+const Login = () => {
+  const dispatch = useDispatch();
+  const { darkMode, emailError, passwordError } = useSelector(state => ({
+    darkMode: state.darkMode,
+    emailError: getEmailError(state),
+    passwordError: getPasswordError(state)
+  }));
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -29,7 +35,7 @@ const Login = ({ actions, darkMode, emailError, passwordError }) => {
     event.preventDefault();
 
     if (!disableButton) {
-      actions.login({ email, password });
+      dispatch(actions.login({ email, password }));
     }
   };
 
@@ -81,17 +87,4 @@ const Login = ({ actions, darkMode, emailError, passwordError }) => {
   );
 };
 
-Login.propTypes = {
-  actions: object.isRequired,
-  darkMode: bool.isRequired,
-  emailError: string,
-  passwordError: string
-};
-
-const mapStateToProps = state => ({
-  darkMode: state.darkMode,
-  emailError: getEmailError(state),
-  passwordError: getPasswordError(state)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

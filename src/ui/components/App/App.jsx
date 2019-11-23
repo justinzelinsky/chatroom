@@ -1,22 +1,22 @@
-import { object } from 'prop-types';
 import React, { Fragment, lazy, Suspense, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Redirect, Switch } from 'react-router-dom';
 
 import LoadingSpinner from 'components/LoadingSpinner';
 import NavigationBar from 'components/NavigationBar';
 import NotificationBar from 'components/NotificationBar';
 import { ProtectedRoute, UnprotectedRoute } from 'components/Routes';
-import mapDispatchToProps from 'state/mapDispatchToProps';
+import actions from 'state/actions';
 
 const AdminPanel = lazy(() => import('components/AdminPanel'));
 const Chatroom = lazy(() => import('components/Chatroom'));
 const Login = lazy(() => import('components/Login'));
 const Register = lazy(() => import('components/Register'));
 
-const App = ({ actions }) => {
+const App = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    actions.pageLoad();
+    dispatch(actions.pageLoad());
   }, []);
   return (
     <Fragment>
@@ -35,8 +35,4 @@ const App = ({ actions }) => {
   );
 };
 
-App.propTypes = {
-  actions: object.isRequired
-};
-
-export default connect(null, mapDispatchToProps)(App);
+export default App;

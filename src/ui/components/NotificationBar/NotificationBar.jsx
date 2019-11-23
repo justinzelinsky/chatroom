@@ -1,26 +1,19 @@
 import './style.scss';
 
-import { shape, string } from 'prop-types';
 import React from 'react';
 import { Alert } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-const NotificationBar = ({ notification }) =>
-  notification && (
-    <Alert styleName="notification-bar" variant={notification.variant}>
-      {notification.message}
-    </Alert>
-  );
-
-NotificationBar.propTypes = {
-  notification: shape({
-    message: string.isRequired,
-    variant: string.isRequired
-  })
+const NotificationBar = () => {
+  const notification = useSelector(state => state.notificiation);
+  if (notification) {
+    return (
+      <Alert styleName="notification-bar" variant={notification.variant}>
+        {notification.message}
+      </Alert>
+    );
+  }
+  return null;
 };
 
-const mapStateToProps = state => ({
-  notification: state.notification
-});
-
-export default connect(mapStateToProps)(NotificationBar);
+export default NotificationBar;

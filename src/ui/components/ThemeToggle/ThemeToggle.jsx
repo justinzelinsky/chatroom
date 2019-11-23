@@ -1,19 +1,20 @@
 import './style.scss';
 
-import { object, bool } from 'prop-types';
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import mapDispatchToProps from 'state/mapDispatchToProps';
+import actions from 'state/actions';
 
-const ThemeToggle = ({ actions, darkMode }) => {
+const ThemeToggle = () => {
+  const darkMode = useSelector(state => state.darkMode);
+  const dispatch = useDispatch();
   const setDarkMode = isDarkMode => {
     if (isDarkMode) {
       document.body.classList.add('dark-mode');
     } else {
       document.body.classList.remove('dark-mode');
     }
-    actions.setDarkMode(isDarkMode);
+    dispatch(actions.setDarkMode(isDarkMode));
   };
 
   return (
@@ -38,13 +39,4 @@ const ThemeToggle = ({ actions, darkMode }) => {
   );
 };
 
-ThemeToggle.propTypes = {
-  actions: object.isRequired,
-  darkMode: bool.isRequired
-};
-
-const mapStateToProps = state => ({
-  darkMode: state.darkMode
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ThemeToggle);
+export default ThemeToggle;

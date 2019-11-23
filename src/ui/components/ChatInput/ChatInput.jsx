@@ -2,14 +2,19 @@ import './style.scss';
 
 import classnames from 'classnames';
 import dayjs from 'dayjs';
-import { object, bool } from 'prop-types';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import mapDispatchToProps from 'state/mapDispatchToProps';
+import actions from 'state/actions';
 
-const ChatInput = ({ actions, currentUser, darkMode  }) => {
+const ChatInput = () => {
+  const { currentUser, darkMode } = useSelector(state => ({
+    currentUser: state.currentUser,
+    darkMode: state.darkMode
+  }));
+  const dispatch = useDispatch();
+
   const [message, setMessage] = useState('');
 
   const onChange = event => setMessage(event.target.value);
@@ -17,7 +22,7 @@ const ChatInput = ({ actions, currentUser, darkMode  }) => {
   const sendMessage = () => {
     if (message) {
       const ts = dayjs().valueOf();
-      actions.addChat({ message, ts, user: currentUser });
+      dispatch(actions.addChat({ message, ts, user: currentUser }));
       setMessage('');
     }
   };
@@ -62,15 +67,4 @@ const ChatInput = ({ actions, currentUser, darkMode  }) => {
   );
 };
 
-ChatInput.propTypes = {
-  actions: object.isRequired,
-  currentUser: object.isRequired,
-  darkMode: bool.isRequired
-};
-
-const mapStateToProps = state => ({
-  currentUser: state.currentUser,
-  darkMode: state.darkMode
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChatInput);
+export default ChatInput;

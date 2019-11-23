@@ -1,27 +1,28 @@
-import { object, bool } from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import AboutModal from 'components/AboutModal';
 import ThemeToggle from 'components/ThemeToggle';
-import mapDispatchToProps from 'state/mapDispatchToProps';
+import actions from 'state/actions';
 import { getIsAdmin, getIsAuthenticated } from 'state/selectors';
 
-const NavigationBar = ({
-  actions,
-  darkMode,
-  history,
-  isAdmin,
-  isAuthenticated,
-  router
-}) => {
+const NavigationBar = () => {
+  const { darkMode, isAdmin, isAuthenticated } = useSelector(state => ({
+    darkMode: state.darkMode,
+    isAdmin: getIsAdmin(state),
+    isAuthenticated: getIsAuthenticated(state)
+  }));
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
+
   const [showModal, setShowModal] = useState(false);
   const [expandMenu, setExpandMenu] = useState(false);
 
   const handleLogout = () => {
-    actions.logout();
+    dispatch(actions.logout());
     setExpandMenu(false);
   };
   const showAboutModal = () => setShowModal(true);
@@ -35,7 +36,7 @@ const NavigationBar = ({
     setExpandMenu(false);
   };
 
-  const isActive = path => router.location.pathname.indexOf(path) !== -1;
+  const isActive = path => location.pathname.indexOf(path) !== -1;
   const variant = darkMode ? 'dark' : 'light';
 
   return (
@@ -54,7 +55,9 @@ const NavigationBar = ({
           <Nav className="mr-auto">
             <Nav.Link onClick={showAboutModal}>About</Nav.Link>
             {isAuthenticated && (
-              <Nav.Link active={isActive('chatroom')} onClick={goTo('/chatroom')}>
+              <Nav.Link
+                active={isActive('chatroom')}
+                onClick={goTo('/chatroom')}>
                 Chatroom
               </Nav.Link>
             )}
@@ -79,22 +82,4 @@ const NavigationBar = ({
   );
 };
 
-NavigationBar.propTypes = {
-  actions: object.isRequired,
-  darkMode: bool.isRequired,
-  history: object.isRequired,
-  isAdmin: bool.isRequired,
-  isAuthenticated: bool.isRequired,
-  router: object.isRequired
-};
-
-const mapStateToProps = state => ({
-  darkMode: state.darkMode,
-  isAdmin: getIsAdmin(state),
-  isAuthenticated: getIsAuthenticated(state),
-  router: state.router
-});
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(NavigationBar)
-);
+export default NavigationBar;

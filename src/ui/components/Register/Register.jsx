@@ -1,7 +1,6 @@
 import './style.scss';
 
 import classnames from 'classnames';
-import { bool, object, string } from 'prop-types';
 import React, { useState } from 'react';
 import {
   Button,
@@ -11,10 +10,10 @@ import {
   Jumbotron,
   Row
 } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import mapDispatchToProps from 'state/mapDispatchToProps';
+import actions from 'state/actions';
 import {
   getEmailError,
   getNameError,
@@ -22,14 +21,22 @@ import {
   getPasswordConfirmationError
 } from 'state/selectors';
 
-const Register = ({
-  actions,
-  darkMode,
-  emailError,
-  nameError,
-  passwordError,
-  passwordConfirmationError
-}) => {
+const Register = () => {
+  const {
+    darkMode,
+    emailError,
+    nameError,
+    passwordError,
+    passwordConfirmationError
+  } = useSelector(state => ({
+    darkMode: state.darkMode,
+    emailError: getEmailError(state),
+    nameError: getNameError(state),
+    passwordError: getPasswordError(state),
+    passwordConfirmationError: getPasswordConfirmationError(state)
+  }));
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -50,7 +57,9 @@ const Register = ({
     event.preventDefault();
 
     if (!disableButton) {
-      actions.register({ name, email, password, passwordConfirmation });
+      dispatch(
+        actions.register({ name, email, password, passwordConfirmation })
+      );
     }
   };
 
@@ -131,21 +140,4 @@ const Register = ({
   );
 };
 
-Register.propTypes = {
-  actions: object.isRequired,
-  darkMode: bool.isRequired,
-  emailError: string,
-  nameError: string,
-  passwordError: string,
-  passwordConfirmationError: string
-};
-
-const mapStateToProps = state => ({
-  darkMode: state.darkMode,
-  emailError: getEmailError(state),
-  nameError: getNameError(state),
-  passwordError: getPasswordError(state),
-  passwordConfirmationError: getPasswordConfirmationError(state)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default Register;

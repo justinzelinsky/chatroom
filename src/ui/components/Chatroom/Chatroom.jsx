@@ -1,18 +1,20 @@
 import './style.scss';
 
 import classnames from 'classnames';
-import { array, bool } from 'prop-types';
 import React, { useEffect, useRef } from 'react';
 import { Col, Container, ListGroup, Row } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import ActiveUsers from 'components/ActiveUsers';
 import ChatInput from 'components/ChatInput';
 import ChatMessage from 'components/ChatMessage';
-import mapDispatchToProps from 'state/mapDispatchToProps';
 import useSockets from 'utils/useSockets';
 
-const Chatroom = ({ chats, darkMode }) => {
+const Chatroom = () => {
+  const { chats, darkMode } = useSelector(state => ({
+    chats: state.chats,
+    darkMode: state.darkMode
+  }));
   const chatEndRef = useRef(null);
   const handleClose = useSockets();
 
@@ -58,14 +60,4 @@ const Chatroom = ({ chats, darkMode }) => {
   );
 };
 
-Chatroom.propTypes = {
-  chats: array.isRequired,
-  darkMode: bool.isRequired
-};
-
-const mapStateToProps = state => ({
-  chats: state.chats,
-  darkMode: state.darkMode
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Chatroom);
+export default Chatroom;

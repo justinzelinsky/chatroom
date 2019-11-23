@@ -1,15 +1,17 @@
 import './style.scss';
 
 import classnames from 'classnames';
-import { bool, object } from 'prop-types';
 import React from 'react';
 import { Button, Jumbotron } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import mapDispatchToProps from 'state/mapDispatchToProps';
+import actions from 'state/actions';
 
-const AdminPanel = ({ actions, darkMode }) => {
-  const clearChatHistory = () => actions.clearChatHistory();
+const AdminPanel = () => {
+  const darkMode = useSelector(state => state.darkMode);
+  const dispatch = useDispatch();
+
+  const clearChatHistory = () => dispatch(actions.clearChatHistory());
   const adminClassname = classnames('admin-panel', { 'dark-mode': darkMode });
   return (
     <Jumbotron styleName={adminClassname}>
@@ -21,13 +23,4 @@ const AdminPanel = ({ actions, darkMode }) => {
   );
 };
 
-AdminPanel.propTypes = {
-  actions: object.isRequired,
-  darkMode: bool.isRequired
-};
-
-const mapStateToProps = state => ({
-  darkMode: state.darkMode
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AdminPanel);
+export default AdminPanel;
