@@ -3,7 +3,7 @@ const dayjs = require('dayjs');
 const Message = require('./models/Message');
 
 const adminUser = {
-  user: 'Admin'
+  name: 'Admin'
 };
 
 const initializeWebsocketServer = io => {

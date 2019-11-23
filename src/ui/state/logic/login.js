@@ -4,6 +4,7 @@ import { createLogic } from 'redux-logic';
 import {
   hasErrors,
   LOGIN,
+  requestAllUsers,
   requestMessages,
   setCurrentUser
 } from 'state/actions';
@@ -23,6 +24,7 @@ const loginLogic = createLogic({
         const user = jwt_decode(token);
         dispatch(setCurrentUser(user));
         dispatch(requestMessages());
+        dispatch(requestAllUsers());
       })
       .catch(err => dispatch(hasErrors(err)))
       .finally(() => done());

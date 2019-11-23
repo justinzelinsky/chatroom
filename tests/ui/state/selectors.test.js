@@ -1,24 +1,51 @@
+import { hasErrors, setCurrentUser } from '../../../src/ui/state/actions';
 import {
-  hasErrors,
-  setCurrentUser,
-  updateActiveUsers
-} from '../../../src/ui/state/actions';
-import {
-  activeUsers,
   currentUser,
   errors,
   errorsInitialState,
   currentUserInitialState
 } from '../../../src/ui/state/reducers';
 import {
-  getActiveUserList,
   getEmailError,
+  getIsAuthenticated,
+  getIsAdmin,
   getPasswordError,
   getPasswordConfirmationError,
   getNameError,
-  getIsAuthenticated,
-  getIsAdmin
+  getUserList
 } from '../../../src/ui/state/selectors';
+
+describe('getUserList selector', () => {
+  it('should return the appropriate list of users with their active state', () => {
+    const state = {
+      activeUsers: [
+        {
+          id: 0,
+          name: 'Justin'
+        }
+      ],
+      allUsers: [
+        {
+          id: 0,
+          name: 'Justin'
+        },
+        {
+          id: 1,
+          name: 'Alex'
+        }
+      ],
+      currentUser: {
+        id: 0,
+        name: 'Justin'
+      }
+    };
+
+    const userList = getUserList(state);
+    expect(userList).toHaveLength(2);
+    expect(userList.find(user => user.name === 'Justin').isSelf).toEqual(true);
+    expect(userList.find(user => user.name === 'Alex').isActive).toEqual(false);
+  });
+});
 
 describe('Error Selectors', () => {
   it('should get the correct email error', () => {
@@ -111,21 +138,6 @@ const otherUsers = [
     name: 'Gene'
   }
 ];
-
-describe('getActiveUserList selector', () => {
-  it('should return the list of active users with the currently logged in user first', () => {
-    const state = {
-      currentUser: currentUser({}, setCurrentUser(loggedInUser)),
-      activeUsers: activeUsers({}, updateActiveUsers(otherUsers))
-    };
-
-    const [firstActiveUser, ...otherActiveUsers] = getActiveUserList(state);
-
-    expect(firstActiveUser.name).toEqual(loggedInUser.name);
-    expect(firstActiveUser.isSelf).toEqual(true);
-    expect(otherActiveUsers).toEqual(otherUsers);
-  });
-});
 
 describe('getIsAuthenticated selector', () => {
   it('should return false when not logged in', () => {

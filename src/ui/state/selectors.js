@@ -4,6 +4,7 @@ import isEmpty from 'utils/isEmpty';
 
 const getCurrentUser = state => state.currentUser;
 const getActiveUsers = state => state.activeUsers;
+const getAllUsers = state => state.allUsers;
 const getErrors = state => state.errors;
 
 export const getEmailError = createSelector(getErrors, errors => errors.email);
@@ -20,22 +21,22 @@ export const getPasswordConfirmationError = createSelector(
 
 export const getNameError = createSelector(getErrors, errors => errors.name);
 
-export const getActiveUserList = createSelector(
+export const getUserList = createSelector(
   getActiveUsers,
   getCurrentUser,
-  (activeUsers, currentUser) => {
-    const otherUsers = activeUsers
-      .filter(user => user.id !== currentUser.id)
-      .map(({ admin, id, name }) => ({ admin, id, name }));
-    return [
-      {
-        admin: currentUser.admin,
-        id: currentUser.id,
-        isSelf: true,
-        name: currentUser.name
-      },
-      ...otherUsers
-    ];
+  getAllUsers,
+  (activeUsers, currentUser, allUsers) => {
+    return allUsers.map(user => {
+      const isSelf = user.id === currentUser.id;
+      const isActive = activeUsers.some(
+        activeUser => activeUser.id === user.id
+      );
+      return {
+        isActive,
+        isSelf,
+        name: user.name
+      };
+    });
   }
 );
 

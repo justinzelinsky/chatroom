@@ -8,6 +8,17 @@ const { validateLoginInput, validateRegisterInput } = require('validation');
 
 const router = express.Router();
 
+router.get('/', (req, res) => {
+  User.find({}).then(users => {
+    const cleanUsers = users.map(({ name, email, _id }) => ({
+      name,
+      email,
+      id: _id
+    }));
+    res.json(cleanUsers);
+  });
+});
+
 router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 

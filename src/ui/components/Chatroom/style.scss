@@ -1,27 +1,31 @@
 .chatroom {
   padding: 0;
 
-  .chats {
-    background-color: $very-soft-cyan;
-    height: calc(100vh - 75px - 56px);
-    overflow-y: scroll;
-    padding: 0;
-    padding: 10px 10px 0 10px;
+  .chatroom-userlist-container {
+    display: flex;
 
-    &.dark-mode {
-      background-color: $very-dark-desaturated-blue;
-    }
+    .chats {
+      background-color: $very-soft-cyan;
+      height: calc(100vh - 75px - 56px);
+      overflow-y: scroll;
+      padding: 0;
+      padding: 10px 10px 0 10px;
 
-    @include phone {
-      height: calc(100vh - 105px - 56px);
-    }
+      &.dark-mode {
+        background-color: $very-dark-desaturated-blue;
+      }
 
-    .no-chats {
-      font-style: italic;
-    }
+      @include phone {
+        height: calc(100vh - 105px - 56px);
+      }
 
-    .chat-end {
-      visibility: hidden;
+      .no-chats {
+        font-style: italic;
+      }
+
+      .chat-end {
+        visibility: hidden;
+      }
     }
   }
 }

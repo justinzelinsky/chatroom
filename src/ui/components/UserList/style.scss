@@ -1,0 +1,38 @@
+.user-list-container {
+  min-width: 200px;
+  padding: 10px;
+
+  @include phone {
+    display: none;
+  }
+
+  h3 {
+    font-size: 18px;
+    text-decoration: underline;
+  }
+
+  .user-list {
+    .user {
+      align-items: center;
+      display: flex;
+      font-style: italic;
+      padding: 10px 0;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $very-light-grey;
+      }
+
+      .status {
+        background-color: #bbb;
+        border-radius: 50%;
+        height: 10px;
+        margin-right: 5px;
+        width: 10px;
+
+        &.is-active {
+          background-color: $pure-green;
+        }
+      }
+    }
+  }
+}

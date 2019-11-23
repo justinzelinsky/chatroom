@@ -12,8 +12,10 @@ import {
 } from '../../../src/ui/state/actions';
 import createRootReducer, {
   activeUsers,
-  currentUser,
   activeUsersInitialState,
+  allUsers,
+  allUsersInitialState,
+  currentUser,
   currentUserInitialState,
   errors,
   errorsInitialState,
@@ -24,6 +26,15 @@ import createRootReducer, {
   notification,
   notificationInitialState
 } from '../../../src/ui/state/reducers';
+
+describe('allUsers reducer', () => {
+  it('should return the existing state for an unrelated action', () => {
+    const state = {
+      allUsers: allUsers(allUsersInitialState, {})
+    };
+    expect(state.allUsers).toEqual(allUsersInitialState);
+  });
+});
 
 describe('currentUser reducer', () => {
   it('should return the existing state for an unrelated action', () => {

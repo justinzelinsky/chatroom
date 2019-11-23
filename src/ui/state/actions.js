@@ -63,6 +63,14 @@ export const pageLoad = () => ({
   type: PAGE_LOAD
 });
 
+export const RECEIVED_ALL_USERS = 'RECEIVED_ALL_USERS';
+export const receivedAllUsers = users => ({
+  type: RECEIVED_ALL_USERS,
+  payload: {
+    users
+  }
+});
+
 export const RECEIVED_MESSAGES = 'RECEIVED_MESSAGES';
 export const receivedMessages = messages => ({
   type: RECEIVED_MESSAGES,
@@ -80,6 +88,11 @@ export const register = ({ name, email, password, passwordConfirmation }) => ({
     password,
     passwordConfirmation
   }
+});
+
+export const REQUEST_ALL_USERS = 'REQUEST_ALL_USERS';
+export const requestAllUsers = () => ({
+  type: REQUEST_ALL_USERS
 });
 
 export const REQUEST_MESSAGES = 'REQUEST_MESSAGES';
@@ -132,8 +145,10 @@ export default {
   login,
   logout,
   pageLoad,
+  receivedAllUsers,
   receivedMessages,
   register,
+  requestAllUsers,
   requestMessages,
   setCurrentUser,
   setDarkMode,

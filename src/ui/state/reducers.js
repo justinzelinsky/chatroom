@@ -8,6 +8,7 @@ import {
   CHAT_HISTORY_CLEARED,
   HAS_ERRORS,
   HIDE_NOTIFICATION,
+  RECEIVED_ALL_USERS,
   RECEIVED_MESSAGES,
   SET_CURRENT_USER,
   SET_DARK_MODE,
@@ -27,6 +28,11 @@ export const activeUsers = (state = activeUsersInitialState, action) => {
   return action.type === UPDATE_ACTIVE_USERS
     ? [...action.payload.users]
     : state;
+};
+
+export const allUsersInitialState = [];
+export const allUsers = (state = allUsersInitialState, action) => {
+  return action.type === RECEIVED_ALL_USERS ? [...action.payload.users] : state;
 };
 
 export const errorsInitialState = {};
@@ -104,6 +110,7 @@ export const notification = (state = notificationInitialState, action) => {
 export default history =>
   combineReducers({
     activeUsers,
+    allUsers,
     chats,
     currentUser,
     darkMode,
