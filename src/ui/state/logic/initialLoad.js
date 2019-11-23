@@ -18,8 +18,8 @@ const initialLoadLogic = createLogic({
       } catch {
         console.log('Invalid token');
       }
-      done();
     }
+    done();
   }
 });
 
