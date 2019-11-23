@@ -1,16 +1,17 @@
 .register-container {
   margin: 0;
-  width: 50%;
-
-  @include phone {
-    width: 100%;
-  }
+  width: 35%;
 
   @include desktop {
     left: 50%;
     position: fixed;
     top: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  @include phone {
+    margin-top: 10px;
+    width: 100%;
   }
 
   &.dark-mode {

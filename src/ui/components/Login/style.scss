@@ -1,6 +1,18 @@
 .login-container {
   margin: 0;
-  width: 50%;
+  width: 35%;
+
+  @include desktop {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @include phone {
+    margin-top: 10px;
+    width: 100%;
+  }
 
   &.dark-mode {
     background-color: $dark-grey-blue;
@@ -10,17 +22,6 @@
       border: $very-soft-violet;
       color: $white;
     }
-  }
-
-  @include phone {
-    width: 100%;
-  }
-
-  @include desktop {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
   }
 
   .login-header {
