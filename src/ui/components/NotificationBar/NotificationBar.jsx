@@ -5,7 +5,7 @@ import { Alert } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 const NotificationBar = () => {
-  const notification = useSelector(state => state.notificiation);
+  const notification = useSelector(state => state.notification);
   if (notification) {
     return (
       <Alert styleName="notification-bar" variant={notification.variant}>
