@@ -9,7 +9,7 @@ import ThemeToggle from 'components/ThemeToggle';
 import mapDispatchToProps from 'state/mapDispatchToProps';
 import { getIsAdmin, getIsAuthenticated } from 'state/selectors';
 
-const Navigation = ({
+const NavigationBar = ({
   actions,
   darkMode,
   history,
@@ -79,7 +79,7 @@ const Navigation = ({
   );
 };
 
-Navigation.propTypes = {
+NavigationBar.propTypes = {
   actions: object.isRequired,
   darkMode: bool.isRequired,
   history: object.isRequired,
@@ -96,5 +96,5 @@ const mapStateToProps = state => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Navigation)
+  connect(mapStateToProps, mapDispatchToProps)(NavigationBar)
 );

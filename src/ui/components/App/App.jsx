@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect, Switch } from 'react-router-dom';
 
 import LoadingSpinner from 'components/LoadingSpinner';
-import Navigation from 'components/Navigation';
+import NavigationBar from 'components/NavigationBar';
 import NotificationBar from 'components/NotificationBar';
 import ProtectedRoute from 'components/ProtectedRoute';
 import UnprotectedRoute from 'components/UnprotectedRoute';
@@ -21,7 +21,7 @@ const App = ({ actions }) => {
   }, []);
   return (
     <Fragment>
-      <Navigation />
+      <NavigationBar />
       <NotificationBar />
       <Suspense fallback={<LoadingSpinner />}>
         <Switch>
