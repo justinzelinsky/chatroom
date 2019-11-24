@@ -1,4 +1,4 @@
-import { isEmpty } from '../../../src/server/utils';
+import { isEmpty } from 'server/utils';
 
 describe('isEmpty function', () => {
   it('should correctly determine empty objects', () => {

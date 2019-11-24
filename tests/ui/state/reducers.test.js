@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { LOCATION_CHANGE } from 'connected-react-router';
+
 import {
   hasErrors,
   addChat,
@@ -9,7 +10,7 @@ import {
   showNotification,
   hideNotification,
   addAdminChat
-} from '../../../src/ui/state/actions';
+} from 'ui/state/actions';
 import createRootReducer, {
   activeUsers,
   activeUsersInitialState,
@@ -25,7 +26,7 @@ import createRootReducer, {
   darkModeInitialState,
   notification,
   notificationInitialState
-} from '../../../src/ui/state/reducers';
+} from 'ui/state/reducers';
 
 describe('allUsers reducer', () => {
   it('should return the existing state for an unrelated action', () => {

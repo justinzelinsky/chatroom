@@ -1,10 +1,5 @@
 module.exports = {
-  moduleDirectories: [
-    'node_modules',
-    'src/server',
-    'src/ui',
-    'src/ui/components'
-  ],
+  moduleDirectories: ['node_modules', 'src', 'src/ui', 'src/server'],
   moduleFileExtensions: ['js'],
   testMatch: ['/**/*.test.js'],
   verbose: true

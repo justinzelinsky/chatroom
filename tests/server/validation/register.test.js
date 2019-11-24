@@ -1,4 +1,4 @@
-import validateRegisterInput from '../../../src/server/validation/register';
+import validateRegisterInput from 'server/validation/register';
 
 describe('validateRegisterInput test', () => {
   it('should return not errors when using a valid name, email and password', () => {

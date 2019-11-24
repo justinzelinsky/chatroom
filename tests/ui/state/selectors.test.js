@@ -1,10 +1,10 @@
-import { hasErrors, setCurrentUser } from '../../../src/ui/state/actions';
+import { hasErrors, setCurrentUser } from 'ui/state/actions';
 import {
   currentUser,
   errors,
   errorsInitialState,
   currentUserInitialState
-} from '../../../src/ui/state/reducers';
+} from 'ui/state/reducers';
 import {
   getEmailError,
   getIsAuthenticated,
@@ -13,7 +13,7 @@ import {
   getPasswordConfirmationError,
   getNameError,
   getUserList
-} from '../../../src/ui/state/selectors';
+} from 'ui/state/selectors';
 
 describe('getUserList selector', () => {
   const allUsers = [

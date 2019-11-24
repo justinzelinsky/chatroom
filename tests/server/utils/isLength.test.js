@@ -1,4 +1,4 @@
-import { isLength } from '../../../src/server/utils';
+import { isLength } from 'server/utils';
 
 describe('isLength function', () => {
   it('should correctly determine if strings have valid lengths', () => {

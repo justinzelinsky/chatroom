@@ -1,4 +1,4 @@
-import { isEmail } from '../../../src/server/utils';
+import { isEmail } from 'server/utils';
 
 describe('isEmail function', () => {
   it('should correctly determine valid emails', () => {

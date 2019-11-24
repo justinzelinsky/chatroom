@@ -1,4 +1,4 @@
-import validateLoginInput from '../../../src/server/validation/login';
+import validateLoginInput from 'server/validation/login';
 
 describe('validateLoginInput test', () => {
   it('should return not errors when using a valid email and password', () => {
