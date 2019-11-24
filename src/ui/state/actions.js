@@ -116,6 +116,14 @@ export const setDarkMode = isDarkMode => ({
   }
 });
 
+export const SET_USERS_TYPING = 'SET_USERS_TYPING';
+export const setUsersTyping = usersTyping => ({
+  type: SET_USERS_TYPING,
+  payload: {
+    usersTyping
+  }
+});
+
 export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION';
 export const showNotification = ({ message, variant = 'primary' }) => ({
   type: SHOW_NOTIFICATION,
@@ -125,6 +133,16 @@ export const showNotification = ({ message, variant = 'primary' }) => ({
       variant
     }
   }
+});
+
+export const USER_STARTS_TYPING = 'USER_STARTS_TYPING';
+export const userStartsTyping = () => ({
+  type: USER_STARTS_TYPING
+});
+
+export const USER_STOPS_TYPING = 'USER_STOPS_TYPING';
+export const userStopsTyping = () => ({
+  type: USER_STOPS_TYPING
 });
 
 export const UPDATE_ACTIVE_USERS = 'UPDATE_ACTIVE_USERS';
@@ -152,6 +170,9 @@ export default {
   requestMessages,
   setCurrentUser,
   setDarkMode,
+  setUsersTyping,
   showNotification,
-  updateActiveUsers
+  updateActiveUsers,
+  userStartsTyping,
+  userStopsTyping
 };

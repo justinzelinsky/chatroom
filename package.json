@@ -1,6 +1,6 @@
 {
   "name": "chatroom",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "description": "Chatroom built with React, Redux, and Socket.IO",
   "main": "src/server/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "docker": "npm run build && docker-compose up",
     "build": "NODE_ENV=production webpack",
     "start": "concurrently \"npm:watch-js\" \"npm:watch-server\"",
-    "start:prod": "NODE_PATH=src/server node src/server/index.js",
+    "start:prod": "npm run build && NODE_PATH=src/server node src/server/index.js",
     "test": "jest --coverage",
     "watch-js": "NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0",
     "watch-server": "NODE_PATH=src/server nodemon src/server/index.js"

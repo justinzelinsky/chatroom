@@ -12,6 +12,7 @@ import {
   RECEIVED_MESSAGES,
   SET_CURRENT_USER,
   SET_DARK_MODE,
+  SET_USERS_TYPING,
   SHOW_NOTIFICATION,
   UPDATE_ACTIVE_USERS
 } from 'state/actions';
@@ -107,6 +108,11 @@ export const notification = (state = notificationInitialState, action) => {
   }
 };
 
+export const usersTypingInitialState = [];
+export const usersTyping = (state = usersTypingInitialState, action) => {
+  return action.type === SET_USERS_TYPING ? action.payload.usersTyping : state;
+};
+
 export default history =>
   combineReducers({
     activeUsers,
@@ -116,5 +122,6 @@ export default history =>
     darkMode,
     errors,
     notification,
-    router: connectRouter(history)
+    router: connectRouter(history),
+    usersTyping
   });

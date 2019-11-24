@@ -15,6 +15,18 @@ export const subscribeToUserEvents = callback => {
   socket.on('user left', username => callback(username));
 };
 
+export const subscribeToTypingEvents = callback => {
+  socket.on('users typing', usersTyping => callback(usersTyping));
+};
+
+export const emitStartTyping = user => {
+  socket.emit('user start typing', user);
+};
+
+export const emitStopTyping = user => {
+  socket.emit('user stop typing', user);
+};
+
 export const emitNewChat = chat => {
   socket.emit('new chat', chat);
 };

@@ -1,14 +1,20 @@
 import { useEffect } from 'react';
 import { useDispatch, useStore } from 'react-redux';
 
-import { addChat, addAdminChat, updateActiveUsers } from 'state/actions';
+import {
+  addChat,
+  addAdminChat,
+  setUsersTyping,
+  updateActiveUsers
+} from 'state/actions';
 import {
   closeSocket,
   emitAddedUser,
   openSocket,
   subscribeToChatEvents,
   subscribeToAdminChatEvents,
-  subscribeToUserEvents
+  subscribeToUserEvents,
+  subscribeToTypingEvents
 } from 'utils/socket';
 
 const documentTitle = document.title;
@@ -45,6 +51,10 @@ const useSockets = () => {
     });
 
     subscribeToAdminChatEvents(chat => dispatch(addAdminChat(chat)));
+
+    subscribeToTypingEvents(usersTyping =>
+      dispatch(setUsersTyping(usersTyping))
+    );
 
     subscribeToUserEvents(usernames => {
       dispatch(updateActiveUsers(usernames));

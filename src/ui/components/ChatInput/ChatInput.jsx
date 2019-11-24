@@ -14,7 +14,8 @@ const ChatInput = () => {
     darkMode: state.darkMode
   }));
   const dispatch = useDispatch();
-
+  const [timeoutId, setTimeoutId] = useState(null);
+  const [isTyping, setIsTyping] = useState(false);
   const [message, setMessage] = useState('');
 
   const onChange = event => setMessage(event.target.value);
@@ -27,9 +28,24 @@ const ChatInput = () => {
     }
   };
 
-  const onKeyPress = event => {
+  const onKeyDown = event => {
+    clearTimeout(timeoutId);
+
     if (event.key === 'Enter') {
       sendMessage();
+      setIsTyping(false);
+      dispatch(actions.userStopsTyping());
+    } else {
+      if (!isTyping) {
+        setIsTyping(true);
+        dispatch(actions.userStartsTyping());
+      }
+      setTimeoutId(
+        setTimeout(() => {
+          setIsTyping(false);
+          dispatch(actions.userStopsTyping());
+        }, 500)
+      );
     }
   };
 
@@ -45,13 +61,17 @@ const ChatInput = () => {
   });
 
   return (
-    <Form onSubmit={handleOnSubmit} styleName={chatInputClassname}>
+    <Form
+      autoComplete="off"
+      onSubmit={handleOnSubmit}
+      styleName={chatInputClassname}>
       <Form.Group controlId="message" styleName="chat-input-group">
         <Form.Label styleName="username-display">{currentUser.name}</Form.Label>
         <Form.Control
           autoFocus={true}
           onChange={onChange}
-          onKeyPress={onKeyPress}
+          onKeyDown={onKeyDown}
+          placeholder="Type your message..."
           type="text"
           value={message}
         />

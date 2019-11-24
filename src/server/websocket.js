@@ -14,6 +14,11 @@ const initializeWebsocketServer = io => {
   const USER_JOINED = 'user joined';
   const USER_LEFT = 'user left';
   const ADD_USER = 'add user';
+  const USER_START_TYPING = 'user start typing';
+  const USER_STOP_TYPING = 'user stop typing';
+  const USERS_TYPING = 'users typing';
+
+  let usersTyping = [];
 
   io.on('connection', socket => {
     let addedUser = false;
@@ -26,6 +31,16 @@ const initializeWebsocketServer = io => {
         isAdminMessage: Boolean(chat.isAdminMessage)
       });
       message.save().then(() => socket.broadcast.emit(NEW_CHAT, chat));
+    });
+
+    socket.on(USER_START_TYPING, user => {
+      usersTyping.push(user);
+      socket.broadcast.emit(USERS_TYPING, usersTyping);
+    });
+
+    socket.on(USER_STOP_TYPING, user => {
+      usersTyping = usersTyping.filter(typingUser => typingUser.id !== user.id);
+      socket.broadcast.emit(USERS_TYPING, usersTyping);
     });
 
     socket.on(ADD_USER, user => {

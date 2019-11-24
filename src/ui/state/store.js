@@ -6,12 +6,14 @@ import { createLogicMiddleware } from 'redux-logic';
 import logic from 'state/logic';
 import createRootReducer from 'state/reducers';
 import { get, post, setAuthToken } from 'utils/authFetch';
-import { emitNewChat } from 'utils/socket';
+import { emitNewChat, emitStartTyping, emitStopTyping } from 'utils/socket';
 
 export const history = createBrowserHistory();
 
 const deps = {
   emitNewChat,
+  emitStartTyping,
+  emitStopTyping,
   get,
   history,
   post,

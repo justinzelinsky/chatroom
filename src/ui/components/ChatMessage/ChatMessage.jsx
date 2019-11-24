@@ -7,7 +7,7 @@ import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-const ChatMessage = ({ chat = {}, index, noChats }) => {
+const ChatMessage = ({ chat, index, noChats }) => {
   const darkMode = useSelector(state => state.darkMode);
   const { isAdminMessage, message, ts, user } = chat;
 
@@ -31,7 +31,7 @@ const ChatMessage = ({ chat = {}, index, noChats }) => {
     );
   }
 
-  const timestamp = dayjs(ts).format('hh:mm');
+  const timestamp = dayjs(ts).format('HH:mm');
 
   return (
     <ListGroup.Item styleName="chat" variant={chatVariant}>
@@ -46,16 +46,17 @@ const ChatMessage = ({ chat = {}, index, noChats }) => {
 
 ChatMessage.propTypes = {
   chat: shape({
-    isAdminMessage: bool.isRequired,
-    message: string.isRequired,
-    ts: number.isRequired,
-    user: object.isRequired
-  }),
+    isAdminMessage: bool,
+    message: string,
+    ts: number,
+    user: object
+  }).isRequired,
   index: number,
   noChats: bool.isRequired
 };
 
 ChatMessage.defaultProps = {
+  chat: {},
   noChats: false
 };
 

@@ -6,7 +6,8 @@
 
     .chats {
       background-color: $very-soft-cyan;
-      height: calc(100vh - 75px - 56px);
+      flex: 1;
+      height: calc(100vh - 125px);
       overflow-y: scroll;
       padding: 0;
       padding: 10px 10px 0 10px;
@@ -16,7 +17,7 @@
       }
 
       @include phone {
-        height: calc(100vh - 105px - 56px);
+        height: calc(100vh - 156px);
       }
 
       .no-chats {

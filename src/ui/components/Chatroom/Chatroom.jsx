@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import UserList from 'components/UserList';
 import ChatInput from 'components/ChatInput';
 import ChatMessage from 'components/ChatMessage';
+import UserTyping from 'components/UserTyping';
 import useSockets from 'utils/useSockets';
 
 const Chatroom = () => {
@@ -36,6 +37,7 @@ const Chatroom = () => {
           {chats.map((chat, idx) => (
             <ChatMessage chat={chat} index={idx} key={idx} />
           ))}
+          <UserTyping />
           <ListGroup.Item ref={chatEndRef} styleName="chat-end" />
         </ListGroup>
         <UserList />

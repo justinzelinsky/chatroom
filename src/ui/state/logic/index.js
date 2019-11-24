@@ -6,6 +6,8 @@ import initialLoad from './initialLoad';
 import login from './login';
 import logout from './logout';
 import register from './register';
+import userStartsTyping from './userStartsTyping';
+import userStopsTyping from './userStopsTyping';
 
 export default [
   addChat,
@@ -15,5 +17,7 @@ export default [
   initialLoad,
   login,
   logout,
-  register
+  register,
+  userStartsTyping,
+  userStopsTyping
 ];

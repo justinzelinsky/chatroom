@@ -10,6 +10,7 @@ const UserList = () => {
   const userList = useSelector(getUserList);
   return (
     <div styleName="user-list-container">
+      <h3>Users:</h3>
       <div styleName="user-list">
         {userList.map(({ isActive, isSelf, name }, idx) => {
           const statusStyle = classnames('status', { 'is-active': isActive });
