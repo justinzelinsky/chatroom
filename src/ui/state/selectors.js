@@ -26,6 +26,9 @@ export const getUserList = createSelector(
   getCurrentUser,
   getAllUsers,
   (activeUsers, currentUser, allUsers) => {
+    if (!currentUser || activeUsers.length === 0) {
+      return [];
+    }
     const allUserList = allUsers.map(user => {
       const isSelf = user.id === currentUser.id;
       const isActive = activeUsers.some(
@@ -38,12 +41,9 @@ export const getUserList = createSelector(
         name: user.name
       };
     });
-    if (allUserList.length) {
-      const loggedInUser = allUserList.find(user => user.id === currentUser.id);
-      const otherUsers = allUserList.filter(user => user.id !== currentUser.id);
-      return [loggedInUser, ...otherUsers];
-    }
-    return allUserList;
+    const loggedInUser = allUserList.find(user => user.id === currentUser.id);
+    const otherUsers = allUserList.filter(user => user.id !== currentUser.id);
+    return [loggedInUser, ...otherUsers];
   }
 );
 
