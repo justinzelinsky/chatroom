@@ -7,13 +7,8 @@ import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-const ChatMessage = ({ chat, index, noChats }) => {
+const ChatMessage = ({ chat, index }) => {
   const darkMode = useSelector(state => state.darkMode);
-  const { isAdminMessage, message, ts, user } = chat;
-
-  const chatStyleName = classnames('chat-message', {
-    'admin-message': isAdminMessage
-  });
 
   let chatVariant;
 
@@ -23,13 +18,11 @@ const ChatMessage = ({ chat, index, noChats }) => {
     chatVariant = index % 2 ? 'light' : 'dark';
   }
 
-  if (noChats) {
-    return (
-      <ListGroup.Item styleName="chat" variant={chatVariant}>
-        No chats!
-      </ListGroup.Item>
-    );
-  }
+  const { isAdminMessage, message, ts, user } = chat;
+
+  const chatStyleName = classnames('chat-message', {
+    'admin-message': isAdminMessage
+  });
 
   const timestamp = dayjs(ts).format('HH:mm');
 
@@ -51,13 +44,11 @@ ChatMessage.propTypes = {
     ts: number,
     user: object
   }).isRequired,
-  index: number,
-  noChats: bool.isRequired
+  index: number
 };
 
 ChatMessage.defaultProps = {
-  chat: {},
-  noChats: false
+  chat: {}
 };
 
 export default ChatMessage;

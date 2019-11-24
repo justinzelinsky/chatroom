@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import UserList from 'components/UserList';
 import ChatInput from 'components/ChatInput';
 import ChatMessage from 'components/ChatMessage';
+import NoMessages from 'components/NoMessages';
 import UserTyping from 'components/UserTyping';
 import useSockets from 'utils/useSockets';
 
@@ -33,11 +34,11 @@ const Chatroom = () => {
     <Container fluid={true} styleName="chatroom">
       <div styleName="chatroom-userlist-container">
         <ListGroup styleName={chatsClassname}>
-          {chats.length === 0 && <ChatMessage noChats={true} />}
+          {chats.length === 0 && <NoMessages />}
           {chats.map((chat, idx) => (
             <ChatMessage chat={chat} index={idx} key={idx} />
           ))}
-          <UserTyping />
+          <UserTyping index={chats.length === 0 ? 1 : chats.length} />
           <ListGroup.Item ref={chatEndRef} styleName="chat-end" />
         </ListGroup>
         <UserList />
