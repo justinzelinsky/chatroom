@@ -11,6 +11,10 @@
   position: fixed;
   right: 0;
 
+  &.dark-mode {
+    background-color: $very-dark-grey-black;
+  }
+
   @include phone {
     padding: 10px;
     display: block;
