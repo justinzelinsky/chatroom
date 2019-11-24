@@ -7,7 +7,8 @@ const adminUser = {
 };
 
 const initializeWebsocketServer = io => {
-  const connectedUsers = [];
+  let connectedUsers = [];
+  let usersTyping = [];
 
   const NEW_CHAT = 'new chat';
   const NEW_ADMIN_CHAT = 'new admin chat';
@@ -17,8 +18,6 @@ const initializeWebsocketServer = io => {
   const USER_START_TYPING = 'user start typing';
   const USER_STOP_TYPING = 'user stop typing';
   const USERS_TYPING = 'users typing';
-
-  let usersTyping = [];
 
   io.on('connection', socket => {
     let addedUser = false;
@@ -64,7 +63,9 @@ const initializeWebsocketServer = io => {
 
     socket.on('disconnect', function() {
       if (addedUser) {
-        connectedUsers.splice(connectedUsers.indexOf(socket.username));
+        connectedUsers = connectedUsers.filter(
+          user => user.id !== socket.user.id
+        );
 
         io.emit(USER_LEFT, connectedUsers);
 
