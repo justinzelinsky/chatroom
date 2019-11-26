@@ -10,6 +10,7 @@
     "start": "concurrently \"npm:watch-js\" \"npm:watch-server\"",
     "start:prod": "npm run build && NODE_PATH=src/server node src/server/index.js",
     "test": "jest --coverage",
+    "tracker": "WEBPACK_TRACKER=true npm run build",
     "watch-js": "NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0",
     "watch-server": "NODE_PATH=src/server nodemon src/server/index.js"
   },
@@ -20,6 +21,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@packtracker/webpack-plugin": "^2.2.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.3.1",

@@ -1,3 +1,4 @@
+const PacktrackerPlugin = require('@packtracker/webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -108,6 +109,16 @@ if (!devMode) {
 
 if (process.env.WEBPACK_ANALYZE) {
   plugins.push(new BundleAnalyzerPlugin());
+}
+
+if (process.env.WEBPACK_TRACKER) {
+  plugins.push(
+    new PacktrackerPlugin({
+      project_token: process.env.PACKTRACKER_TOKEN,
+      upload: true,
+      fail_build: true
+    })
+  );
 }
 
 const resolve = {
