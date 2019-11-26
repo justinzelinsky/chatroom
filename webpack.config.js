@@ -114,6 +114,7 @@ if (process.env.WEBPACK_ANALYZE) {
 if (process.env.WEBPACK_TRACKER) {
   plugins.push(
     new PacktrackerPlugin({
+      branch: 'master',
       project_token: process.env.PACKTRACKER_TOKEN,
       upload: true,
       fail_build: true
