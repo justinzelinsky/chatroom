@@ -21,6 +21,7 @@ const devServer = {
   compress: true,
   historyApiFallback: true,
   hot: true,
+  https: true,
   open: 'Google Chrome',
   port: 9000,
   proxy: {
