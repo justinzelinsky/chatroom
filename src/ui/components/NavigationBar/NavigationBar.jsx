@@ -67,7 +67,14 @@ const NavigationBar = () => {
               </Nav.Link>
             )}
             {isAuthenticated && (
-              <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+              <Fragment>
+                <Nav.Link
+                  active={isActive('profile')}
+                  onClick={goTo('/profile')}>
+                  Profile
+                </Nav.Link>
+                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+              </Fragment>
             )}
           </Nav>
           <ThemeToggle />

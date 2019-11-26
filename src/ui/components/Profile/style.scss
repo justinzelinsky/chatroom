@@ -1,0 +1,24 @@
+.profile {
+  margin: 20px auto;
+  width: 50%;
+
+  @include phone {
+    margin: 20px 0;
+    width: 100%;
+  }
+
+  &.dark-mode {
+    background-color: $dark-grey-blue;
+    color: $white;
+
+    button {
+      color: $white;
+    }
+
+    input {
+      background-color: $black;
+      border: $very-soft-violet;
+      color: $white;
+    }
+  }
+}

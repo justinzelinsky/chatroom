@@ -4,11 +4,16 @@ const jwt = require('jsonwebtoken');
 
 const keys = require('config/keys');
 const { User } = require('models');
-const { validateLoginInput, validateRegisterInput } = require('validation');
+const userAuthMiddleware = require('./userAuthMiddleware');
+const {
+  validateLoginInput,
+  validateRegisterInput,
+  validateUpdateInput
+} = require('validation');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', userAuthMiddleware, (req, res) => {
   User.find({}).then(users => {
     const cleanUsers = users.map(({ name, email, _id }) => ({
       name,
@@ -17,6 +22,53 @@ router.get('/', (req, res) => {
     }));
     res.json(cleanUsers);
   });
+});
+
+router.post('/update', userAuthMiddleware, (req, res) => {
+  const { errors, isValid } = validateUpdateInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  const { email, name } = req.body;
+  const userUpdateFields = {};
+  if (email) {
+    userUpdateFields.email = email;
+  }
+  if (name) {
+    userUpdateFields.name = name;
+  }
+  const id = req.session.userId;
+  User.findOneAndUpdate({ _id: id }, userUpdateFields, { new: true }).then(
+    user => {
+      const payload = {
+        admin: user.admin,
+        email: user.email,
+        id: user.id,
+        name: user.name
+      };
+
+      req.session.userId = user.id;
+
+      jwt.sign(
+        payload,
+        keys.secretOrKey,
+        {
+          expiresIn: 31556926
+        },
+        (err, token) => {
+          if (err) {
+            res.status(500).json(err);
+          }
+          res.json({
+            success: true,
+            token: `Bearer ${token}`
+          });
+        }
+      );
+    }
+  );
 });
 
 router.post('/register', (req, res) => {
@@ -67,9 +119,10 @@ router.post('/login', (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         const payload = {
+          admin: user.admin,
+          email: user.email,
           id: user.id,
-          name: user.name,
-          admin: user.admin
+          name: user.name
         };
 
         req.session.userId = user.id;
@@ -83,7 +136,7 @@ router.post('/login', (req, res) => {
           (err, token) => {
             res.json({
               success: true,
-              token: 'Bearer ' + token
+              token: `Bearer ${token}`
             });
           }
         );
@@ -94,7 +147,7 @@ router.post('/login', (req, res) => {
   });
 });
 
-router.get('/logout', function(req, res, next) {
+router.get('/logout', (req, res, next) => {
   if (req.session) {
     req.session.destroy(function(err) {
       if (err) {

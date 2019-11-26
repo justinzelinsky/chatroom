@@ -11,6 +11,7 @@ import actions from 'state/actions';
 const AdminPanel = lazy(() => import('components/AdminPanel'));
 const Chatroom = lazy(() => import('components/Chatroom'));
 const Login = lazy(() => import('components/Login'));
+const Profile = lazy(() => import('components/Profile'));
 const Register = lazy(() => import('components/Register'));
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
         <Switch>
           <ProtectedRoute component={Chatroom} path="/chatroom" />
           <ProtectedRoute component={AdminPanel} path="/admin" />
+          <ProtectedRoute component={Profile} path="/profile" />
           <UnprotectedRoute component={Login} path="/login" />
           <UnprotectedRoute component={Register} path="/register" />
           <Redirect to="/login" />

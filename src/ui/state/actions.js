@@ -153,6 +153,15 @@ export const updateActiveUsers = users => ({
   }
 });
 
+export const UPDATE_PROFILE = 'UPDATE_PROFILE';
+export const updateProfile = ({ email, name }) => ({
+  type: UPDATE_PROFILE,
+  payload: {
+    email,
+    name
+  }
+});
+
 export default {
   addAdminChat,
   addChat,
@@ -173,6 +182,7 @@ export default {
   setUsersTyping,
   showNotification,
   updateActiveUsers,
+  updateProfile,
   userStartsTyping,
   userStopsTyping
 };

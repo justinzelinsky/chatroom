@@ -26,7 +26,11 @@ initializeWebsocketServer(io);
 
 // Setup MongoDB
 mongoose
-  .connect(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(config.mongoURI, {
+    useFindAndModify: false,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
   .then(() => console.log('MongoDB successfully connected')) // eslint-disable-line
   .catch(err => console.log(err)); // eslint-disable-line
 const mongooseConnection = mongoose.connection;
