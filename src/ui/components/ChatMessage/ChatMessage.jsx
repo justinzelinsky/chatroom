@@ -1,11 +1,12 @@
 import './style.scss';
 
-import dayjs from 'dayjs';
 import classnames from 'classnames';
 import { bool, shape, string, number, object } from 'prop-types';
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+
+import { formatTime } from 'utils/dates';
 
 const ChatMessage = ({ chat, index }) => {
   const darkMode = useSelector(state => state.darkMode);
@@ -24,7 +25,7 @@ const ChatMessage = ({ chat, index }) => {
     'admin-message': isAdminMessage
   });
 
-  const timestamp = dayjs(ts).format('HH:mm');
+  const timestamp = formatTime(new Date(ts));
 
   return (
     <ListGroup.Item styleName="chat" variant={chatVariant}>

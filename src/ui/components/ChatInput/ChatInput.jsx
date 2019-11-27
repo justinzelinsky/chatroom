@@ -1,7 +1,6 @@
 import './style.scss';
 
 import classnames from 'classnames';
-import dayjs from 'dayjs';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +21,7 @@ const ChatInput = () => {
 
   const sendMessage = () => {
     if (message) {
-      const ts = dayjs().valueOf();
+      const ts = new Date().valueOf();
       dispatch(actions.addChat({ message, ts, user: currentUser }));
       setMessage('');
     }

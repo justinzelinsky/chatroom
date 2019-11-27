@@ -1,5 +1,4 @@
 import { connectRouter, LOCATION_CHANGE } from 'connected-react-router';
-import dayjs from 'dayjs';
 import { combineReducers } from 'redux';
 
 import {
@@ -16,6 +15,7 @@ import {
   SHOW_NOTIFICATION,
   UPDATE_ACTIVE_USERS
 } from 'state/actions';
+import { formatDateTime } from 'utils/dates';
 
 export const currentUserInitialState = {};
 export const currentUser = (state = currentUserInitialState, action) => {
@@ -73,13 +73,11 @@ export const chats = (state = chatsInitialState, action) => {
 
     if (messages.length > 0) {
       const lastMessage = messages[messages.length - 1];
-      const lastMessageTimestamp = dayjs(lastMessage.ts).format(
-        'MM/DD/YYYY HH:MM'
-      );
+      const lastMessageTimestamp = formatDateTime(new Date(lastMessage.ts));
       const lastMessageSent = {
         isAdminMessage: true,
         message: `Last message sent at ${lastMessageTimestamp}`,
-        ts: dayjs().valueOf(),
+        ts: new Date().valueOf(),
         user: {
           name: 'Admin'
         }

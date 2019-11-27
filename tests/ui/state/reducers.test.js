@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { LOCATION_CHANGE } from 'connected-react-router';
 
 import {
@@ -27,6 +26,7 @@ import createRootReducer, {
   notification,
   notificationInitialState
 } from 'ui/state/reducers';
+import { formatDateTime } from 'ui/utils/dates';
 
 describe('allUsers reducer', () => {
   it('should return the existing state for an unrelated action', () => {
@@ -93,21 +93,21 @@ describe('chats reducer', () => {
   const chatList = [
     {
       message: 'Hello World',
-      ts: dayjs().valueOf(),
+      ts: new Date().valueOf(),
       user: {
         name: 'Justin'
       }
     },
     {
       message: 'Konnichiwa!',
-      ts: dayjs().valueOf(),
+      ts: new Date().valueOf(),
       user: {
         name: 'Justin-San'
       }
     },
     {
       message: 'Bonjour',
-      ts: dayjs().valueOf(),
+      ts: new Date().valueOf(),
       user: {
         name: 'Pierre'
       }
@@ -128,7 +128,7 @@ describe('chats reducer', () => {
     const user = {
       name: 'Justin'
     };
-    const ts = dayjs().valueOf();
+    const ts = new Date().valueOf();
     const chatMessage = 'Konnichiwa!';
     const state2 = {
       chats: chats(state.chats, addChat({ message: chatMessage, ts, user }))
@@ -146,7 +146,7 @@ describe('chats reducer', () => {
     const user = {
       name: 'Justin'
     };
-    const ts = dayjs().valueOf();
+    const ts = new Date().valueOf();
     const chatMessage = 'Konnichiwa!';
     const state2 = {
       chats: chats(
@@ -181,8 +181,8 @@ describe('chats reducer', () => {
     expect(state2.chats).toHaveLength(4);
 
     const penultimateChat = state2.chats[state2.chats.length - 2];
-    const penultimateChatTsFormatted = dayjs(penultimateChat.ts).format(
-      'MM/DD/YYYY HH:MM'
+    const penultimateChatTsFormatted = formatDateTime(
+      new Date(penultimateChat.ts)
     );
 
     const lastChat = state2.chats[state2.chats.length - 1];
