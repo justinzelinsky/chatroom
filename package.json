@@ -22,7 +22,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@packtracker/webpack-plugin": "^2.2.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.4.0",
@@ -53,6 +52,7 @@
     "@babel/core": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
+    "@packtracker/webpack-plugin": "^2.2.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
