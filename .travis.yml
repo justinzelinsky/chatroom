@@ -1,11 +1,11 @@
 language: node_js
 node_js:
-  - '11.2'
+  - '12.13.0'
 os:
   - osx
 install:
   - npm install -g codecov
-  - npm install
+  - npm ci
 script:
   - npm test
   - codecov

@@ -115,9 +115,9 @@ if (process.env.WEBPACK_TRACKER) {
   plugins.push(
     new PacktrackerPlugin({
       branch: 'master',
+      fail_build: true,
       project_token: process.env.PACKTRACKER_TOKEN,
-      upload: true,
-      fail_build: true
+      upload: true
     })
   );
 }
