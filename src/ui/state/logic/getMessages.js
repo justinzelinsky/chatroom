@@ -5,12 +5,10 @@ import { REQUEST_MESSAGES, receivedMessages } from 'state/actions';
 const getMessagesLogic = createLogic({
   type: REQUEST_MESSAGES,
   process({ get }, dispatch, done) {
-    get('/api/messages')
-      .then(resp => resp.json())
-      .then(messages => {
-        dispatch(receivedMessages(messages));
-        done();
-      });
+    get('/api/messages').then(messages => {
+      dispatch(receivedMessages(messages));
+      done();
+    });
   }
 });
 

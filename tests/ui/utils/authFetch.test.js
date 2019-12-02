@@ -7,22 +7,20 @@ describe('get request', () => {
   });
 
   it('should have successfully execute a get request', async () => {
-    const expectedResponseBody = { greeting: 'Hello, World' };
-    fetchMock.get('/greeting', expectedResponseBody);
+    const expectedResponse = { greeting: 'Hello, World' };
+    fetchMock.get('/greeting', expectedResponse);
 
     const response = await get('/greeting');
-    const responseBody = await response.json();
-    expect(responseBody).toEqual(expectedResponseBody);
+    expect(response).toEqual(expectedResponse);
     expect(fetchMock.calls()).toHaveLength(1);
   });
 
   it('should have no authorization headers by default', async () => {
-    const expectedResponseBody = { greeting: 'Hello, World' };
-    fetchMock.get('/greeting', expectedResponseBody);
+    const expectedResponse = { greeting: 'Hello, World' };
+    fetchMock.get('/greeting', expectedResponse);
 
     const response = await get('/greeting');
-    const responseBody = await response.json();
-    expect(responseBody).toEqual(expectedResponseBody);
+    expect(response).toEqual(expectedResponse);
     const options = fetchMock.lastOptions();
     const expectedHeaders = {
       'Content-Type': 'application/json'
@@ -32,12 +30,11 @@ describe('get request', () => {
 
   it('should have authorization headers once added', async () => {
     setAuthToken('token');
-    const expectedResponseBody = { greeting: 'Hello, World' };
-    fetchMock.get('/greeting', expectedResponseBody);
+    const expectedResponse = { greeting: 'Hello, World' };
+    fetchMock.get('/greeting', expectedResponse);
 
     const response = await get('/greeting');
-    const responseBody = await response.json();
-    expect(responseBody).toEqual(expectedResponseBody);
+    expect(response).toEqual(expectedResponse);
     const options = fetchMock.lastOptions();
     const expectedHeaders = {
       Authorization: 'token',
@@ -48,12 +45,11 @@ describe('get request', () => {
 
   it('should not have authorization headers once removed', async () => {
     setAuthToken('token');
-    const expectedResponseBody = { greeting: 'Hello, World' };
-    fetchMock.get('/greeting', expectedResponseBody);
+    const expectedResponse = { greeting: 'Hello, World' };
+    fetchMock.get('/greeting', expectedResponse);
 
     const response = await get('/greeting');
-    const responseBody = await response.json();
-    expect(responseBody).toEqual(expectedResponseBody);
+    expect(response).toEqual(expectedResponse);
     const options = fetchMock.lastOptions();
     const expectedHeaders = {
       Authorization: 'token',
@@ -73,9 +69,7 @@ describe('get request', () => {
 
   it('should reject when api call fails', async () => {
     fetchMock.get('/badendpoint', {
-      body: {
-        error: 'Bad endpoint'
-      },
+      statusText: 'Bad endpoint',
       status: 500
     });
     try {
@@ -94,17 +88,13 @@ describe('post request', () => {
   it('should have successfully execute a post request', async () => {
     fetchMock.post('/updateUser', { status: 200, body: { status: 'ok' } });
 
-    const response = await post('/updateUser');
-    const responseBody = await response.json();
-    expect(responseBody).toEqual({ status: 'ok' });
+    await post('/updateUser');
     expect(fetchMock.calls()).toHaveLength(1);
   });
 
   it('should reject when api call fails', async () => {
     fetchMock.post('/badendpoint', {
-      body: {
-        error: 'Bad endpoint'
-      },
+      statusText: 'Bad endpoint',
       status: 500
     });
     try {
