@@ -88,8 +88,9 @@ describe('post request', () => {
   it('should have successfully execute a post request', async () => {
     fetchMock.post('/updateUser', { status: 200, body: { status: 'ok' } });
 
-    await post('/updateUser');
+    const response = await post('/updateUser');
     expect(fetchMock.calls()).toHaveLength(1);
+    expect(response.status).toEqual('ok');
   });
 
   it('should reject when api call fails', async () => {
